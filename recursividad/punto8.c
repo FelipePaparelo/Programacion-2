@@ -130,7 +130,7 @@ void verificar_vec(char* conjunto[], int tamano_int, int conjunto_int[]) {
 
 
 
-int main() {
+int ejecutar_punto8() {
     int tamano_int, objetivo_int;
     char tamano[100], objetivo[100];
     char *conjunto[100]; // arreglo de punteros a caracteres

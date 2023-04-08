@@ -22,13 +22,13 @@ char * leerHondas(char cad[],char *p,int aux, int i, char last_signal){
     char ayuda;
 
 
-    if ((i == aux)){
+    if (i == aux){
 
-        if ((cad[i] == 'H')){
+        if (cad[i] == 'H'){
             strcat(p, "¯");
         }
 
-        else if ((cad[i] == 'L')){
+        else if (cad[i] == 'L'){
             strcat(p, "_");
         }
         return p;
@@ -43,11 +43,11 @@ char * leerHondas(char cad[],char *p,int aux, int i, char last_signal){
         if(ayuda != last_signal && last_signal != '\0'){
             printf("|");
         }
-        if ((ayuda == 'H')){
+        if (ayuda == 'H'){
             printf("¯");
         }
 
-        else if ((ayuda == 'L')) {
+        else if (ayuda == 'L') {
             printf("_");
         }
 

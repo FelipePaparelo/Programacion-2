@@ -12,17 +12,13 @@
 #include "punto5.c"
 #include "punto6.c"
 #include "punto7.c"
+#include "punto8.c"
 #include "punto9.c"
 #include "punto10.c"
 #define max_size 100
 
 
-
-int main(){
-    char p[max_size];
-    int opcion;
-    int flag = 1;
-    int f = 1;
+void menu(){
     printf("\nMenu de trabajo practico n°1 de recursividad\n\n");
     printf("1)_ Punto 1\n");
     printf("2)_ Punto 2\n");
@@ -35,66 +31,103 @@ int main(){
     printf("9)_ Punto 9\n");
     printf("10)_ Punto 10\n");
     printf("Presione 0 si quiere finalizar el programa\n");
+}
+
+void terminal_clear(){
+    printf("\nPresione Enter para continuar...\n");
+    getchar();
+    system("cls");
+}
+
+int main(){
+    char p[max_size];
+    int opcion;
+    int flag = 1;
+    int f = 1;
+    menu();
     validar_numero_menu(p, &f);
     opcion = atoi(p);
     while (f == 1){
-
         switch (opcion)
         {
         case 0:
             f = 0;
             break;
 
-        case 1: 
+        case 1:
             ejecutar_punto1();
+            terminal_clear();
+            menu();
             validar_numero_menu(p, &f);
             opcion = atoi(p);
             break;
         case 2:
             ejecutar_punto2();
+                terminal_clear();
+            menu();
             validar_numero_menu(p, &f);
             opcion = atoi(p);
             break;
         case 3:
             ejecutar_punto3();
+                terminal_clear();
+            menu();
             validar_numero_menu(p, &f);
             opcion = atoi(p);
             break;
         case 4:
             ejecutar_punto4();
+                terminal_clear();
+            menu();
             validar_numero_menu(p, &f);
             opcion = atoi(p);
             break;
         case 5:
             ejecutar_punto5();
+                terminal_clear();
+                menu();
             validar_numero_menu(p, &f);
             opcion = atoi(p);
             break;
         case 6:
             ejecutar_punto6();
+                terminal_clear();
+                menu();
             validar_numero_menu(p, &f);
             opcion = atoi(p);
             break;
         case 7:
             ejecutar_punto7();
+                terminal_clear();
+                menu();
             validar_numero_menu(p, &f);
             opcion = atoi(p);
             break;
         case 8:
-            // ejecutar_punto8();
+            ejecutar_punto8();
+                terminal_clear();
+                menu();
+            validar_numero_menu(p, &f);
+            opcion = atoi(p);
             break;
         case 9:
             ejecutar_punto9();
+                terminal_clear();
+                menu();
             validar_numero_menu(p, &f);
             opcion = atoi(p);
             break;
         case 10:
             ejecutar_punto10();
+                terminal_clear();
+                menu();
             validar_numero_menu(p, &f);
             opcion = atoi(p);
             break;
         default:
-            printf("Opcion no valida, ingrese otra opcion: ");
+            printf("Opcion no valida");
+                terminal_clear();
+                menu();
             validar_numero_menu(p, &f);
             opcion = atoi(p);
             break;

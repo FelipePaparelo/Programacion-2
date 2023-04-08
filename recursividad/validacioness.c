@@ -60,7 +60,7 @@ char validar_punto2(char* m)
     int aux = 0;
     int bandera = 1;
     bool flag2 = false;
-    printf("Ingresa un numero entero: ");
+    printf("Ingresa un numero entero(m): ");
     fgets(m, 100,stdin);
     int largo = strlen(m) - 1;
     while (bandera == 1)
@@ -82,7 +82,7 @@ char validar_punto2(char* m)
         }
 
         if (aux == largo){
-            printf("exitoso, es un numero entero\n");
+            printf("exitoso, es un numero entero(n)\n");
             bandera = 0;
         }
         else{
@@ -133,7 +133,7 @@ int validar_punto4(char* input) {
     int num;
     bool es_valido = false;
     while (!es_valido) {
-        printf("Ingresa un numero: ");
+        printf("Ingresa un numero entero : ");
         fgets(input, 100, stdin);
         int largo = strlen(input) - 1;
         if (largo == 0) {
@@ -161,7 +161,7 @@ char validar_punto5(char* m)
 {
     int aux = 0;
     int bandera = 1;
-    printf("Ingresa una cadena de numeros: ");
+    printf("Ingresar numero: ");
     fgets(m, 100,stdin);
     int largo = strlen(m) - 1;
     while (bandera == 1)
@@ -316,6 +316,7 @@ char validar_punto9(char* m)
     }
 
 }
+
 
 
 char validar_punto10(char* m)
