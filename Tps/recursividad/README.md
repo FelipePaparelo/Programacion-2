@@ -36,6 +36,10 @@ un número es divisible por 7.
 10. Bomba: Escribe una función recursiva que retorne una lista con los pedazos del número N, 
 dado que se tiene la bomba B. 
 
+**Cada una de estas funciones se implementa de manera recursiva en el programa.**
+
+
+
 ## Contribuidores
 * Renzo Bisso
 * Felipe Paparelo
