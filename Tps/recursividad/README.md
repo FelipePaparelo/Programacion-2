@@ -9,8 +9,8 @@ El objetivo es entender el concepto de recursividad y aplicarlo en problemas pr√
 ## Instrucciones de Uso
 Para compilar y ejecutar el programa, sigue estos pasos:
 
-Abre una terminal y navega a la carpeta "Proyecto 1".
-Ejecuta el archivo "menu.c".
+1. Abre una terminal y navega a la carpeta "Proyecto 1".
+2. Ejecuta el archivo "menu.c".
 
 ## Funcionalidades del Programa
 El programa implementa 10 funciones recursivas y con validaciones que resuelven los siguientes problemas:
