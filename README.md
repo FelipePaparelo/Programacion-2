@@ -5,7 +5,7 @@ Cada carpeta representa un proyecto distinto y contiene el código fuente y los 
 ## Contenido del Repositorio
 Carpeta "Recursividad": Realizamos los distintos puntos establecidos en el tp sobre recursividad con la tecnologia de C. Incluye el código fuente, los archivos necesarios para compilar y ejecutar el programa y un archivo README con las instrucciones de uso.
 
-## Objetivos del Proyecto
+## Objetivo del Proyecto
 El objetivo de este trabajo es poder aprender sobre el algoritmo de la recursividad.  
 
 ## Istrucciones de uso
@@ -16,10 +16,6 @@ Lee el archivo README para conocer las instrucciones específicas de uso del pro
 Sigue las instrucciones del archivo README para compilar y ejecutar el programa.
 
 ## Contribuidores
-Felipe Paparelo
-Agustin Irrazabal
-Renzo Bisso
-
-<div class="text-center">
-    ![logo de la universidad](https://tribunadelpueblo.com.ar/wp-content/uploads/2017/08/logo-unlu.png)
-</div>
+* Felipe Paparelo
+* Agustin Irrazabal
+* Renzo Bisso
