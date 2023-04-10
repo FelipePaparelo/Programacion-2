@@ -34,7 +34,7 @@ void ejecutar_punto10(){
         ejecutar_punto10();
     }
     else if (bomba_i>numero_i){
-        printf("El valor de la bomba es mayor al numero, ingrese un valor para la bomba mas pequeño que el numero.\n");
+        printf("El valor de la bomba es mayor al numero, ingrese un valor para la bomba el cual sea mas pequeño que el numero.\n");
         ejecutar_punto10();
     }
     else if(bomba_i<2 && bomba_i>=0){
