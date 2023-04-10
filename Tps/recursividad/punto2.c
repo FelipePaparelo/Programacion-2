@@ -6,7 +6,10 @@
 
 
 int producto(int n, int m, int *resultado) {
-    if (n == 0 || m == 0 || n >= 10000 || m >= 10000 || n <= -10000 || m <= -10000) {
+    if (n == 0 || m == 0){
+        return 1;
+    }
+    if ( n >= 10000 || m >= 10000 || n <= -10000 || m <= -10000) {
         return 0;
     }
     else if (m < 0) {
@@ -34,7 +37,7 @@ int ejecutar_punto2() {
     mult_i = atoi(mult_c);
     int resultado = 0;
     if (producto(num_i, mult_i, &resultado)) {
-        printf("%i", resultado);
+        printf("RESULTADO: %i", resultado);
     }
     else {
         printf("Ingresaste un numero fuera de rango o invalido");
