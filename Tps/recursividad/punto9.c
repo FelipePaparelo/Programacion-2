@@ -29,8 +29,12 @@ int ejecutar_punto9(){
     int resultado = 0;
     validar_punto9(num_c);
     num_r= atoi(num_c);
+    if(num_r > 1000000){
+        printf("Ingrese un numero menor que 1.000.000\n");
+        ejecutar_punto9();
+    }
 
-    if(num_r<0){
+    else if(num_r<0){
         printf("El numero tiene que ser positivo");
     }
     else {

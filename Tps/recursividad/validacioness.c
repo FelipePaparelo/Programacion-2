@@ -400,7 +400,6 @@ char validar_punto9(char* m)
         }
 
         if (aux == largo){
-            printf("exitoso, es un numero entero\n");
             bandera = 0;
         }
         else{
@@ -452,7 +451,7 @@ char validar_punto10(char* m)
             largo = strlen(m) - 1;
         }
     }
-    
+
 
 }
 
