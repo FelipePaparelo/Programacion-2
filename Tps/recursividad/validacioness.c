@@ -32,7 +32,7 @@ char validar_numero_menu(char* m, int *f)
         }
         else{
             aux = 0;
-            printf("Ingresa un numero otra vez: ");
+            printf("Seleccione una opcion nuevamente: ");
             fgets(m, 100,stdin);
             fflush(stdin);
             largo = strlen(m) - 1;
@@ -46,14 +46,19 @@ char validar_numero_menu(char* m, int *f)
 void validacion_mayus_minus(char palabra[]) {
     printf("Ingrese un palindromo a comprobar: ");
     fgets(palabra, 100, stdin);
+    if (strcmp(palabra, "\n") == 0){
+        printf("Has ingresado un salto de linea.\n");
+        validacion_mayus_minus(palabra);
+    }
     for (int i = 0; i < strlen(palabra); i++) {
         palabra[i] = tolower(palabra[i]);
         if (palabra[strlen(palabra)-1] == '\n'){
             palabra[strlen(palabra)-1] = '\0'; 
+            
         }
     }
     if(isspace(palabra[0])){
-        printf("Ingrese una cadena de caracteres valida para comprobar si es palindromo.");
+        printf("Ingrese una cadena de caracteres valida para comprobar si es palindromo.\n");
         validacion_mayus_minus(palabra);
     }
 }
@@ -64,7 +69,6 @@ char validar_punto2(char* m)
     int aux = 0;
     int bandera = 1;
     bool flag2 = false;
-    printf("Ingresa un numero entero: ");
     fgets(m, 100,stdin);
     int largo = strlen(m) - 1;
     while (bandera == 1)
@@ -90,7 +94,7 @@ char validar_punto2(char* m)
         }
         else{
             aux = 0;
-            printf(" el dato que Ingresa no es un numero entero, intente otra vez: ");
+            printf("El dato que Ingresa no es un numero entero, intente otra vez: ");
             fgets(m, 100,stdin);
             fflush(stdin);
             largo = strlen(m) - 1;
@@ -164,7 +168,7 @@ char validar_punto5(char* m)
 {
     int aux = 0;
     int bandera = 1;
-    printf("Ingresar numero: ");
+    printf("Ingrése numero para insertar los puntos cada miles: ");
     fgets(m, 100,stdin);
     int largo = strlen(m) - 1;
     while (bandera == 1)
@@ -186,7 +190,6 @@ char validar_punto5(char* m)
         }
 
         if (aux == largo){
-            printf("exitoso, es un numero entero\n");
             bandera = 0;
         }
 
@@ -269,7 +272,7 @@ char validar_punto7(char* m)
         }
         else{
             aux = 0;
-            printf("el dato que Ingresa no es valido, intente otra vez: ");
+            printf("uno de los caracteres ingresados no es valido, intente otra vez: ");
             fgets(m, 100,stdin);
             fflush(stdin);
             largo = strlen(m) - 1;
@@ -364,7 +367,7 @@ char validar_punto9(char* m)
 {
     int aux = 0;
     int bandera = 1;
-    printf("Ingresa un numero entero: ");
+    printf("Ingresa un numero entero para verificar si es divisible por 7: ");
     fgets(m, 100,stdin);
     int largo = strlen(m) - 1;
     while (bandera == 1)
@@ -432,7 +435,7 @@ char validar_punto10(char* m)
         }
         else{
             aux = 0;
-            printf(" el dato que Ingresa no es un numero entero, intente otra vez: ");
+            printf("el dato que Ingresa no es un numero entero, intente otra vez: ");
             fgets(m, 100,stdin);
             fflush(stdin);
             largo = strlen(m) - 1;

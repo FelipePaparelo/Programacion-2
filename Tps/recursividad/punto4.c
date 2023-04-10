@@ -17,10 +17,8 @@ float division(float n, float m, float *resultado, int *sobra){
         *resultado += 1;
         division(n, m, resultado, sobra);
     }
-
     resto = n / m;
     *sobra = (int)resto;
-    
     return *resultado + resto;
 }
 
@@ -36,5 +34,5 @@ void ejecutar_punto4(){
     float resultado = 0;
     int sobra = 0;
     float resultadox = division(n, m, &resultado, &sobra);
-    printf("%.4f", resultadox - sobra);
+    printf("%.4f\n", resultadox - sobra);
 }

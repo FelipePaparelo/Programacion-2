@@ -27,12 +27,11 @@ int ejecutar_punto9(){
     int num_r;
     char num_c[100];
     int resultado = 0;
-    printf("BIENVENIDO AL PPROGRAMA DEL PUNTO 9 DEL TP DE RECURSIVIDA.\n");
     validar_punto9(num_c);
     num_r= atoi(num_c);
 
     if(num_r<0){
-        printf("EL NUMERO TIENE QUE SER POSITIVO.");
+        printf("El");
     }
     else {
         resultado = punto9(num_r, divisible);

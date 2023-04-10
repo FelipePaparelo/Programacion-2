@@ -25,7 +25,6 @@ char* punto6(int n,char *cade,char aux[]){
 void ejecutar_punto6(){
     int numero_r;
     char c[100];
-    printf("BIENVENIDO AL PPROGRAMA DEL PUNTO 6 DEL TP DE RECURSIVIDA.\n");
     validar_punto6(c);
     numero_r= atoi(c);
     if ((numero_r!=0)&&(numero_r<=166)&&(numero_r>0)) {
@@ -34,12 +33,12 @@ void ejecutar_punto6(){
         strcpy(prueb, "(-.-)");
         punto6(numero_r, prueb, auxiliar);
         printf("%s\n", prueb);
-        printf("esta es el grupo de chinos que asiste en el nivel %d.\n",numero_r);
+        printf("Este es el grupo de chinos que asiste en el nivel %d.\n",numero_r);
         free(prueb);
     }
     else if((numero_r>166)||(numero_r<0)){
-        printf("el numero que ingreso es muy grande para el programa, pruebe uno mas pequeño a 167 y mayor o igual que 0.");
-
+        printf("el numero que ingreso es muy grande para el programa, pruebe uno mas pequeño que 167 y mayor o igual que 0.\n");
+        ejecutar_punto6();
     }
     else{
         char *prueb = malloc(sizeof(char)*max_c);

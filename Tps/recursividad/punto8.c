@@ -4,36 +4,6 @@
 #include <stdlib.h>
 #include <string.h>
 
-// void imprimirSubconjunto(int subconjunto[], int tamSubconjunto, int index) {
-//     if (index == tamSubconjunto) {
-//         printf("}\n");
-//         return;
-//     }
-
-//     if (index == 0) {
-//         printf("{ ");
-//     }
-
-//     printf("%d ", subconjunto[index]);
-//     imprimirSubconjunto(subconjunto, tamSubconjunto, index + 1);
-// }
-
-// void subconjuntosQueSumanN(int conjunto[], int tamano_int, int objetivo_int, int index, int sumActual, int subconjunto[], int tamSubconjunto) {
-//     if (sumActual == objetivo_int) {
-//         imprimirSubconjunto(subconjunto, tamSubconjunto, 0);
-//         return;
-//     }
-
-//     if (index == tamano_int || sumActual > objetivo_int) {
-//         return;
-//     }
-
-//     int nuevoTamSubconjunto = tamSubconjunto;
-//     subconjunto[nuevoTamSubconjunto] = conjunto[index];
-//     subconjuntosQueSumanN(conjunto, tamano_int, objetivo_int, index + 1, sumActual + conjunto[index], subconjunto, nuevoTamSubconjunto + 1);
-//     subconjuntosQueSumanN(conjunto, tamano_int, objetivo_int, index + 1, sumActual, subconjunto, nuevoTamSubconjunto);
-// }
-
 
 int validacion_tamano(char* tamano){
     int tamano_int;
@@ -55,8 +25,8 @@ int validacion_tamano(char* tamano){
         }
         if (es_entero) {
             tamano_int = atoi(tamano);
-            if(tamano_int <=0){
-                printf("El dato no puede ser o negativo\n");
+            if(tamano_int <=0 || tamano_int >= 25){
+                printf("El tamaño del conjunto no puede ser o negativo o mayor o igual a 25 \n");
             }else{
                 tamano_flag = true;
             }
@@ -100,16 +70,13 @@ void verificar_vec(char* conjunto[], int tamano_int, int conjunto_int[]) {
 
 
 
-
-
-
-void  encontrar_subconjuntos(int *A, int size, int *subconjunto, int indice, int sum, int target_sum) {
-    if (indice == size) {
+void  encontrar_subconjuntos(int *A, int tamanio, int *subconjunto, int indice, int sum, int objet_sum) {
+    if (indice == tamanio) {
         // Si se llega al final del conjunto, se verifica si la suma del subconjunto es igual al objetivo
-        if (sum == target_sum) {
+        if (sum == objet_sum) {
             // Se imprime el subconjunto
             printf("{");
-            for (int i = 0; i < size; i++) {
+            for (int i = 0; i < tamanio; i++) {
                 if (subconjunto[i] == 1) {
                     printf("%d,", A[i]);
                 }
@@ -121,11 +88,11 @@ void  encontrar_subconjuntos(int *A, int size, int *subconjunto, int indice, int
     
     // Se incluye el elemento actual en el subconjunto y se sigue construyendo el subconjunto
     subconjunto[indice] = 1;
-    encontrar_subconjuntos(A, size, subconjunto, indice + 1, sum + A[indice], target_sum);
+    encontrar_subconjuntos(A, tamanio, subconjunto, indice + 1, sum + A[indice], objet_sum);
     
     // Se excluye el elemento actual del subconjunto y se sigue construyendo el subconjunto
     subconjunto[indice] = 0;
-    encontrar_subconjuntos(A, size, subconjunto, indice + 1, sum, target_sum);
+    encontrar_subconjuntos(A, tamanio, subconjunto, indice + 1, sum, objet_sum);
 }
 
 int ejecutar_punto8() {

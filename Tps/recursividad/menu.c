@@ -17,6 +17,12 @@
 #include "punto10.c"
 #define max_size 100
 
+void esperarEnter() {
+    int c;
+    printf("Presione Enter para continuar...");
+    while ((c = getchar()) != '\n' && c != EOF) { } // Lee caracteres hasta encontrar Enter
+}
+
 
 void menu(){
     printf("\nMenu de trabajo practico n°1 de recursividad\n\n");
@@ -50,66 +56,79 @@ int main(){
 
         case 1:
             ejecutar_punto1();
+            esperarEnter();
             menu();
             validar_numero_menu(p, &f);
             opcion = atoi(p);
             break;
         case 2:
             ejecutar_punto2();
+            esperarEnter();
             menu();
             validar_numero_menu(p, &f);
             opcion = atoi(p);
             break;
         case 3:
             ejecutar_punto3();
+            esperarEnter();
             menu();
             validar_numero_menu(p, &f);
             opcion = atoi(p);
             break;
         case 4:
             ejecutar_punto4();
+            esperarEnter();
             menu();
             validar_numero_menu(p, &f);
             opcion = atoi(p);
             break;
         case 5:
             ejecutar_punto5();
+            esperarEnter();
             menu();
             validar_numero_menu(p, &f);
             opcion = atoi(p);
             break;
         case 6:
             ejecutar_punto6();
+            esperarEnter();
             menu();
             validar_numero_menu(p, &f);
             opcion = atoi(p);
             break;
         case 7:
             ejecutar_punto7();
+            printf("\n");
+            esperarEnter();
             menu();
             validar_numero_menu(p, &f);
             opcion = atoi(p);
             break;
         case 8:
             ejecutar_punto8();
+            esperarEnter();
             menu();
             validar_numero_menu(p, &f);
             opcion = atoi(p);
             break;
         case 9:
             ejecutar_punto9();
+            printf("\n");
+            esperarEnter();
             menu();
             validar_numero_menu(p, &f);
             opcion = atoi(p);
             break;
         case 10:
             ejecutar_punto10();
+            esperarEnter();
             menu();
             validar_numero_menu(p, &f);
             opcion = atoi(p);
             break;
         default:
-            printf("Opcion no valida");
+            printf("Opcion no valida\n");
+            esperarEnter();
             menu();
             validar_numero_menu(p, &f);
             opcion = atoi(p);

@@ -19,25 +19,24 @@ void palindromo(char cadena[], int i, int cant_caracteres, int *contador){
 }
 
 char* eliminarEspacios(char* str) {
-    // Caso base: llegamos al final del string
     if (*str == '\0') {
         return strdup(""); // Devuelve una cadena vacía
     }
-    // Caso recursivo 1: el primer carácter es un espacio en blanco
+    //primer carácter es un espacio en blanco
     if (*str == ' ') {
         return eliminarEspacios(str + 1); // Saltamos el primer carácter
     }
-    // Caso recursivo 2: el primer carácter no es un espacio en blanco
-    char* nuevaStr = eliminarEspacios(str + 1); // Llamada recursiva
+    
+    char* nuevaStr = eliminarEspacios(str + 1);
     char* resultado;
     if (*str == '\0') {
-        resultado = strdup(""); // Si llegamos al final del string, devuelve una cadena vacía
+        resultado = strdup(""); //final del string, devuelve una cadena vacía
     } else {
         resultado = malloc(strlen(nuevaStr) + 2); // Reserva memoria para la nueva cadena
-        resultado[0] = *str; // Copia el primer carácter
-        strcpy(resultado + 1, nuevaStr); // Copia el resto de la cadena
+        resultado[0] = *str; 
+        strcpy(resultado + 1, nuevaStr); 
     }
-    free(nuevaStr); // Libera la memoria de la cadena temporal
+    free(nuevaStr); // free: Libera la memoria de la cadena temporal
     return resultado;
 }
 
