@@ -52,6 +52,10 @@ void validacion_mayus_minus(char palabra[]) {
             palabra[strlen(palabra)-1] = '\0'; 
         }
     }
+    if(isspace(palabra[0])){
+        printf("Ingrese una cadena de caracteres valida para comprobar si es palindromo.");
+        validacion_mayus_minus(palabra);
+    }
 }
 
 
@@ -266,6 +270,86 @@ char validar_punto7(char* m)
         else{
             aux = 0;
             printf("el dato que Ingresa no es valido, intente otra vez: ");
+            fgets(m, 100,stdin);
+            fflush(stdin);
+            largo = strlen(m) - 1;
+        }
+    }
+
+}
+
+char validar_conjunto_punto8(char* m)
+{
+    int aux = 0;
+    int bandera = 1;
+    bool flag2 = false;
+    printf("Ingresa un numero entero para cargar el vector: ");
+    fgets(m, 100,stdin);
+    int largo = strlen(m) - 1;
+    while (bandera == 1)
+    {
+        if (strcmp(m, "\n") == 0){
+            printf("Has ingresado un salto de linea.\n");
+            aux = -1;
+        }
+
+        for(int j = 0; j<largo;j++){
+
+            if ((j==0)&&(m[j]=='-')){
+                aux++;
+            }
+
+            if((isdigit(m[j]) != 0)){
+                aux++;
+            }
+        }
+
+        if (aux == largo){
+            bandera = 0;
+        }
+        else{
+            aux = 0;
+            printf("el dato que Ingresa no es un numero entero, reingrese un numero entero para cargar el vector: ");
+            fgets(m, 100,stdin);
+            fflush(stdin);
+            largo = strlen(m) - 1;
+        }
+    }
+
+}
+
+char validar_objetivo_punto8 (char* m)
+{
+    int aux = 0;
+    int bandera = 1;
+    bool flag2 = false;
+    printf("Ingresa un numero entero para definir el objetivo a alcanzar: ");
+    fgets(m, 100,stdin);
+    int largo = strlen(m) - 1;
+    while (bandera == 1)
+    {
+        if (strcmp(m, "\n") == 0){
+            printf("Has ingresado un salto de linea.\n");
+            aux = -1;
+        }
+
+        for(int j = 0; j<largo;j++){
+
+            if ((j==0)&&(m[j]=='-')){
+                aux++;
+            }
+
+            if((isdigit(m[j]) != 0)){
+                aux++;
+            }
+        }
+
+        if (aux == largo){
+            bandera = 0;
+        }
+        else{
+            aux = 0;
+            printf("el dato que ingresa no es un numero entero, reingrese el objetivo a alcanzar otra vez: ");
             fgets(m, 100,stdin);
             fflush(stdin);
             largo = strlen(m) - 1;
