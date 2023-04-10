@@ -38,7 +38,7 @@ void ejecutar_punto10(){
         ejecutar_punto10();
     }
     else if(bomba_i<2 && bomba_i>=0){
-        printf("El valor de la bomba no puede ser menor o igual a 2, reintentar.\n");
+        printf("El valor de la bomba no puede ser menor a 2, reintentar.\n");
         ejecutar_punto10();
     }
     else{
