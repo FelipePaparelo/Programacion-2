@@ -51,6 +51,11 @@ void validacion_mayus_minus(char palabra[]) {
         if (palabra[strlen(palabra)-1] == '\n'){
             palabra[strlen(palabra)-1] = '\0';
         }
+        // if (palabra[0]== ' '){
+        // printf("Has ingresado un espacio al principio de la cadena.\n");
+        // aux = -1;
+        // } 
+        
     }
 }
 
