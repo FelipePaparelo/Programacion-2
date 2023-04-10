@@ -7,15 +7,16 @@
 
 
 int palindromo(char cadena[], int i, int cant_caracteres, int *contador){
-    
-    if (cadena[i] != cadena[cant_caracteres]){
+
+    if (cadena[i] != cadena[cant_caracteres] || strlen(cadena)==0 ){
         printf("\nfalse");
+        *contador-=10;
     }
     else if(cadena[i] == cadena[cant_caracteres] && cadena[cant_caracteres] != '\0' && cadena[i] == cadena[cant_caracteres] != '\0'){
         *contador += 1;
         palindromo(cadena, i + 1, cant_caracteres - 1, contador);
     }
-}   
+}
 
 void ejecutar_punto1(){
     int contador = 0;

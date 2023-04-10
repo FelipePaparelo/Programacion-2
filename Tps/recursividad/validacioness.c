@@ -47,7 +47,7 @@ void validacion_mayus_minus(char palabra[]) {
     printf("Ingrese un palindromo a comprobar: ");
     fgets(palabra, 100, stdin);
     for (int i = 0; i < strlen(palabra); i++) {
-            palabra[i] = tolower(palabra[i]);
+        palabra[i] = tolower(palabra[i]);
         if (palabra[strlen(palabra)-1] == '\n'){
             palabra[strlen(palabra)-1] = '\0';
         }
@@ -60,7 +60,7 @@ char validar_punto2(char* m)
     int aux = 0;
     int bandera = 1;
     bool flag2 = false;
-    printf("Ingresa un numero entero(m): ");
+    printf("Ingresa un numero entero: ");
     fgets(m, 100,stdin);
     int largo = strlen(m) - 1;
     while (bandera == 1)
@@ -82,7 +82,6 @@ char validar_punto2(char* m)
         }
 
         if (aux == largo){
-            printf("exitoso, es un numero entero(n)\n");
             bandera = 0;
         }
         else{
@@ -345,7 +344,6 @@ char validar_punto10(char* m)
         }
 
         if (aux == largo){
-            printf("exitoso, es un numero entero\n");
             bandera = 0;
         }
         else{

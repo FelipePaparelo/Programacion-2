@@ -33,12 +33,6 @@ void menu(){
     printf("Presione 0 si quiere finalizar el programa\n");
 }
 
-void terminal_clear(){
-    printf("\nPresione Enter para continuar...\n");
-    getchar();
-    system("cls");
-}
-
 int main(){
     char p[max_size];
     int opcion;
@@ -56,78 +50,67 @@ int main(){
 
         case 1:
             ejecutar_punto1();
-            terminal_clear();
             menu();
             validar_numero_menu(p, &f);
             opcion = atoi(p);
             break;
         case 2:
             ejecutar_punto2();
-                terminal_clear();
             menu();
             validar_numero_menu(p, &f);
             opcion = atoi(p);
             break;
         case 3:
             ejecutar_punto3();
-                terminal_clear();
             menu();
             validar_numero_menu(p, &f);
             opcion = atoi(p);
             break;
         case 4:
             ejecutar_punto4();
-                terminal_clear();
             menu();
             validar_numero_menu(p, &f);
             opcion = atoi(p);
             break;
         case 5:
             ejecutar_punto5();
-                terminal_clear();
-                menu();
+            menu();
             validar_numero_menu(p, &f);
             opcion = atoi(p);
             break;
         case 6:
             ejecutar_punto6();
-                terminal_clear();
-                menu();
+            menu();
             validar_numero_menu(p, &f);
             opcion = atoi(p);
             break;
         case 7:
             ejecutar_punto7();
-                terminal_clear();
-                menu();
+            menu();
             validar_numero_menu(p, &f);
             opcion = atoi(p);
             break;
         case 8:
             ejecutar_punto8();
-                terminal_clear();
-                menu();
+            menu();
             validar_numero_menu(p, &f);
             opcion = atoi(p);
             break;
         case 9:
             ejecutar_punto9();
-                terminal_clear();
-                menu();
+            menu();
             validar_numero_menu(p, &f);
             opcion = atoi(p);
             break;
         case 10:
             ejecutar_punto10();
-                terminal_clear();
-                menu();
+            menu();
             validar_numero_menu(p, &f);
             opcion = atoi(p);
             break;
         default:
             printf("Opcion no valida");
-                terminal_clear();
-                menu();
+            menu();
             validar_numero_menu(p, &f);
             opcion = atoi(p);
             break;
