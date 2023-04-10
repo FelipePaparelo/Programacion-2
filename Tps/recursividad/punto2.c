@@ -39,7 +39,7 @@ int ejecutar_punto2() {
         printf("RESULTADO: %i\n", resultado);
     }
     else {
-        printf("Ingresaste un numero fuera de rango o invalido.\ndebe ingresar valores menores a 10.000 tanto para el multiplicador como para el multiplicando\n");
+        printf("Ingresaste un numero fuera de rango o invalido.\ndebe ingresar valores entre 10.000 y -10.000 tanto para el multiplicador como para el multiplicando\n");
         ejecutar_punto2();
     }
     return 0;

@@ -156,6 +156,13 @@ int validar_punto4(char* input) {
         }
         if (es_entero) {
             num = atoi(input);
+            if (num <= 30000){
+                es_valido = true;    
+            }
+            else{
+                printf("Uno de los numeros ingresados es mayor que 30.000, por favor, ingrese un numero mas pequeño.\n");
+                validar_punto4(input);
+            }
             es_valido = true;
         } else {
             printf("No ingresaste un numero entero valido.\n");
@@ -277,6 +284,10 @@ char validar_punto7(char* m)
             fflush(stdin);
             largo = strlen(m) - 1;
         }
+    }
+    if(strlen(m) > 50){
+        printf("Ingrese una cantidad maxima de h y l de 50 caracteres.\n");
+        validar_punto7(m);
     }
 
 }
@@ -441,6 +452,7 @@ char validar_punto10(char* m)
             largo = strlen(m) - 1;
         }
     }
+    
 
 }
 

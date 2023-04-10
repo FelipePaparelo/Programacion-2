@@ -41,6 +41,10 @@ void ejecutar_punto10(){
         printf("El valor de la bomba no puede ser menor a 2, reintentar.\n");
         ejecutar_punto10();
     }
+    else if(numero_i > 700 || bomba_i > 700){
+        printf("Ingrese un valor tanto para la numero como la bomba el cual sea menor o igual a 700.\n");
+        ejecutar_punto10();
+    }
     else{
 
        char *cadena= malloc(Max_c*(sizeof(char)));

@@ -31,7 +31,7 @@ int ejecutar_punto9(){
     num_r= atoi(num_c);
 
     if(num_r<0){
-        printf("El");
+        printf("El numero tiene que ser positivo");
     }
     else {
         resultado = punto9(num_r, divisible);

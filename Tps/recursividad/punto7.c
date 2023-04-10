@@ -4,7 +4,7 @@
 #include <string.h>
 #include <conio.h>
 #include <stdlib.h>
-#define Maxcadena 50  
+#define Maxcadena 100 
 
 
 

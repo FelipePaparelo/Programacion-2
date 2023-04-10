@@ -17,8 +17,10 @@ float division(float n, float m, float *resultado, int *sobra){
         *resultado += 1;
         division(n, m, resultado, sobra);
     }
+
     resto = n / m;
     *sobra = (int)resto;
+    
     return *resultado + resto;
 }
 
