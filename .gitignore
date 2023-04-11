@@ -6,6 +6,8 @@
 # Datasource local storage ignored files
 /dataSources/
 /dataSources.local.xml
-.exe
+
+
+menu.exe
 .json
 .idea
