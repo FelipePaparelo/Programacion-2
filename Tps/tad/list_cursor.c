@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdbool.h>
-#include <tipo_elemento.h>
-#include <listas.h>
+#include "tipo_elemento.h"
+#include "listas.h"
 
 // Tamaño máximo de la lista
 static const int TAMANIO_MAXIMO = 100;
@@ -277,13 +277,6 @@ Iterador iterador(Lista lista)
     iter->lista = lista;
     iter->posicionActual = lista->inicio;
     return iter;
-}
-
-bool hay_siguiente(Iterador iterador)
-{
-    Lista lista = iterador->lista;
-    int pos = iterador->posicionActual;
-    return lista->cursor[pos].siguiente != NULO;
 }
 
 bool hay_siguiente(Iterador iterador)

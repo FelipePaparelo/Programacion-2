@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdbool.h>
-#include <tipo_elemento.h>
-#include <listas.h>
+#include "tipo_elemento.h"
+#include "listas.h"
 
 static const int TAMANIO_MAXIMO = 100;
 // defino la estructura de la lista
