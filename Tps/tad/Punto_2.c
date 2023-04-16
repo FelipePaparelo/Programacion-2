@@ -6,6 +6,8 @@
 #include "listas.h"
 #include "tipo_elemento.h"
 #include "listas_de_areglos.c"
+//#include "list_point.c"
+//#include "list_cursor.c"
 #include "T_Element.c"
 
 
