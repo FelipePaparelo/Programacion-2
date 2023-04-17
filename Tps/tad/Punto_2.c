@@ -50,6 +50,7 @@ char validar_numeros(char *m)
             largo = strlen(m) - 1;
         }
     }
+    return bandera;
 }
 
 char validar_numeros_positivos(char *m)
@@ -88,6 +89,7 @@ char validar_numeros_positivos(char *m)
             largo = strlen(m) - 1;
         }
     }
+    return bandera;
 }
 
 void cargar_datos_alazar(int dato_i, Lista list_1)

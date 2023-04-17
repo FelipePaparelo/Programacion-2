@@ -2,6 +2,7 @@
 #include <stdbool.h>
 #include "tipo_elemento.h"
 #include "listas.h"
+#include <stdlib.h>
 
 static const int TAMANIO_MAXIMO = 100;
 struct Nodo
@@ -106,6 +107,11 @@ void l_borrar(Lista lista, int clave)
 
 TipoElemento l_buscar(Lista lista, int clave)
 {
+    if (lista->inicio == NULL)
+    {
+        return NULL;
+    }
+
     struct Nodo *actual = lista->inicio;
     while (actual != NULL)
     {
@@ -120,11 +126,15 @@ TipoElemento l_buscar(Lista lista, int clave)
 
 void l_insertar(Lista lista, TipoElemento elemento, int pos)
 {
-    if (l_es_llena(lista))
-    {
+    if (pos < 1 || pos > lista->cantidad + 1)
+    { // Verifica si la posición es válida
         return;
-    } // Si esta llena no inserta
+    }
     struct Nodo *nuevo_nodo = malloc(sizeof(struct Nodo));
+    if (nuevo_nodo == NULL)
+    { // Verifica si la asignación de memoria falló
+        return;
+    }
     nuevo_nodo->datos = elemento;
     nuevo_nodo->siguiente = NULL;
     if (pos == 1)
@@ -176,17 +186,25 @@ void l_eliminar(Lista lista, int pos)
 
 TipoElemento l_recuperar(Lista lista, int pos)
 {
+    if (pos < 1 || pos > lista->cantidad)
+    { // Verifica si la posición es válida
+        return NULL;
+    }
     struct Nodo *temp2 = lista->inicio;
-    for (int i = 0; i < pos; i++)
-    {
+    for (int i = 0; i < pos - 1; i++)
+    { // Corrección de índice
         temp2 = temp2->siguiente;
     }
-
     return temp2->datos;
 }
 
 void l_mostrarLista(Lista lista)
 {
+    if (lista->cantidad == 0)
+    {
+        printf("La lista está vacía.\n");
+        return;
+    }
     struct Nodo *temp2 = lista->inicio;
     printf("Contenido de la lista: ");
     while (temp2 != NULL)
@@ -200,15 +218,25 @@ void l_mostrarLista(Lista lista)
 Iterador iterador(Lista lista)
 {
     Iterador iter = (Iterador)malloc(sizeof(struct IteradorRep));
+    if (iter == NULL)
+    {
+        return NULL;
+    }
     iter->posicionActual = lista->inicio;
     return iter;
 }
+
 bool hay_siguiente(Iterador iterador)
 {
     return (iterador->posicionActual != NULL);
 }
+
 TipoElemento siguiente(Iterador iterador)
 {
+    if (iterador->posicionActual == NULL)
+    { // Verifica si es el final de la lista
+        return NULL;
+    }
     TipoElemento actual = iterador->posicionActual->datos;
     iterador->posicionActual = iterador->posicionActual->siguiente;
     return actual;
