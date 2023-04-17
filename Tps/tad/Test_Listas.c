@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include "listas.h"
 #include "tipo_elemento.h"
-#include "list_cursor.c"
+#include "list_point.c"
 
 // Cabecera para sacar los pares
 Lista pares(Lista L);
@@ -24,7 +24,7 @@ int main()
         printf("lista vacia !!! \n");
     }
 
-    X = te_crear(1000);
+    X = l_crear(1000);
     l_agregar(L, X);
     l_mostrarLista(L);
 
@@ -32,7 +32,7 @@ int main()
     i = 1;
     while (i <= 10)
     {
-        X = te_crear(i);
+        X = l_crear(i);
         l_agregar(L, X);
         i = i + 1;
     }
@@ -41,14 +41,14 @@ int main()
     l_mostrarLista(L);
 
     // Ahora mando a insetar uno para ver si funciona al principio
-    X = te_crear(11);
+    X = l_crear(11);
     l_insertar(L, X, 1);
 
     printf("-----------------------------------------------------------------\n");
     l_mostrarLista(L);
 
     // Ahora mando a insetar uno para ver si funciona en la quinta posicion
-    X = te_crear(12);
+    X = l_crear(12);
     l_insertar(L, X, 5);
 
     printf("-----------------------------------------------------------------\n");
@@ -104,9 +104,9 @@ int main()
     printf("-----------------------------------------------------------------\n");
 
     // Agegamos 2 clave repetidas...
-    X = te_crear(15);
+    X = l_crear(15);
     l_agregar(L, X);
-    X = te_crear(15);
+    X = l_crear(15);
     l_agregar(L, X);
     l_mostrarLista(L);
     l_insertar(L, X, 1);

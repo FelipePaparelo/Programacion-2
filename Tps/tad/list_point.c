@@ -76,7 +76,7 @@ void l_borrar(Lista lista, int clave)
         return;
     }
 
-    if (es_vacia(lista))
+    if (l_es_vacia(lista))
     {
         return;
     }
@@ -152,7 +152,7 @@ void l_eliminar(Lista lista, int pos)
         return;
     } // Si esta vacia sale de la rutina
     struct Nodo *actual = lista->inicio;
-    if (1 <= pos && pos <= longitud(lista))
+    if (1 <= pos && pos <= l_longitud(lista))
     {
         if (pos == 1)
         {
