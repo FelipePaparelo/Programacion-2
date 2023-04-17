@@ -11,4 +11,3 @@ TipoElemento te_crear(int clave);
 TipoElemento te_crear_con_valor(int clave, void* valor);
 
 #endif // TIPO_ELEMENTO_H
-

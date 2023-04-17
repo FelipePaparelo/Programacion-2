@@ -4,29 +4,27 @@
 #include "listas.h"
 
 static const int TAMANIO_MAXIMO = 100;
-// defino la estructura de la lista
-struct ListaRep
-{
-    int cantidad;    // cantidad de la lista
-    Iterador inicio; // posicion inicial
+struct Nodo
+{ // Se agrega el concepto de Nodo
+    TipoElemento datos;
+    struct Nodo *siguiente;
 };
-
-typedef struct ListaRep *Lista; // define lista como un tipo de dato puntero
-
+struct ListaRep
+{ // Esta es la lista en esta implementación
+    struct Nodo *inicio;
+    int cantidad;
+};
 struct IteradorRep
 {
-    TipoElemento dato;
-    int clave;
-    struct IteradorRep *siguiente;
+    struct Nodo *posicionActual;
 };
-typedef struct IteradorRep *Iterador;
 
 Lista l_crear()
 {
-    Lista lista = (Lista)malloc(sizeof(struct ListaRep));
-    lista->cantidad = 0;
-    lista->inicio = NULL;
-    return lista;
+    Lista lista_new = (Lista)malloc(sizeof(struct ListaRep));
+    lista_new->cantidad = 0;
+    lista_new->inicio = NULL;
+    return lista_new;
 }
 
 bool l_es_vacia(Lista lista)
@@ -51,26 +49,24 @@ void l_agregar(Lista lista, TipoElemento elemento)
         return;
     };
 
-    if (l_es_vacia(lista))
-    {
-        lista->inicio = (Iterador)malloc(sizeof(Iterador));
-        lista->inicio->dato = elemento;
-        lista->inicio->siguiente = NULL;
-        lista->cantidad++;
-        return;
-    };
+    struct Nodo *nuevo_nodo = malloc(sizeof(struct Nodo));
+    nuevo_nodo->datos = elemento;
+    nuevo_nodo->siguiente = NULL;
 
-    Iterador temporal = lista->inicio;
-
-    while (temporal->siguiente != NULL)
+    if (lista->inicio == NULL)
     {
-        temporal = temporal->siguiente;
+        lista->inicio = nuevo_nodo;
     }
-    temporal->siguiente = (Iterador)malloc(sizeof(struct IteradorRep));
-    temporal->siguiente->dato = elemento;
-    temporal->siguiente->siguiente = NULL;
+    else
+    {
+        struct Nodo *temp2 = lista->inicio;
+        while (temp2->siguiente != NULL)
+        {
+            temp2 = temp2->siguiente;
+        };
+        temp2->siguiente = nuevo_nodo;
+    }
     lista->cantidad++;
-    return;
 }
 
 void l_borrar(Lista lista, int clave)
@@ -80,53 +76,46 @@ void l_borrar(Lista lista, int clave)
         return;
     }
 
-    Iterador actual = lista->inicio;
-    Iterador previo = NULL;
-
-    while (actual != NULL && actual->dato->clave != clave)
+    if (es_vacia(lista))
     {
-        previo = actual;
-        actual = actual->siguiente;
+        return;
     }
-
-    if (actual == NULL)
-    {
-        return; // no se encontró el elemento con la clave indicada
-    }
-
-    if (previo == NULL)
-    { // si el elemento a borrar es el primero de la lista
+    struct Nodo *actual = lista->inicio;
+    while (actual != NULL && actual->datos->clave == clave)
+    { // Borra las claves del inicio
         lista->inicio = actual->siguiente;
+        free(actual);
+        lista->cantidad--;
+        actual = lista->inicio;
     }
-    else
-    { // si el elemento a borrar está en medio o al final de la lista
-        previo->siguiente = actual->siguiente;
+    while (actual != NULL && actual->siguiente != NULL)
+    { // Borra en el resto de la lista
+        if (actual->siguiente->datos->clave == clave)
+        {
+            struct Nodo *temp = actual->siguiente;
+            actual->siguiente = temp->siguiente;
+            free(temp);
+            lista->cantidad--;
+        }
+        else
+        {
+            actual = actual->siguiente;
+        }
     }
-
-    free(actual); // liberar la memoria del nodo a borrar
-    lista->cantidad--;
 }
 
 TipoElemento l_buscar(Lista lista, int clave)
 {
-    if (l_es_vacia(lista))
+    struct Nodo *actual = lista->inicio;
+    while (actual != NULL)
     {
-        return NULL;
-    }
-
-    Iterador actual = lista->inicio;
-
-    while (actual != NULL && actual->clave != clave)
-    {
+        if (actual->datos->clave == clave)
+        {
+            return actual->datos;
+        }
         actual = actual->siguiente;
     }
-
-    if (actual == NULL)
-    {
-        return NULL;
-    }
-
-    return (actual->dato);
+    return NULL;
 }
 
 void l_insertar(Lista lista, TipoElemento elemento, int pos)
@@ -134,124 +123,93 @@ void l_insertar(Lista lista, TipoElemento elemento, int pos)
     if (l_es_llena(lista))
     {
         return;
-    }
-
-    if (pos < 0 || pos > lista->cantidad)
+    } // Si esta llena no inserta
+    struct Nodo *nuevo_nodo = malloc(sizeof(struct Nodo));
+    nuevo_nodo->datos = elemento;
+    nuevo_nodo->siguiente = NULL;
+    if (pos == 1)
     {
-        return;
-    }
-
-    if (pos == 0)
-    {
-        Iterador nuevo_nodo = (Iterador)malloc(sizeof(struct IteradorRep));
-        nuevo_nodo->dato = elemento;
-        nuevo_nodo->clave = elemento->clave;
         nuevo_nodo->siguiente = lista->inicio;
         lista->inicio = nuevo_nodo;
-        lista->cantidad++;
-        return;
     }
-
-    Iterador temporal = lista->inicio;
-    int contador = 0;
-
-    while (temporal != NULL && contador < pos - 1)
+    else
     {
-        temporal = temporal->siguiente;
-        contador++;
+        struct Nodo *temp2 = lista->inicio;
+        for (int i = 0; i < pos - 2; i++)
+        { // Busca la posición de inserción
+            temp2 = temp2->siguiente;
+        }
+        nuevo_nodo->siguiente = temp2->siguiente;
+        temp2->siguiente = nuevo_nodo;
     }
-
-    if (temporal == NULL)
-    {
-        return;
-    }
-
-    Iterador nuevo_nodo = (Iterador)malloc(sizeof(struct IteradorRep));
-    nuevo_nodo->dato = elemento;
-    nuevo_nodo->clave = elemento->clave;
-    nuevo_nodo->siguiente = temporal->siguiente;
-    temporal->siguiente = nuevo_nodo;
     lista->cantidad++;
 }
 
 void l_eliminar(Lista lista, int pos)
 {
-    if (pos < 0 || pos >= lista->cantidad) // verificar que la posición sea válida
+    if (l_es_vacia(lista))
     {
         return;
-    }
-
-    if (pos == 0) // si la posición es la primera, actualizar el inicio de la lista
+    } // Si esta vacia sale de la rutina
+    struct Nodo *actual = lista->inicio;
+    if (1 <= pos && pos <= longitud(lista))
     {
-        Iterador temp = lista->inicio;
-        lista->inicio = lista->inicio->siguiente;
-        free(temp); // liberar la memoria del elemento a eliminar
-    }
-    else // si la posición está en medio o al final de la lista
-    {
-        Iterador anterior = lista->inicio;
-        Iterador actual = lista->inicio->siguiente;
-        int i = 1;
-        while (actual != NULL && i < pos)
+        if (pos == 1)
         {
-            anterior = actual;
-            actual = actual->siguiente;
-            i++;
+            lista->inicio = actual->siguiente;
+            free(actual);
         }
-        anterior->siguiente = actual->siguiente;
-        free(actual); // liberar la memoria del elemento a eliminar
+        else
+        {
+            for (int i = 0; i < pos - 2; i++)
+            { // Busca la posición para eliminar
+                actual = actual->siguiente;
+            }
+            // actual apunta al nodo en posición (pos - 1)
+            struct Nodo *temp = actual->siguiente; // nodo en pos
+            actual->siguiente = temp->siguiente;   // nodo en pos + 1
+            free(temp);
+        }
+        lista->cantidad--;
     }
-
-    lista->cantidad--;
 }
 
 TipoElemento l_recuperar(Lista lista, int pos)
 {
-    if (pos < 0 || pos >= lista->cantidad)
-    {
-        return NULL; // posición inválida, devolver puntero nulo
-    }
-
-    Iterador actual = lista->inicio;
+    struct Nodo *temp2 = lista->inicio;
     for (int i = 0; i < pos; i++)
     {
-        actual = actual->siguiente;
+        temp2 = temp2->siguiente;
     }
 
-    return actual->dato;
+    return temp2->datos;
 }
 
 void l_mostrarLista(Lista lista)
 {
-    Iterador actual = lista->inicio;
-    printf("[ ");
-    while (actual != NULL)
+    struct Nodo *temp2 = lista->inicio;
+    printf("Contenido de la lista: ");
+    while (temp2 != NULL)
     {
-        printf("%d ", actual->dato->clave);
-        actual = actual->siguiente;
+        printf("%d ", temp2->datos->clave);
+        temp2 = temp2->siguiente;
     }
-    printf("]\n");
+    printf("\n");
 }
 
 Iterador iterador(Lista lista)
 {
     Iterador iter = (Iterador)malloc(sizeof(struct IteradorRep));
-    iter->siguiente = lista->inicio;
+    iter->posicionActual = lista->inicio;
     return iter;
 }
-
 bool hay_siguiente(Iterador iterador)
 {
-    return iterador->siguiente != NULL;
+    return (iterador->posicionActual != NULL);
 }
-
 TipoElemento siguiente(Iterador iterador)
 {
-    TipoElemento elemento = NULL;
-    if (iterador->siguiente != NULL)
-    {
-        iterador = iterador->siguiente;
-        elemento = (TipoElemento)iterador->dato;
-    }
-    return elemento;
+    TipoElemento actual = iterador->posicionActual->datos;
+    iterador->posicionActual = iterador->posicionActual->siguiente;
+    return actual;
 }
