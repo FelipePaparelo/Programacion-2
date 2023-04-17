@@ -126,7 +126,7 @@ TipoElemento l_buscar(Lista lista, int clave)
         return NULL;
     }
 
-    return &(actual->dato);
+    return (actual->dato);
 }
 
 void l_insertar(Lista lista, TipoElemento elemento, int pos)
