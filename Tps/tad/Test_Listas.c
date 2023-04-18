@@ -2,8 +2,8 @@
 #include <stdlib.h>
 #include "listas.h"
 #include "tipo_elemento.h"
-#include "list_point.c"
-
+// #include "list_point.c"
+#include "list_cursor.c"
 // Cabecera para sacar los pares
 Lista pares(Lista L);
 

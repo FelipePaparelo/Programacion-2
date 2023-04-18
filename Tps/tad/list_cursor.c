@@ -3,32 +3,20 @@
 #include "tipo_elemento.h"
 #include "listas.h"
 
-// Tamaño máximo de la lista
 static const int TAMANIO_MAXIMO = 100;
-
-// Valor que representa la ausencia de un nodo siguiente
 static const int NULO = -1;
-
-// Definición de la estructura Nodo, que almacena los datos y un apuntador al siguiente nodo
 struct Nodo
 {
     TipoElemento datos;
-    int siguiente; // Cambia el apuntador por un "int"
+    int siguiente; // Cambia el apuntador por un “int”
 };
-
-// Definición de la estructura ListaRep, que almacena un apuntador al arreglo de nodos,
-// el índice del primer nodo en la lista, el índice del primer nodo libre, y la cantidad
-// de elementos en la lista
 struct ListaRep
 {
-    struct Nodo *cursor; // Apuntador al arreglo de nodos
-    int inicio;          // Índice del primer nodo en la lista
-    int libre;           // Índice del primer nodo libre
-    int cantidad;        // Cantidad de elementos en la lista
+    struct Nodo *cursor; // Apuntador al Arreglo de Nodos
+    int inicio;
+    int libre; // Contendrá los nodos libres o disponibles
+    int cantidad;
 };
-
-// Definición de la estructura IteradorRep, que almacena la lista sobre la que se itera y la
-// posición actual del iterador
 struct IteradorRep
 {
     Lista lista;
@@ -37,27 +25,35 @@ struct IteradorRep
 
 Lista l_crear()
 {
-    // Se reserva memoria para la estructura ListaRep
-    Lista nuevaLista = malloc(sizeof(struct ListaRep));
-
-    // Se reserva memoria para el arreglo de nodos
-    nuevaLista->cursor = malloc(TAMANIO_MAXIMO * sizeof(struct Nodo));
-
-    // Se inicializan los valores de inicio y libre en NULO (-1)
-    nuevaLista->inicio = NULO;
-    nuevaLista->libre = 0;
-
-    // Se crea una lista de nodos vacía
-    for (int i = 0; i < TAMANIO_MAXIMO - 1; i++)
+    Lista nueva_lista = (Lista)malloc(sizeof(struct ListaRep));
+    if (nueva_lista == NULL)
     {
-        nuevaLista->cursor[i].siguiente = i + 1;
+        // Si la asignación de memoria falla, devolvemos NULL
+        return NULL;
     }
-    nuevaLista->cursor[TAMANIO_MAXIMO - 1].siguiente = NULO;
 
-    // Se inicializa la cantidad de nodos en 0
-    nuevaLista->cantidad = 0;
+    nueva_lista->cursor = calloc(TAMANIO_MAXIMO, sizeof(struct Nodo) * TAMANIO_MAXIMO);
+    if (nueva_lista->cursor == NULL)
+    {
+        // Si la asignación de memoria falla, liberamos la memoria previamente asignada y devolvemos NULL
+        free(nueva_lista);
+        return NULL;
+    }
 
-    return nuevaLista;
+    nueva_lista->cantidad = 0;
+    nueva_lista->inicio = NULO;
+
+    // Encadeno todos los libres
+    for (int i = 0; i < TAMANIO_MAXIMO - 2; i++)
+    {
+        nueva_lista->cursor[i].siguiente = i + 1;
+    }
+    nueva_lista->libre = 0; // Toma todos los nodos como libres
+    nueva_lista->inicio = NULO;
+    nueva_lista->cursor[TAMANIO_MAXIMO - 1].siguiente = NULO;
+
+    // retorno la lista creada
+    return nueva_lista;
 }
 
 bool l_es_vacia(Lista lista)
@@ -77,71 +73,74 @@ int l_longitud(Lista lista)
 
 void l_agregar(Lista lista, TipoElemento elemento)
 {
-    // Verificar si la lista está llena
     if (l_es_llena(lista))
     {
-        printf("La lista está llena. No se puede agregar más elementos.\n");
         return;
-    }
-
-    // Crear un nuevo nodo con los datos del elemento
-    int nuevoNodo = lista->libre;
-    lista->cursor[nuevoNodo].datos = elemento;
-    lista->cursor[nuevoNodo].siguiente = NULO;
-
-    // Actualizar la lista
-    if (l_es_vacia(lista))
+    } // Controlo la lista llena
+    int p;
+    p = lista->libre; // Tomo el primer libre
+    lista->libre = lista->cursor[p].siguiente;
+    lista->cursor[p].datos = elemento; // Asigno el dato
+    lista->cursor[p].siguiente = NULO;
+    // Controlo que no sea el primero de la lista
+    if (lista->inicio == NULO)
     {
-        lista->inicio = nuevoNodo;
-        lista->cursor = &(lista->cursor[nuevoNodo]);
+        lista->inicio = p;
     }
     else
     {
-        int nodoActual = lista->inicio;
-        while (lista->cursor[nodoActual].siguiente != NULO)
+        // lo ubico al final
+        int q = lista->inicio;
+        while (lista->cursor[q].siguiente != NULO)
         {
-            nodoActual = lista->cursor[nodoActual].siguiente;
+            q = lista->cursor[q].siguiente;
         }
-        lista->cursor[nodoActual].siguiente = nuevoNodo;
-        lista->cursor = &(lista->cursor[nuevoNodo]);
+        lista->cursor[q].siguiente = p; // Lo conecto con el ultimo
     }
     lista->cantidad++;
 }
 
 void l_borrar(Lista lista, int clave)
 {
-    // Buscar el nodo anterior al nodo a eliminar
-    int posAnterior = NULO;
-    int posActual = lista->inicio;
-    while (posActual != NULO && lista->cursor[posActual].datos->clave != clave)
+    if (l_es_vacia(lista))
     {
-        posAnterior = posActual;
-        posActual = lista->cursor[posActual].siguiente;
+        return;
     }
-
-    // Si se encontró el nodo a eliminar
-    if (posActual != NULO)
+    int q;
+    int p = lista->inicio;
+    while ((p != NULO) && (lista->cursor[lista->cursor[p].siguiente].datos->clave == clave))
     {
-        // Modificar el siguiente del nodo anterior
-        if (posAnterior == NULO)
+        q = p;
+        lista->inicio = lista->cursor[p].siguiente;
+        lista->cursor[q].siguiente = lista->libre;
+        lista->libre = q;
+        lista->cantidad--;
+        p = lista->inicio;
+    }
+    p = lista->inicio;
+    while ((p != NULO) && (lista->cursor[p].siguiente != NULO))
+    {
+        if (lista->cursor[lista->cursor[p].siguiente].datos->clave == clave)
         {
-            // El nodo a eliminar es el primero de la lista
-            lista->inicio = lista->cursor[posActual].siguiente;
+            q = lista->cursor[p].siguiente;
+            lista->cursor[p].siguiente = lista->cursor[q].siguiente;
+            lista->cursor[q].siguiente = lista->libre;
+            lista->libre = q;
+            lista->cantidad--;
         }
         else
         {
-            lista->cursor[posAnterior].siguiente = lista->cursor[posActual].siguiente;
+            p = lista->cursor[p].siguiente;
         }
-
-        // Agregar el nodo eliminado a la lista de nodos libres
-        lista->cursor[posActual].siguiente = lista->libre;
-        lista->libre = posActual;
-        lista->cantidad--;
     }
 }
 
 TipoElemento l_buscar(Lista lista, int clave)
 {
+    if (l_es_vacia(lista))
+    {
+        return NULL;
+    }
     int pos = lista->inicio;
     while (pos != NULO && lista->cursor[pos].datos->clave != clave)
     {
@@ -156,95 +155,64 @@ TipoElemento l_buscar(Lista lista, int clave)
 
 void l_insertar(Lista lista, TipoElemento elemento, int pos)
 {
-    // Verificar que la lista no esté llena
     if (l_es_llena(lista))
     {
-        printf("Error: la lista está llena\n");
         return;
-    }
-
-    // Verificar que la posición sea válida
-    if (pos < 0 || pos > lista->cantidad)
+    }                     // Control de lista llena
+    int p = lista->libre; // Toma la primer posición libre
+    lista->libre = lista->cursor[p].siguiente;
+    lista->cursor[p].datos = elemento;
+    lista->cursor[p].siguiente = NULO;
+    // Controla si cambia el INICIO
+    if (pos == 1)
     {
-        printf("Error: posición inválida\n");
-        return;
-    }
-
-    // Obtener un nodo libre
-    int nodo_libre = lista->libre;
-    if (nodo_libre == NULO)
-    {
-        printf("Error: no hay nodos libres\n");
-        return;
-    }
-
-    // Actualizar el cursor del nuevo nodo
-    lista->cursor[nodo_libre].siguiente = NULO;
-
-    // Asignar el elemento al nuevo nodo
-    lista->cursor[nodo_libre].datos = elemento;
-
-    // Insertar el nuevo nodo en la lista
-    if (pos == 0)
-    { // Insertar al principio
-        lista->cursor[nodo_libre].siguiente = lista->inicio;
-        lista->inicio = nodo_libre;
+        lista->cursor[p].siguiente = lista->inicio;
+        lista->inicio = p;
     }
     else
-    { // Insertar en otra posición
-        int anterior = lista->inicio;
-        for (int i = 0; i < pos - 1; i++)
+    {
+        int temp = lista->inicio; // Busca la posición del resto de la lista
+        for (int i = 0; i < pos - 2; i++)
         {
-            anterior = lista->cursor[anterior].siguiente;
+            temp = lista->cursor[temp].siguiente;
         }
-        lista->cursor[nodo_libre].siguiente = lista->cursor[anterior].siguiente;
-        lista->cursor[anterior].siguiente = nodo_libre;
+        lista->cursor[p].siguiente = lista->cursor[temp].siguiente;
+        lista->cursor[temp].siguiente = p;
     }
-
-    // Actualizar la cantidad de elementos de la lista
     lista->cantidad++;
-
-    // Actualizar la lista de nodos libres
-    lista->libre = lista->cursor[nodo_libre].siguiente;
 }
 
 void l_eliminar(Lista lista, int pos)
 {
-    if (l_es_vacia(lista))
-    {
-        printf("La lista está vacía\n");
-        return;
-    }
-    if (pos < 0 || pos >= lista->cantidad)
-    {
-        printf("Posición inválida\n");
-        return;
-    }
+    int p; // Falta controlar lista vacia
     int actual = lista->inicio;
-    int anterior = NULO;
-    int i = 0;
-    while (i < pos)
+    if (1 <= pos && pos <= l_longitud(lista))
     {
-        anterior = actual;
-        actual = lista->cursor[actual].siguiente;
-        i++;
+        if (pos == 1)
+        { // borra la primer posicion hay que cambiar el Inicio
+            p = actual;
+            lista->inicio = lista->cursor[actual].siguiente;
+            lista->cursor[p].siguiente = lista->libre;
+            lista->libre = p; // Devuelvo al libre el nodo que elimine (saque de la lista)
+        }
+        else
+        {
+            for (int i = 0; i < pos - 2; i++)
+            {
+                actual = lista->cursor[actual].siguiente;
+            }                                                             // actual apunta al nodo en posición (pos - 1)
+            p = lista->cursor[actual].siguiente;                          // nodo en pos
+            lista->cursor[actual].siguiente = lista->cursor[p].siguiente; // nodo en pos + 1
+            lista->cursor[lista->libre].siguiente = p;
+            lista->libre = p; // Devuelvo al libre el nodo que elimine (saque de la lista)
+        }
+        lista->cantidad--;
     }
-    if (actual == lista->inicio)
-    {
-        lista->inicio = lista->cursor[actual].siguiente;
-    }
-    else
-    {
-        lista->cursor[anterior].siguiente = lista->cursor[actual].siguiente;
-    }
-    lista->cursor[actual].siguiente = lista->libre;
-    lista->libre = actual;
-    lista->cantidad--;
 }
 
 TipoElemento l_recuperar(Lista lista, int pos)
 {
-    if (pos < 0 || pos >= lista->cantidad)
+    if (pos < 0 || pos > lista->cantidad)
     {
         printf("Error: Posición fuera de rango\n");
         return NULL;

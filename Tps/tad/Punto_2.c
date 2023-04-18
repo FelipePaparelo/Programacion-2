@@ -5,8 +5,9 @@
 #include <string.h>
 #include "listas.h"
 #include "tipo_elemento.h"
-#include "list_point.c"
-// #include "listas_de_areglos.c"
+// #include "list_point.c"
+// #include "list_cursor.c"
+#include "listas_de_areglos.c"
 #include "T_Element.c"
 
 char validar_numeros(char *m)
