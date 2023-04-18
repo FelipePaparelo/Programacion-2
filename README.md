@@ -9,14 +9,6 @@ Carpeta "Recursividad": Realizamos los distintos puntos establecidos en el tp so
 
 Carepeta "tad": Contiene las implementaciones de diferentes tipos abstractos de datos que se utilizaron en un proyecto o trabajo práctico. Todo el codigo fue realizado en el lenguaje C. Incluye el código fuente, los archivos necesarios para compilar y ejecutar el programa.
 
-## Instrucciones de uso
-
-Para utilizar cualquiera de los proyectos, sigue estos pasos:
-Clona el repositorio en tu máquina local.
-Accede a la carpeta correspondiente al proyecto que deseas utilizar.
-Lee el archivo README para conocer las instrucciones específicas de uso del proyecto.
-Sigue las instrucciones del archivo README para compilar y ejecutar el programa.
-
 ## Contribuidores
 
 - Felipe Paparelo-192117
