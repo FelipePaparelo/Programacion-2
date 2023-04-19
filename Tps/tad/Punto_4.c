@@ -186,7 +186,7 @@ int main()
     char cad_l1[100];
     int num_l1;
     Lista l1, l2;
-    printf("\nBIENENIDO AL PUNTO 3 DEL TP DE LISTAS\n");
+    printf("\nBIENENIDO AL PUNTO 4 DEL TP DE LISTAS\n");
     printf("CUANTOS ELEMENTOS VA INGRESAR EN LA LISTA 1:\n");
     validar_numeros_positivos(cad_l1);
     num_l1 = atoi(cad_l1);
