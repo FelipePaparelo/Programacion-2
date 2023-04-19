@@ -87,13 +87,18 @@ TipoElemento l_recuperar (Lista lista, int pos) {
     return lista->valores[pos - 1];
 }
 
-void l_mostrarLista (Lista lista) {
+void l_mostrarLista(Lista lista)
+{
+    
     printf("Contenido de la lista: ");
+    printf("{ ");
     for (int i = 0; i < lista->cantidad; i++) {
-        printf("%d ", lista->valores[i]->clave);
+        printf("%d, ", lista->valores[i]->clave);
     }
+    printf("}");
     printf("\n");
 }
+
 
 Iterador iterador (Lista lista) {
     Iterador iter = (Iterador) malloc(sizeof(struct IteradorRep));

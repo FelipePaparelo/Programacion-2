@@ -5,8 +5,8 @@
 #include <string.h>
 #include "listas.h"
 #include "tipo_elemento.h"
-#include "list_point.c"
-// #include "list_cursor.c"
+// #include "list_point.c"
+#include "list_cursor.c"
 // #include "listas_de_areglos.c"
 #include "T_Element.c"
 char validar_numeros_positivos(char *m)
@@ -51,6 +51,7 @@ char validar_numeros(char *m)
 {
     int aux = 0;
     int bandera = 1;
+    int bandera_2,num_de_m;
     fgets(m, 100, stdin);
     int largo = strlen(m) - 1;
     while (bandera == 1)
@@ -75,14 +76,34 @@ char validar_numeros(char *m)
             }
         }
 
-        if (aux == largo)
+
+        bandera_2=0;
+        if (aux == largo && aux <= 9)
         {
-            bandera = 0;
+            num_de_m = atoi(m);
+            printf("x=%i\n", num_de_m);
+            if (num_de_m > 100000000 || num_de_m < -10000000)
+            {
+                bandera_2 = 1;
+                aux = -1;
+                printf("ingrese un numero mayor a -10.000.000 o menor a 100.000.000\n");
+            }
+            else{
+                bandera_2 = 0;
+            }
+
+            if (bandera_2 == 1){
+                bandera = 1;
+            }
+            else if (bandera_2 == 0){
+                bandera = 0;
+            }
+
         }
         else
         {
             aux = 0;
-            printf("El dato que Ingresa no es un numero entero, intente otra vez: ");
+            printf("intente otra vez: ");
             fgets(m, 100, stdin);
             fflush(stdin);
             largo = strlen(m) - 1;
@@ -129,40 +150,42 @@ void cargar_datos_alazar(int dato_i, Lista list_1)
     }
 }
 
-Lista resolver_p2(Lista list_1, int num)
+Lista resolver_p2(Lista lista, int num)
 {
-    TipoElemento x;
-    Lista list_return;
-    int i, min, pos_min, max, cant_max;
-    min = 101;
-    max = -1;
-    cant_max = 1;
-    list_return = l_crear();
-    for (i = 0; i < l_longitud(list_1); ++i)
-    {
-        x = l_recuperar(list_1, i + 1);
-        if (x->clave < min)
-        {
-            min = x->clave;
-            pos_min = i + 1;
+   TipoElemento x;
+    x = l_recuperar(lista, 1);
+    Lista nl;
+    nl = l_crear();
+    int val_menor = x->clave;
+    int val_mayor = x->clave;
+    int repeticiones = 0; 
+    int pos_menor = 0;
+    int i;
+    int largo = l_longitud(lista);
+    TipoElemento multiplo;
+    for (i = 0; i < largo ; i++){
+        x = l_recuperar(lista, i + 1);
+        if (val_menor > x->clave){
+            val_menor = x->clave;
+            pos_menor = i + 1;
+            repeticiones = 0;
         }
-        if (x->clave > max)
-        {
-            max = x->clave;
-            cant_max = 1;
+        else if(val_mayor < x->clave){
+            val_mayor = x->clave;
+            repeticiones = 0;
         }
-        else if (x->clave == max)
-        {
-            cant_max++;
+        else if (val_mayor == x->clave){
+            repeticiones+=1;
         }
-        if (x->clave % num == 0)
-        {
-            l_agregar(list_return, x);
+        if (x->clave % num == 0){
+            l_agregar(nl, x);
         }
     }
-    printf("la menor clave es %i,esta en la posicion %i.\n", min, pos_min);
-    printf("la mayor clave es %i,y la cantidad que aparece es %i.\n", max, cant_max);
-    return list_return;
+    
+    printf("El elemento mas pequeño de la lista es %i y esta ubicado en la posicion %i\n", val_menor, pos_menor+1);
+    printf("El elemento mas grande es el numero %i y se repite un total de %i veces\n", val_mayor, repeticiones);
+    printf("Lista con multiplos de %i: ", num);
+    l_mostrarLista(nl);
 }
 
 void resolver_punto2_c(Lista list_1, int largo, float *result)
@@ -227,7 +250,7 @@ int main()
         strcpy(cad_2, "");
         validar_numeros(cad_2);
         numero_2 = atoi(cad_2);
-        l_mostrarLista(resolver_p2(lista_prin, numero_2));
+        resolver_p2(lista_prin, numero_2);
         resultado = 0;
         resolver_punto2_c(lista_prin, l_longitud(lista_prin), &resultado);
         promedio = resultado / l_longitud(lista_prin);
