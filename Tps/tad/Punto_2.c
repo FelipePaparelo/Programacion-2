@@ -142,7 +142,7 @@ void cargar_datos_alazar(int dato_i, Lista list_1)
     for (i = 0; i < dato_i; ++i)
     {
         r = rand();  // Se genera un número aleatorio entre 0 y RAND_MAX
-        r = r % 101; // Se obtiene un número entre 0 y 100 utilizando el operador módulo
+        r = r % 11; // Se obtiene un número entre 0 y 100 utilizando el operador módulo
         x = te_crear(r);
         l_agregar(list_1, x);
     }
@@ -151,11 +151,10 @@ void cargar_datos_alazar(int dato_i, Lista list_1)
 void resolver_p2(Lista lista, int num)
 {
     TipoElemento x;
-    x = l_recuperar(lista, 1);
     Lista nl;
     nl = l_crear();
-    int val_menor = x->clave;
-    int val_mayor = x->clave;
+    int val_menor = 100000000;
+    int val_mayor = -10000000;
     int repeticiones = 0;
     int pos_menor = 0;
     int i;
@@ -169,7 +168,8 @@ void resolver_p2(Lista lista, int num)
             pos_menor = i + 1;
             repeticiones = 0;
         }
-        else if (val_mayor < x->clave)
+        
+        if (val_mayor < x->clave)
         {
             val_mayor = x->clave;
             repeticiones = 0;
@@ -184,7 +184,7 @@ void resolver_p2(Lista lista, int num)
         }
     }
 
-    printf("El elemento mas pequeno de la lista es %i y esta ubicado en la posicion %i\n", val_menor, pos_menor + 1);
+    printf("El elemento mas pequeno de la lista es %i y esta ubicado en la posicion %i\n", val_menor, pos_menor );
     printf("El elemento mas grande es el numero %i y se repite un total de %i veces\n", val_mayor, repeticiones);
     printf("Lista con multiplos de %i: ", num);
     l_mostrarLista(nl);
@@ -213,7 +213,7 @@ int main()
     printf("BIENVENIDO AL PUNTO 2 DEL TP DE LISTA\n");
     printf("QUE OPCION DESEA ELEGIR: \n");
     printf("1) INGRESAR DATOS A LA AZAR\n");
-    printf("2) IMGRESAR DATOS POR TECLADO\n");
+    printf("2) INGRESAR DATOS POR TECLADO\n");
     validar_numeros(cad);
     numero = atoi(cad);
     if (numero > 2 || numero < 1)
