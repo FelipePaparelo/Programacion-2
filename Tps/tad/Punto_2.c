@@ -5,7 +5,7 @@
 #include <string.h>
 #include "listas.h"
 #include "tipo_elemento.h"
-// #include "list_point.c"
+//#include "list_point.c"
 //#include "list_cursor.c"
 #include "listas_de_areglos.c"
 #include "T_Element.c"
@@ -142,7 +142,7 @@ void cargar_datos_alazar(int dato_i, Lista list_1)
     for (i = 0; i < dato_i; ++i)
     {
         r = rand();  // Se genera un número aleatorio entre 0 y RAND_MAX
-        r = r % 11; // Se obtiene un número entre 0 y 100 utilizando el operador módulo
+        r = r % 101; // Se obtiene un número entre 0 y 100 utilizando el operador módulo
         x = te_crear(r);
         l_agregar(list_1, x);
     }
