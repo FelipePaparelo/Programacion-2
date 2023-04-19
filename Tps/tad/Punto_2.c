@@ -25,12 +25,19 @@ char validar_numeros_positivos(char *m)
 
         for (int j = 0; j < largo; j++)
         {
+
             if ((isdigit(m[j]) != 0))
             {
                 aux++;
             }
         }
 
+        int n = atoi(m);
+        printf("n = %i\n", n);
+        if (n > 100){
+            printf("Ingrese una cantidad de elementos menor o igual a 100: ");
+            validar_numeros_positivos(m);
+        }
         if (aux == largo)
         {
             bandera = 0;
@@ -43,6 +50,7 @@ char validar_numeros_positivos(char *m)
             fflush(stdin);
             largo = strlen(m) - 1;
         }
+
     }
     return bandera;
 }
@@ -242,14 +250,20 @@ int main()
         lista_prin = l_crear();
         cargar_datos_teclado(numero_2, lista_prin);
         l_mostrarLista(lista_prin);
-        printf("\nINGRESE UN NUMERO PARA BUSCAR SUS MULTIPLO EN LA LISTA: \n");
-        strcpy(cad_2, "");
-        validar_numeros(cad_2);
-        numero_2 = atoi(cad_2);
-        resolver_p2(lista_prin, numero_2);
-        resultado = 0;
-        resolver_punto2_c(lista_prin, l_longitud(lista_prin), &resultado);
-        promedio = resultado / l_longitud(lista_prin);
-        printf("el promedio es %f ", promedio);
+        int largo = l_longitud(lista_prin);
+        if(largo == 0){
+            printf("Usted ha ingresado una lista vacia.");
+        }
+        else if(largo > 0){
+            printf("\nINGRESE UN NUMERO PARA BUSCAR SUS MULTIPLO EN LA LISTA: \n");
+            strcpy(cad_2, "");
+            validar_numeros(cad_2);
+            numero_2 = atoi(cad_2);
+            resolver_p2(lista_prin, numero_2);
+            resultado = 0;
+            resolver_punto2_c(lista_prin, l_longitud(lista_prin), &resultado);
+            promedio = resultado / l_longitud(lista_prin);
+            printf("el promedio es %f ", promedio);
+        }
     }
 }
