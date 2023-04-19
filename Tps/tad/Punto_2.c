@@ -6,8 +6,8 @@
 #include "listas.h"
 #include "tipo_elemento.h"
 // #include "list_point.c"
-#include "list_cursor.c"
-// #include "listas_de_areglos.c"
+//#include "list_cursor.c"
+#include "listas_de_areglos.c"
 #include "T_Element.c"
 char validar_numeros_positivos(char *m)
 {
@@ -80,7 +80,6 @@ char validar_numeros(char *m)
         if (aux == largo && aux <= 9)
         {
             num_de_m = atoi(m);
-            printf("x=%i\n", num_de_m);
             if (num_de_m > 100000000 || num_de_m < -10000000)
             {
                 bandera_2 = 1;
@@ -143,7 +142,7 @@ void cargar_datos_alazar(int dato_i, Lista list_1)
     }
 }
 
-Lista resolver_p2(Lista lista, int num)
+void resolver_p2(Lista lista, int num)
 {
     TipoElemento x;
     x = l_recuperar(lista, 1);
@@ -179,7 +178,7 @@ Lista resolver_p2(Lista lista, int num)
         }
     }
 
-    printf("El elemento mas pequeño de la lista es %i y esta ubicado en la posicion %i\n", val_menor, pos_menor + 1);
+    printf("El elemento mas pequeno de la lista es %i y esta ubicado en la posicion %i\n", val_menor, pos_menor + 1);
     printf("El elemento mas grande es el numero %i y se repite un total de %i veces\n", val_mayor, repeticiones);
     printf("Lista con multiplos de %i: ", num);
     l_mostrarLista(nl);
@@ -228,7 +227,7 @@ int main()
         strcpy(cad_2, "");
         validar_numeros(cad_2);
         numero_2 = atoi(cad_2);
-        l_mostrarLista(resolver_p2(lista_prin, numero_2));
+        resolver_p2(lista_prin, numero_2);
         resultado = 0;
         resolver_punto2_c(lista_prin, l_longitud(lista_prin), &resultado);
         promedio = resultado / l_longitud(lista_prin);
