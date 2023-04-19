@@ -34,7 +34,6 @@ void validar_numeros_positivos(char *m)
         }
 
         int n = atoi(m);
-        printf("n = %i\n", n);
         if (n > 100){
             printf("Ingrese una cantidad de elementos menor o igual a 100: ");
             validar_numeros_positivos(m);
@@ -53,7 +52,6 @@ void validar_numeros_positivos(char *m)
         }
 
     }
-    return bandera;
 }
 
 void validar_numeros_no_rep(char *m, Lista l1)

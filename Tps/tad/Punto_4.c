@@ -98,7 +98,6 @@ char validar_numeros_positivos(char *m)
         }
 
         int n = atoi(m);
-        printf("n = %i\n", n);
         if (n > 100){
             printf("Ingrese una cantidad de elementos menor o igual a 100: ");
             validar_numeros_positivos(m);
@@ -219,26 +218,31 @@ int main()
     printf("CUANTOS ELEMENTOS VA INGRESAR EN LA LISTA 1:\n");
     validar_numeros_positivos(cad_l1);
     num_l1 = atoi(cad_l1);
-    printf("COMIENZO DE CARGA DE LA LISTA 1:\n");
-    l1 = l_crear();
-    cargar_datos_L1_teclado(num_l1, l1);
-    printf("SE CARGO CORRECTAMENTE LA LISTA 1:\n");
-    printf("COMIENZO DE CARGA DE LA LISTA 2:\n");
-    l2 = l_crear();
-    cargar_datos_L2_teclado(num_l1, l2);
-    printf("SE CARGO CORRECTAMENTE LA LISTA 2:\n");
-    int resultado = compararListas(l1, l2);
-    if (resultado == 1)
-    {
-        printf("La lista 1 es mayor que la lista 2");
+    if (num_l1 == 0){
+        printf("Usted ha ingresado una lista vacia, intentar nuevamente");
     }
-    else if (resultado == -1)
-    {
-        printf("La lista 2 es mayor que la lista 1");
-    }
-    else
-    {
-        printf("Las listas 1 y 2 son iguales");
+    else{
+        printf("COMIENZO DE CARGA DE LA LISTA 1:\n");
+        l1 = l_crear();
+        cargar_datos_L1_teclado(num_l1, l1);
+        printf("SE CARGO CORRECTAMENTE LA LISTA 1:\n");
+        printf("COMIENZO DE CARGA DE LA LISTA 2:\n");
+        l2 = l_crear();
+        cargar_datos_L2_teclado(num_l1, l2);
+        printf("SE CARGO CORRECTAMENTE LA LISTA 2:\n");
+        int resultado = compararListas(l1, l2);
+        if (resultado == 1)
+        {
+            printf("La lista 1 es mayor que la lista 2");
+        }
+        else if (resultado == -1)
+        {
+            printf("La lista 2 es mayor que la lista 1");
+        }
+        else
+        {
+            printf("Las listas 1 y 2 son iguales");
+        }
     }
 }
 

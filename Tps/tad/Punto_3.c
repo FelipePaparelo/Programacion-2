@@ -98,7 +98,6 @@ void validar_numeros_positivos(char *m)
         }
 
         int n = atoi(m);
-        printf("n = %i\n", n);
         if (n > 100){
             printf("Ingrese una cantidad de elementos menor o igual a 100: ");
             validar_numeros_positivos(m);
@@ -117,7 +116,6 @@ void validar_numeros_positivos(char *m)
         }
 
     }
-    return bandera;
 }
 
 void cargar_datos_teclado(int dato_i, Lista list_1)
@@ -173,8 +171,8 @@ int main()
     char cad_l1[100];
     int num_l1;
     Lista l1, l2;
-    printf("\nBIENENIDO AL PUNTO 3 DEL TP DE LISTAS\n");
-    printf("CUANTOS ELEMENTOS VA INGRESAR EN LA LISTA 1:\n");
+    printf("\nBIENENIDO AL PUNTO 3 DEL TP DE LISTAS.\n");
+    printf("CUANTOS ELEMENTOS VA INGRESAR EN LAS LISTAS:\n");
     validar_numeros_positivos(cad_l1);
     num_l1 = atoi(cad_l1);
     printf("COMIENZO DE CARGA DE LA LISTA 1:\n");
