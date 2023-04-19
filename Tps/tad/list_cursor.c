@@ -106,30 +106,31 @@ void l_borrar(Lista lista, int clave)
     {
         return;
     }
-    int q;
+
+    int q = NULO;
     int p = lista->inicio;
-    while ((p != NULO) && (lista->cursor[lista->cursor[p].siguiente].datos->clave == clave))
+    while (p != NULO && lista->cursor[p].datos->clave == clave)
     {
-        q = p;
         lista->inicio = lista->cursor[p].siguiente;
-        lista->cursor[q].siguiente = lista->libre;
-        lista->libre = q;
+        lista->cursor[p].siguiente = lista->libre;
+        lista->libre = p;
         lista->cantidad--;
         p = lista->inicio;
     }
-    p = lista->inicio;
-    while ((p != NULO) && (lista->cursor[p].siguiente != NULO))
+
+    while (p != NULO)
     {
-        if (lista->cursor[lista->cursor[p].siguiente].datos->clave == clave)
+        if (lista->cursor[p].datos->clave == clave)
         {
-            q = lista->cursor[p].siguiente;
-            lista->cursor[p].siguiente = lista->cursor[q].siguiente;
-            lista->cursor[q].siguiente = lista->libre;
-            lista->libre = q;
+            lista->cursor[q].siguiente = lista->cursor[p].siguiente;
+            lista->cursor[p].siguiente = lista->libre;
+            lista->libre = p;
             lista->cantidad--;
+            p = lista->cursor[q].siguiente;
         }
         else
         {
+            q = p;
             p = lista->cursor[p].siguiente;
         }
     }
@@ -155,15 +156,17 @@ TipoElemento l_buscar(Lista lista, int clave)
 
 void l_insertar(Lista lista, TipoElemento elemento, int pos)
 {
-    if (l_es_llena(lista))
+    if (l_es_llena(lista) || pos < 1 || pos > lista->cantidad + 1)
     {
         return;
-    }                     // Control de lista llena
-    int p = lista->libre; // Toma la primer posición libre
+    }
+
+    int p = lista->libre;
     lista->libre = lista->cursor[p].siguiente;
     lista->cursor[p].datos = elemento;
     lista->cursor[p].siguiente = NULO;
-    // Controla si cambia el INICIO
+    lista->cantidad++;
+
     if (pos == 1)
     {
         lista->cursor[p].siguiente = lista->inicio;
@@ -171,15 +174,14 @@ void l_insertar(Lista lista, TipoElemento elemento, int pos)
     }
     else
     {
-        int temp = lista->inicio; // Busca la posición del resto de la lista
+        int q = lista->inicio;
         for (int i = 0; i < pos - 2; i++)
         {
-            temp = lista->cursor[temp].siguiente;
+            q = lista->cursor[q].siguiente;
         }
-        lista->cursor[p].siguiente = lista->cursor[temp].siguiente;
-        lista->cursor[temp].siguiente = p;
+        lista->cursor[p].siguiente = lista->cursor[q].siguiente;
+        lista->cursor[q].siguiente = p;
     }
-    lista->cantidad++;
 }
 
 void l_eliminar(Lista lista, int pos)

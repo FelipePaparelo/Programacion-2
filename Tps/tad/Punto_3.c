@@ -10,10 +10,10 @@
 // #include "list_cursor.c"
 #include "T_Element.c"
 
-char validar_numeros(char *m)
+void validar_numeros_p3(char *m)
 {
     int aux = 0;
-    int bandera = 1;
+    int bandera = 1, bandera_2, num_de_m;
     fgets(m, 100, stdin);
     int largo = strlen(m) - 1;
     while (bandera == 1)
@@ -38,14 +38,43 @@ char validar_numeros(char *m)
             }
         }
 
+        bandera_2 = 0;
         if (aux == largo)
         {
-            bandera = 0;
+            num_de_m = atoi(m);
+            if (num_de_m < 2 && num_de_m > -2)
+            {
+                bandera_2 = 1;
+                aux = -1;
+                printf("ingrese un numero mayor a 1 o menor a -1\n");
+            }
+            else if (num_de_m >= 2 || num_de_m <= -2)
+            {
+                if (num_de_m > 999999999 || num_de_m < -999999999)
+                {
+                    bandera_2 = 1;
+                    aux = -1;
+                    printf("ingrese un numero mayor a -999.999.999 o menor a 999.999.999\n");
+                }
+                else
+                {
+                    bandera_2 = 0;
+                }
+            }
+
+            if (bandera_2 == 1)
+            {
+                bandera = 1;
+            }
+            else if (bandera_2 == 0)
+            {
+                bandera = 0;
+            }
         }
         else
         {
             aux = 0;
-            printf("El dato que Ingresa no es un numero entero, intente otra vez: ");
+            printf("intente otra vez: ");
             fgets(m, 100, stdin);
             fflush(stdin);
             largo = strlen(m) - 1;
@@ -53,7 +82,7 @@ char validar_numeros(char *m)
     }
 }
 
-char validar_numeros_positivos(char *m)
+void validar_numeros_positivos(char *m)
 {
     int aux = 0;
     int bandera = 1;
@@ -99,15 +128,12 @@ void cargar_datos_teclado(int dato_i, Lista list_1)
     for (i = 0; i < dato_i; i++)
     {
         printf("ingrese el valor para la clave del %i tipoelemento:\n", 1 + i);
-        validar_numeros(cad);
+        validar_numeros_p3(cad);
         numero = atoi(cad);
         x = te_crear(numero);
         l_agregar(list_1, x);
     }
 }
-//. Dadas 2 listas (L1 y L2) determinar si L2 es múltiplo de L1. Se considera múltiplo si cada
-// elemento de L2 se divide en forma exacta por el valor L1 de la misma posición. Usar la
-// clave como campo de datos solamente
 
 void resolver_punto3(Lista l1, Lista l2)
 {
@@ -127,7 +153,12 @@ void resolver_punto3(Lista l1, Lista l2)
             bandera = false;
         }
     }
-    if (bandera == true)
+
+    if (l_es_vacia(l1) && l_es_vacia(l2))
+    {
+        printf("las lista son vacias asi que no se pueden comparar\n");
+    }
+    else if (bandera == true)
     {
         printf("LA LISTA 2 ES MULTIPLO DE LA LISTA 1\n");
     }
