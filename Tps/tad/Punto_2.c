@@ -51,7 +51,7 @@ char validar_numeros(char *m)
 {
     int aux = 0;
     int bandera = 1;
-    int bandera_2,num_de_m;
+    int bandera_2, num_de_m;
     fgets(m, 100, stdin);
     int largo = strlen(m) - 1;
     while (bandera == 1)
@@ -76,8 +76,7 @@ char validar_numeros(char *m)
             }
         }
 
-
-        bandera_2=0;
+        bandera_2 = 0;
         if (aux == largo && aux <= 9)
         {
             num_de_m = atoi(m);
@@ -88,17 +87,19 @@ char validar_numeros(char *m)
                 aux = -1;
                 printf("ingrese un numero mayor a -10.000.000 o menor a 100.000.000\n");
             }
-            else{
+            else
+            {
                 bandera_2 = 0;
             }
 
-            if (bandera_2 == 1){
+            if (bandera_2 == 1)
+            {
                 bandera = 1;
             }
-            else if (bandera_2 == 0){
+            else if (bandera_2 == 0)
+            {
                 bandera = 0;
             }
-
         }
         else
         {
@@ -152,37 +153,41 @@ void cargar_datos_alazar(int dato_i, Lista list_1)
 
 Lista resolver_p2(Lista lista, int num)
 {
-   TipoElemento x;
+    TipoElemento x;
     x = l_recuperar(lista, 1);
     Lista nl;
     nl = l_crear();
     int val_menor = x->clave;
     int val_mayor = x->clave;
-    int repeticiones = 0; 
+    int repeticiones = 0;
     int pos_menor = 0;
     int i;
     int largo = l_longitud(lista);
-    TipoElemento multiplo;
-    for (i = 0; i < largo ; i++){
+    for (i = 0; i < largo; i++)
+    {
         x = l_recuperar(lista, i + 1);
-        if (val_menor > x->clave){
+        if (val_menor > x->clave)
+        {
             val_menor = x->clave;
             pos_menor = i + 1;
             repeticiones = 0;
         }
-        else if(val_mayor < x->clave){
+        else if (val_mayor < x->clave)
+        {
             val_mayor = x->clave;
             repeticiones = 0;
         }
-        else if (val_mayor == x->clave){
-            repeticiones+=1;
+        else if (val_mayor == x->clave)
+        {
+            repeticiones += 1;
         }
-        if (x->clave % num == 0){
+        if (x->clave % num == 0)
+        {
             l_agregar(nl, x);
         }
     }
-    
-    printf("El elemento mas pequeño de la lista es %i y esta ubicado en la posicion %i\n", val_menor, pos_menor+1);
+
+    printf("El elemento mas pequeño de la lista es %i y esta ubicado en la posicion %i\n", val_menor, pos_menor + 1);
     printf("El elemento mas grande es el numero %i y se repite un total de %i veces\n", val_mayor, repeticiones);
     printf("Lista con multiplos de %i: ", num);
     l_mostrarLista(nl);

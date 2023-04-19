@@ -231,15 +231,14 @@ TipoElemento l_recuperar(Lista lista, int pos)
 
 void l_mostrarLista(Lista lista)
 {
-    void l_mostrarLista (Lista lista) {
-    printf("Contenido de la lista: ");
-    printf("{ ");
-    for (int i = 0; i < lista->cantidad; i++) {
-        printf("%d, ", lista->valores[i]->clave);
+    int actual = lista->inicio;
+    printf("Lista: ");
+    while (actual != NULO)
+    {
+        printf("%d ", lista->cursor[actual].datos->clave);
+        actual = lista->cursor[actual].siguiente;
     }
-    printf("}");
     printf("\n");
-}
 }
 
 Iterador iterador(Lista lista)
