@@ -123,16 +123,8 @@ void cargar_datos_teclado(int dato_i, Lista list_1)
         printf("ingrese el valor para la clave del %i tipoelemento:\n", 1 + i);
         validar_numeros(cad);
         numero = atoi(cad);
-        if (numero > 999999999 || numero < -999999999)
-        {
-            printf("Ingrese un numero valido: ");
-            return cargar_datos_teclado(dato_i, list_1);
-        }
-        else
-        {
-            x = te_crear(numero);
-            l_agregar(list_1, x);
-        }
+        x = te_crear(numero);
+        l_agregar(list_1, x);
     }
 }
 

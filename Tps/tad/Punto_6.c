@@ -196,3 +196,31 @@ int main()
         resolver_punto_6(l1, l2);
     }
 }
+
+// COMPLEJIDAD ALGORITMICA
+// la funcion validar_numeros_positivos tienen complejidad de O(n) ya que recorre el vector para ver 
+// la cantidad de digitos que quiere ingresar el usuario en la clave y se va ingresar ese numero
+// hasta que sea valido para el programa;
+// la funcion validar_numeros_no_rep tiene complejidad de O(n^2) ya que primero recorre el vector
+// como validar_numeros_positivos para ver los digitos y despues recorre la lista para ver si ese numero
+// no esta repetido en la lista;
+// la funcion cargar_datos_teclado tiene complijidad O(n^3) por que cagar por teclado recorre la lista completa
+// y llama a la funcion validar_numeros_no_rep para que las claves sean un valor valido y no sea repetido
+// la funcion resolver_punto_6 tiene complejidad O(n^2) por que recorre la dos listas verificando si una
+// es sublista de otra
+// y el programa tendria esta complejidad
+//  O(1)
+//  O(n) validar_numeros_positivos para la cantidad de elementos de la lista 1
+//  O(1)
+//  O(n^3) cargar_datos_teclado de lista 1
+//  O(1)
+//  O(n) validar_numeros_positivos para la cantidad de elementos de la lista 1
+//  O(1)
+//  O(n^3) cargar_datos_teclado de lista 2
+//  O(1)
+//  O(n) el if para verficar cual lista es mas grande
+//      O(n^2) resolver_punto_6
+
+// O(n)+O(n^3)+O(n)+O(n^3)+O(n)*O(n^2)=O(n^3)+O(n^3)+O(n^3)=O(n^3)
+
+// el problema tendia la complejidad de O(n^3)
