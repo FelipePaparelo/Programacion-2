@@ -48,7 +48,7 @@ void validar_numeros_positivos(char *m)
     }
 }
 
-char validar_numeros_no_rep(char *m, Lista l1)
+void validar_numeros_no_rep(char *m, Lista l1)
 {
     int aux = 0;
     int bandera = 1, p, num_de_m, bandera_2;
@@ -78,7 +78,7 @@ char validar_numeros_no_rep(char *m, Lista l1)
         }
 
         bandera_2 = 0;
-        if (aux == largo)
+        if (aux == largo && aux <= 9)
         {
             num_de_m = atoi(m);
             for (p = 0; p < l_longitud(l1); p++)
@@ -92,23 +92,20 @@ char validar_numeros_no_rep(char *m, Lista l1)
                 }
             }
 
-            if (num_de_m > 999999999 || num_de_m < -999999999)
+            if (num_de_m > 100000000 || num_de_m < -10000000)
             {
                 bandera_2 = 1;
                 aux = -1;
-                printf("ingrese un numero mayor a -999.999.999 o menor a 999.999.999\n");
+                printf("ingrese un numero mayor a -10.000.000 o menor a 100.000.000\n");
             }
-            else
-            {
+            else{
                 bandera_2 = 0;
             }
 
-            if (bandera_2 == 1)
-            {
+            if (bandera_2 == 1){
                 bandera = 1;
             }
-            else if (bandera_2 == 0)
-            {
+            else if (bandera_2 == 0){
                 bandera = 0;
             }
         }
@@ -121,7 +118,6 @@ char validar_numeros_no_rep(char *m, Lista l1)
             largo = strlen(m) - 1;
         }
     }
-    return bandera;
 }
 
 void cargar_datos_teclado(int dato_i, Lista list_1)

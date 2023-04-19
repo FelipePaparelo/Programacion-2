@@ -6,14 +6,15 @@
 #include "listas.h"
 #include "tipo_elemento.h"
 // #include "list_point.c"
-#include "list_cursor.c"
-// #include "listas_de_areglos.c"
+// #include "list_cursor.c"
+#include "listas_de_areglos.c"
 #include "T_Element.c"
 
-char validar_numeros(char *m)
+void validar_numeros(char *m)
 {
     int aux = 0;
     int bandera = 1;
+    int bandera_2,num_de_m;
     fgets(m, 100, stdin);
     int largo = strlen(m) - 1;
     while (bandera == 1)
@@ -38,14 +39,34 @@ char validar_numeros(char *m)
             }
         }
 
-        if (aux == largo)
+
+        bandera_2=0;
+        if (aux == largo && aux <= 9)
         {
-            bandera = 0;
+            num_de_m = atoi(m);
+            printf("x=%i\n", num_de_m);
+            if (num_de_m > 100000000 || num_de_m < -10000000)
+            {
+                bandera_2 = 1;
+                aux = -1;
+                printf("ingrese un numero mayor a -10.000.000 o menor a 100.000.000\n");
+            }
+            else{
+                bandera_2 = 0;
+            }
+
+            if (bandera_2 == 1){
+                bandera = 1;
+            }
+            else if (bandera_2 == 0){
+                bandera = 0;
+            }
+
         }
         else
         {
             aux = 0;
-            printf("El dato que Ingresa no es un numero entero, intente otra vez: ");
+            printf("intente otra vez: ");
             fgets(m, 100, stdin);
             fflush(stdin);
             largo = strlen(m) - 1;
@@ -186,7 +207,7 @@ int main()
     char cad_l1[100];
     int num_l1;
     Lista l1, l2;
-    printf("\nBIENENIDO AL PUNTO 3 DEL TP DE LISTAS\n");
+    printf("\nBIENVENIDO AL PUNTO 4 DEL TP DE LISTAS\n");
     printf("CUANTOS ELEMENTOS VA INGRESAR EN LA LISTA 1:\n");
     validar_numeros_positivos(cad_l1);
     num_l1 = atoi(cad_l1);
