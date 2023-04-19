@@ -212,3 +212,20 @@ int main()
         printf("Las listas 1 y 2 son iguales");
     }
 }
+
+/* Las funciones "validar_numeros" y "validar_numeros_positivos" tienen una complejidad O(n) debido a que realizan un ciclo que recorre
+cada carácter de la cadena de entrada y se llama a "strlen" para obtener su longitud.
+Las funciones "cargar_datos_L1_teclado" y "cargar_datos_L2_teclado" también tienen una complejidad O(n) debido a que hay un ciclo que se ejecuta "n" veces,
+y se llaman a funciones como "validar_numeros" y "atoi" que convierten una cadena a un número entero. Finalmente,
+la complejidad algorítmica de la función "compararListas" es O(n) debido a que hay un ciclo que recorre los elementos de ambas listas y las compara,
+y las demás operaciones dentro del ciclo tienen una complejidad O(1).*/
+
+/*
+O(1): tiempo constante
+O(log n): tiempo logarítmico
+O(n): tiempo lineal
+O(n log n): tiempo n logarítmico
+O(n^2): tiempo cuadrático
+O(n^3): tiempo cúbico
+O(2^n): tiempo exponencial
+*/
