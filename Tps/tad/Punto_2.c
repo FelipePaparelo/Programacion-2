@@ -9,7 +9,7 @@
 //#include "list_cursor.c"
 #include "listas_de_areglos.c"
 #include "T_Element.c"
-char validar_numeros_positivos(char *m)
+void validar_numeros_positivos(char *m)
 {
     int aux = 0;
     int bandera = 1;
@@ -51,7 +51,6 @@ char validar_numeros_positivos(char *m)
         }
 
     }
-    return bandera;
 }
 
 char validar_numeros(char *m)

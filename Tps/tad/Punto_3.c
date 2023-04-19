@@ -44,7 +44,6 @@ void validar_numeros_p3(char *m)
         if (aux == largo && aux <= 9)
         {
             num_de_m = atoi(m);
-            printf("x=%i\n", num_de_m);
             if (num_de_m > 100000000 || num_de_m < -10000000)
             {
                 bandera_2 = 1;
@@ -52,7 +51,14 @@ void validar_numeros_p3(char *m)
                 printf("ingrese un numero mayor a -10.000.000 o menor a 100.000.000\n");
             }
             else{
-                bandera_2 = 0;
+                if ( num_de_m>-2 && num_de_m <2 ){
+                    bandera_2 = 1;
+                    aux = -1;
+                    printf("ingrese un numero mayor a 2 o menor a -2\n");
+                }
+                else{
+                    bandera_2=0;
+                }
             }
 
             if (bandera_2 == 1){
