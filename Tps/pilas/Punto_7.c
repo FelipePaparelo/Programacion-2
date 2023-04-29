@@ -178,6 +178,7 @@ void repetidas(Pila p1, Pila p2)
     }
     printf("\n");
 }
+
 int main()
 {
     int dato_i = 3;
