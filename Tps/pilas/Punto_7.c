@@ -131,21 +131,24 @@ void cargar_datos_teclado2(int dato_i, Pila p2)
 
 void repetidas(Pila p1, Pila p2)
 {
+    if (p_es_vacia(p1) || p_es_vacia(p2))
+    {
+        printf("Alguna de las pilas está vacía\n");
+        return;
+    }
+
     Pila p3 = p_crear();
     Pila p_aux = p_crear();
     Pila p_aux2 = p_crear();
     int largo1 = p_longitud(p1);
     int largo2 = p_longitud(p2);
     TipoElemento aux, aux3, aux2;
-    if (p_es_vacia(p1))
-    {
-        return;
-    }
+
     while (!p_es_vacia(p1))
     {
         aux = p_desapilar(p1);
         p_apilar(p_aux, aux);
-        for (int j = 0; j < largo2 - 1; j++)
+        for (int j = 0; j < largo2; j++)
         {
             aux2 = p_desapilar(p2);
             p_apilar(p_aux2, aux2);
@@ -154,24 +157,30 @@ void repetidas(Pila p1, Pila p2)
                 p_apilar(p3, aux);
             }
         }
-        for (int i = 0; i < largo2 - 1; i++)
+        for (int i = 0; i < largo2; i++)
         {
             aux3 = p_desapilar(p_aux2);
             p_apilar(p2, aux3);
         }
     }
-    for (int y = 0; y < largo1 - 1; y++)
+
+    while (!p_es_vacia(p_aux))
     {
         aux = p_desapilar(p_aux);
         p_apilar(p1, aux);
     }
-    p_mostrar(p3);
-    return;
-}
 
+    printf("Elementos repetidos:\n");
+    while (!p_es_vacia(p3))
+    {
+        aux = p_desapilar(p3);
+        printf("%d ", aux->clave);
+    }
+    printf("\n");
+}
 int main()
 {
-    int dato_i = 5;
+    int dato_i = 3;
     Pila p1 = p_crear();
     Pila p2 = p_crear();
     cargar_datos_teclado(dato_i, p1);
