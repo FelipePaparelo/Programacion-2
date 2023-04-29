@@ -33,7 +33,7 @@ TipoElemento l_recuperar(Lista lista, int pos);
 void l_mostrarLista(Lista lista);
 
 // Funciones de iterador de la lista
-Iterador iterador(Lista lista);
+Iterador iterador(Lista lista); 
 
 bool hay_siguiente(Iterador iterador);
 
