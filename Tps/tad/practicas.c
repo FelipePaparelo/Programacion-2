@@ -5,10 +5,11 @@
 #include <string.h>
 #include "listas.h"
 #include "tipo_elemento.h"
-#include "listas_de_areglos.c"
+// #include "listas_de_areglos.c"
 // #include "list_point.c"
 // #include "list_cursor.c"
 #include "T_Element.c"
+#include <math.h>
 
 
 // 3. Dadas 2 listas (L1 y L2) determinar si L2 es múltiplo de L1. Se considera múltiplo si cada
@@ -160,10 +161,10 @@ void mostrar_v(int vec[100]){
 
 Lista mayores(Lista lista, int tamano, Iterador ite){
     TipoElemento x = l_recuperar(lista, 1);  // o(1)
-    int mayor = x->clave;   
-    Lista ln = l_crear();   //o(3)
+    int mayor = x->clave;   // o(1)
+    Lista ln = l_crear();   //o(1)
 
-    while (hay_siguiente(ite))  // 0(n)
+    while (hay_siguiente(ite))  // o(n)
     {
         x = siguiente(ite);    // o(1)
         if(mayor < x->clave){   // o(1)
@@ -180,12 +181,56 @@ Lista mayores(Lista lista, int tamano, Iterador ite){
     
 }
 
-// O(3) + O(5) + O(N) = O(8) + O(N) = O(n)
+// O(1) + O(1) + o(1) + O(N) + o(1).4 = O(1) + O(N) = O(n)
+
+
+// 1 + 3n + n^2.(3)+n = 3n^2 + 4n + 1 = n^2
+
+
+// FILE fp = fopen(nombre, r+b)
+// fseek(asda()*legajo, seek_set)
+// fread
+//usuario.nota = promedio
+// fseek(asda()*legajo, seek_cur-1)
+//fwrite()
+//fclose
+
+
+// realizaruna funcion q transforme una lista en la que se almacena un numero binario en un numero decimal.
+
+
+
+
+
+int binario(Lista lista, Iterador ite, int* acum, int i){
+    int aux = 2;
+    if(!hay_siguiente(ite)){
+        return *acum;
+    }
+    else{
+        TipoElemento x = siguiente(ite);
+        if (x->clave == 1){
+            aux = pow(aux, l_longitud(lista)-i);
+            *acum += aux;
+            binario(lista, ite, acum, i+1);
+        }
+        binario(lista, ite, acum, i+1);
+    }
+}
+
+// 1    0    1 
+// 2^2  2^1   2^0
+
+
+
+
+
+
 
 int main(){
     Lista lista = l_crear(lista);
     Lista lista2 = l_crear(lista2);
-    cargar_lista(lista, lista2, 3, 3);
+    cargar_lista(lista, lista2, 5, 3);
     int tamanio = l_longitud(lista);
     printf("\nLista 1: ");
     l_mostrarLista(lista);
@@ -202,22 +247,9 @@ int main(){
     ite = iterador(lista);
     int *vec = (int*) calloc(100, sizeof(int));
     int n = 8;
-    sustraidos(lista, var, vec, i, papa, salida, ite);
-    mostrar_v(vec);
+    // sustraidos(lista, var, vec, i, papa, salida, ite);
+    // mostrar_v(vec);
     // l_mostrarLista(mayores(lista, 5, ite));
-
-    
+    binario(lista, ite, &salida,i); 
+    printf("%i", salida);
 }
-
-
-
-// 1 + 3n + n^2.(3)+n = 3n^2 + 4n + 1 = n^2
-
-
-// FILE fp = fopen(nombre, r+b)
-// fseek(asda()*legajo, seek_set)
-// fread
-//usuario.nota = promedio
-// fseek(asda()*legajo, seek_cur-1)
-//fwrite()
-//fclose
