@@ -114,7 +114,7 @@ void l_borrar(Lista lista, int clave)
         lista->inicio = lista->cursor[p].siguiente;
         lista->cursor[p].siguiente = lista->libre;
         lista->libre = p;
-        lista->cantidad--;
+        lista->cantidad-=1;
         p = lista->inicio;
     }
 
@@ -214,14 +214,15 @@ void l_eliminar(Lista lista, int pos)
 
 TipoElemento l_recuperar(Lista lista, int pos)
 {
+    //pos+=1;
     if (pos < 0 || pos > lista->cantidad)
     {
-        printf("Error: Posición fuera de rango\n");
+        printf("Error: Posicion fuera de rango\n");
         return NULL;
     }
 
     int nodo_actual = lista->inicio;
-    for (int i = 0; i < pos; i++)
+    for (int i = 0; i < pos-1; i++)
     {
         nodo_actual = lista->cursor[nodo_actual].siguiente;
     }
@@ -263,7 +264,9 @@ TipoElemento siguiente(Iterador iterador)
     TipoElemento elemento = NULL;
     if (siguiente != NULO)
     {
-        elemento = lista->cursor[siguiente].datos;
+        elemento = lista->cursor[iterador->posicionActual].datos;
+        iterador->posicionActual=siguiente;
     }
+    
     return elemento;
 }
