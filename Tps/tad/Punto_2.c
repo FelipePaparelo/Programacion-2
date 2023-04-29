@@ -5,8 +5,8 @@
 #include <string.h>
 #include "listas.h"
 #include "tipo_elemento.h"
-//#include "list_point.c"
-//#include "list_cursor.c"
+// #include "list_point.c"
+// #include "list_cursor.c"
 #include "listas_de_areglos.c"
 #include "T_Element.c"
 void validar_numeros_positivos(char *m)
@@ -33,7 +33,8 @@ void validar_numeros_positivos(char *m)
         }
 
         int n = atoi(m);
-        if (n > 100){
+        if (n > 100)
+        {
             printf("Ingrese una cantidad de elementos menor o igual a 100: ");
             validar_numeros_positivos(m);
         }
@@ -49,7 +50,6 @@ void validar_numeros_positivos(char *m)
             fflush(stdin);
             largo = strlen(m) - 1;
         }
-
     }
 }
 
@@ -168,7 +168,7 @@ void resolver_p2(Lista lista, int num)
             pos_menor = i + 1;
             repeticiones = 0;
         }
-        
+
         if (val_mayor < x->clave)
         {
             val_mayor = x->clave;
@@ -184,7 +184,7 @@ void resolver_p2(Lista lista, int num)
         }
     }
 
-    printf("El elemento mas pequeno de la lista es %i y esta ubicado en la posicion %i\n", val_menor, pos_menor );
+    printf("El elemento mas pequeno de la lista es %i y esta ubicado en la posicion %i\n", val_menor, pos_menor);
     printf("El elemento mas grande es el numero %i y se repite un total de %i veces\n", val_mayor, repeticiones);
     printf("Lista con multiplos de %i: ", num);
     l_mostrarLista(nl);
@@ -249,10 +249,12 @@ int main()
         cargar_datos_teclado(numero_2, lista_prin);
         l_mostrarLista(lista_prin);
         int largo = l_longitud(lista_prin);
-        if(largo == 0){
+        if (largo == 0)
+        {
             printf("Usted ha ingresado una lista vacia.");
         }
-        else if(largo > 0){
+        else if (largo > 0)
+        {
             printf("\nINGRESE UN NUMERO PARA BUSCAR SUS MULTIPLO EN LA LISTA: \n");
             strcpy(cad_2, "");
             validar_numeros(cad_2);
