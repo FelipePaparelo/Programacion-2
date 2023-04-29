@@ -6,13 +6,13 @@
 #include "pilas.h"
 #include "tipo_elemento.h"
 #include "pilas_arreglos.c"
-// #include "pilas_puntero.c"
+//#include "pilas_puntero.c"
 
 void validar_numeros(char *m)
 {
     int aux = 0;
     int bandera = 1;
-    int bandera_2, num_de_m;
+    int bandera_2;
     fgets(m, 100, stdin);
     int largo = strlen(m) - 1;
     while (bandera == 1)
@@ -40,7 +40,7 @@ void validar_numeros(char *m)
         bandera_2 = 0;
         if (aux == largo && aux <= 9)
         {
-            num_de_m = atoi(m);
+            //num_de_m = atoi(m);
             // if (num_de_m > 999.999.999 || num_de_m < -99999999)
             // {
             //     bandera_2 = 1;
