@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <stdbool.h>
 #include <stdio.h>
-//#include "T_Element.c"
+#include "T_Element.c"
 
 static const int TAM_MAX = 10;
 
