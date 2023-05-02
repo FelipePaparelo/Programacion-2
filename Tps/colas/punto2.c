@@ -46,10 +46,37 @@ bool esta(Cola c1, int n)
     }
 }
 
+void agregado(Cola c1, int pos, TipoElemento j)
+{
+    if (c_es_vacia(c1))
+    {
+        return;
+    }
+    Cola c1_aux = c_crear();
+    TipoElemento aux = te_crear(0);
+    int longitud = c_longitud(c1);
+    for (int k = 0; k < longitud + 1; k++)
+    {
+        if (k == pos)
+        {
+            TipoElemento x = c_desencolar(c1);
+            c_encolar(c1_aux, j);
+            aux = x;
+            c_encolar(c1_aux, aux);
+        }
+        TipoElemento x = c_desencolar(c1);
+        c_encolar(c1_aux, x);
+    }
+    c_mostrar(c1_aux);
+}
+
 int main()
 {
     int n = 56;
+    int pos = 3;
     Cola c1 = c_crear();
+    TipoElemento j = te_crear(100);
+
     TipoElemento y1 = te_crear(1);
     c_encolar(c1, y1);
     TipoElemento y2 = te_crear(2);
@@ -58,6 +85,7 @@ int main()
     c_encolar(c1, y3);
     TipoElemento y4 = te_crear(4);
     c_encolar(c1, y4);
+    agregado(c1, pos, j);
     bool flag = esta(c1, n);
     if (flag == true)
     {
