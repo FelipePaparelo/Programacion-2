@@ -9,10 +9,6 @@
 
 Cola RetornarClavesPares(Cola c);
 
-<<<<<<< HEAD
-=======
-
->>>>>>> b2298eca502039db631d30413d8275612c70b511
 int main()
 {
     int i = 0;
@@ -23,12 +19,8 @@ int main()
     C = c_crear();
 
     // lleno la cola de <1 a n>
-<<<<<<< HEAD
     while (c_es_llena(C) != true)
     {
-=======
-    while (c_es_llena(C) != true) {
->>>>>>> b2298eca502039db631d30413d8275612c70b511
         i++;
         X = te_crear(i);
         c_encolar(C, X);
@@ -52,54 +44,32 @@ int main()
     return 0;
 }
 
-<<<<<<< HEAD
 //------------------------------------------------------------------
 // retornar la cola de claves pares
 //------------------------------------------------------------------
 Cola RetornarClavesPares(Cola c)
 {
-=======
-
-//------------------------------------------------------------------
-// retornar la cola de claves pares
-//------------------------------------------------------------------
-Cola RetornarClavesPares(Cola c) {
->>>>>>> b2298eca502039db631d30413d8275612c70b511
     Cola cp = c_crear();
     Cola caux = c_crear();
     TipoElemento X = te_crear(0);
 
     // Recorro la cola para sacar las claves pares
-<<<<<<< HEAD
     while (c_es_vacia(c) != true)
     {
         X = c_desencolar(c);
         if ((X->clave % 2) == 0)
         {
-=======
-    while (c_es_vacia(c) != true) {
-        X = c_desencolar(c);
-        if ((X->clave % 2) == 0) {
->>>>>>> b2298eca502039db631d30413d8275612c70b511
             c_encolar(cp, X);
         }
         c_encolar(caux, X);
     }
 
     // recupero la cola original
-<<<<<<< HEAD
     while (c_es_vacia(caux) != true)
     {
-=======
-    while (c_es_vacia(caux) != true){
->>>>>>> b2298eca502039db631d30413d8275612c70b511
         X = c_desencolar(caux);
         c_encolar(c, X);
     }
 
     return cp;
 };
-<<<<<<< HEAD
-=======
-
->>>>>>> b2298eca502039db631d30413d8275612c70b511
