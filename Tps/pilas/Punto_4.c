@@ -8,14 +8,16 @@
 //#include "pilas_puntero.c"
 
 bool verificarEntradaInt(int* valor);
-char* conversion_de_base(int valor, int base);
-char* valor_letra(int valor);
+Pila conversion_de_base(int valor, int base);
+//char* conversion_de_base(int valor, int base);
+//char* valor_letra(int valor);
 int cantidad_elementos(Pila p);
 void p_intercambiar(Pila pAux, Pila p);
 
 int main(){
     int a_convertir, base;
-    char* resultado;
+    //char* resultado;
+    Pila resultado;
 
     //------------------------------------------------------
     // Se pide el valor a convertir y la base
@@ -37,7 +39,8 @@ int main(){
     }
 
     resultado = conversion_de_base(a_convertir, base);
-    printf("El valor %d en base %d es : %s\n", a_convertir, base, resultado);
+    printf("El valor %d en base %d es -> \n", a_convertir, base);
+    p_mostrar(resultado);
 
     printf("-------------------Complejidad----------------------\n");
     printf("La complejidad algorítmica es Orden Logarítmico");
@@ -93,7 +96,35 @@ void p_intercambiar(Pila pAux, Pila p){
 // a su correspondiente valor expresado en una base de 2 a 16 (hexadecimal). 
 // Determinar la complejidad algorítmica de la solución.
 //-----------------------------------------------------------------------------
-char* conversion_de_base(int valor, int base){
+Pila conversion_de_base(int valor, int base){
+    TipoElemento te = te_crear(0);
+    Pila pila_resultado = p_crear();
+    int resto = 0;
+    int valor_actual = valor;
+
+    while(valor_actual > base)
+    {
+        te = te_crear(0);
+        resto = valor_actual % base;
+        valor_actual = valor_actual / base;
+
+        te->clave = resto;
+        p_apilar(pila_resultado, te);
+    }
+    te = te_crear(0);
+    resto = valor_actual % base;
+    te->clave = resto;
+    p_apilar(pila_resultado, te);
+    
+    te = te_crear(0);
+    valor_actual = valor_actual / base;
+    te->clave = valor_actual;
+    p_apilar(pila_resultado, te);
+
+    
+    return pila_resultado;
+}
+/*char* conversion_de_base(int valor, int base){
     TipoElemento te = te_crear(0);
     Pila pila_resultado = p_crear();
     char* resultado;
@@ -168,4 +199,4 @@ char* valor_letra(int valor){
     }
 
     return resultado;
-}
+}*/
