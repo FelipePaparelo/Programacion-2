@@ -14,3 +14,4 @@ Carepeta "tad": Contiene las implementaciones de diferentes tipos abstractos de 
 - Felipe Paparelo-192117
 - Agustin Irrazabal-176308
 - Renzo Bisso-186104
+- Nahuel Ledesma-174242
