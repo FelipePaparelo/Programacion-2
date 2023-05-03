@@ -17,6 +17,7 @@ f. Invertir del contenido de una cola sin destruir la cola original.
 // #include "colas_arreglos_circular.c"
 #include "colas_punteros.c"
 #include <stdbool.h>
+#include "../pilas/pilas.h"
 
 bool esta(Cola c1, int n)
 {
@@ -50,6 +51,7 @@ void agregado(Cola c1, int pos, TipoElemento j)
 {
     if (c_es_vacia(c1))
     {
+
         return;
     }
     Cola c1_aux = c_crear();
@@ -70,9 +72,86 @@ void agregado(Cola c1, int pos, TipoElemento j)
     c_mostrar(c1_aux);
 }
 
+void repetido(Cola c1, int n)
+{
+    if (c_es_vacia(c1))
+    {
+        return;
+    }
+    Cola c_aux = c_crear();
+
+    int longitud = c_longitud(c1);
+    for (int k = 0; k < longitud; k++)
+    {
+        TipoElemento x = c_desencolar(c1);
+        if (x->clave != n)
+        {
+            c_encolar(c_aux, x);
+        }
+    }
+    c_mostrar(c_aux);
+}
+
+void cantidad(Cola c1)
+{
+    if (c_es_vacia(c1))
+    {
+        return;
+    }
+    int cantidad_elemt = c_longitud(c1);
+    printf("Hay %i elementos en la cola\n", cantidad_elemt);
+}
+
+void copia(Cola c1)
+{
+    if (c_es_vacia(c1))
+    {
+        return;
+    }
+    Cola c1_copia = c_crear();
+    Cola c1_original = c_crear();
+    int longitud = c_longitud(c1);
+    for (int k = 0; k < longitud; k++)
+    {
+        TipoElemento x = c_desencolar(c1);
+        c_encolar(c1_original, x);
+        c_encolar(c1_copia, x);
+    }
+    c_mostrar(c1_original);
+    c_mostrar(c1_copia);
+}
+
+void invertir(Cola c1)
+{
+    if (c_es_vacia(c1))
+    {
+        return;
+    }
+    int longitud = c_longitud(c1);
+
+    Cola c1_copia = c_crear();
+    Cola c1_rever = c_crear();
+    Pila pila_aux = p_crear();
+    for (int k = 0; k < longitud; k++)
+    {
+        TipoElemento x = c_desencolar(c1);
+        c_encolar(c1_copia, x);
+        p_apilar(pila_aux, x);
+    }
+    for (int j = longitud; j > 0; j--)
+    {
+        TipoElemento y = p_desapilar(pila_aux);
+        c_encolar(c1_rever, y);
+    }
+
+    c_mostrar(c1_copia);
+    c_mostrar(c1_rever);
+}
+
 int main()
 {
-    int n = 56;
+
+    int n = 1;
     int pos = 3;
     Cola c1 = c_crear();
     TipoElemento j = te_crear(100);
@@ -85,16 +164,19 @@ int main()
     c_encolar(c1, y3);
     TipoElemento y4 = te_crear(4);
     c_encolar(c1, y4);
-    agregado(c1, pos, j);
-    bool flag = esta(c1, n);
-    if (flag == true)
-    {
-        printf("El elemento %d esta en la cola\n", n);
-    }
-    else
-    {
-        printf("El elemento %d no esta en la cola\n", n);
-    }
-
+    invertir(c1);
+    // copia(c1);
+    // cantidad(c1);
+    // agregado(c1, pos, j);
+    // repetido(c1, n);
+    // bool flag = esta(c1, n);
+    // if (flag == true)
+    // {
+    //     printf("El elemento %d esta en la cola\n", n);
+    // }
+    // else
+    // {
+    //     printf("El elemento %d no esta en la cola\n", n);
+    // }
     return 0;
 }
