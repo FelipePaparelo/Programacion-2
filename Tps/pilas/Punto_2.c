@@ -9,6 +9,7 @@
 
 void p_intercambiar(Pila pAux, Pila p);
 void cargar_azar(Pila p, int longitud, int maximo);
+void cargar_pila(pila);
 bool verificarEntradaInt(int* valor);
 
 bool buscar_clave(Pila p, int clave);
@@ -35,7 +36,7 @@ int main(){
 
 
     printf("-------------IMPORTANTE-------------\n");
-    printf("Todas las funciones del ejercicio se van a realizar sobre la pila original creada al azar\n");
+    printf("Todas las funciones del ejercicio se van a realizar sobre la pila original creada al azar o cargada por el usuario\n");
     printf("------------------------------------\n");
     //------------------------------------------------------
     // Se pide los valores de la longitud y del máximo valor
@@ -60,6 +61,9 @@ int main(){
         printf("El valor del máximo debe ser MAYOR que 1...");
         return 0;
     }
+
+    //cargar_pila(pila);
+    //p_mostrar(pila);
 
     //------------------------------------------------------
     // Se carga la Pila con valores al azar y se muestra
@@ -239,6 +243,26 @@ void cargar_azar(Pila p, int longitud, int maximo){
         valor->clave = (rand() % maximo) + 1;
         p_apilar(p, valor);
     }  
+}
+
+//---------------------------------------------------------------------
+// Procedimiento para cargar pila de forma manual por el usuario
+//---------------------------------------------------------------------
+void cargar_pila(Pila pila){
+    int valor = 0;
+    bool agregar = true;
+
+    while(agregar){
+        printf("Ingrese el valor del dato para guardar en la Pila o cualquier letra para finalizar la carga : ");
+        if(!verificarEntradaInt(&valor)){ agregar = false; }
+        else{
+            TipoElemento te = te_crear(valor);
+            p_apilar(pila, te);
+        }
+    }
+
+    // Limpiamos el buffer de entrada
+    while (getchar() != '\n');
 }
 
 //------------------------------------------------------
