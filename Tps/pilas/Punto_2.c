@@ -137,6 +137,9 @@ int main(){
     {
         printf("El valor de la posición debe ser Positivo...");
         return 0;
+    }else if(posicion > (cantidad_elementos(pila) + 1)){
+        printf("El valor de la posición es errónea...");
+        return 0;
     }
 
     //------------------------------------------------------
@@ -323,30 +326,34 @@ bool buscar_clave(Pila p, int clave){
 //------------------------------------------------------
 Pila insertar_elemento(Pila p, TipoElemento te, int posicion){
     Pila pila_aux = p_crear();
+    Pila pila_resultado_aux = p_crear();
     Pila pila_resultado = p_crear();
     TipoElemento auxiliar = te_crear(0);
     int indice = 1;
-
-    p_intercambiar(p, pila_aux);
-    if(cantidad_elementos(pila_aux) < posicion){
-        while (p_es_vacia(pila_aux) != true)
+    
+    if((cantidad_elementos(p) - posicion) == -1){
+        while (p_es_vacia(p) != true)
         {
-            auxiliar = p_desapilar(pila_aux);
-            p_apilar(p, auxiliar);
-            p_apilar(pila_resultado, auxiliar);
+            auxiliar = p_desapilar(p);
+            p_apilar(pila_aux, auxiliar);
+            p_apilar(pila_resultado_aux, auxiliar);
         }
-        p_apilar(pila_resultado, te);        
+        p_apilar(pila_resultado_aux, te);
     }else{
-        while(p_es_vacia(pila_aux) != true){
+        while (p_es_vacia(p) != true)
+        {
             if(indice == posicion){
-                p_apilar(pila_resultado, te);
+                p_apilar(pila_resultado_aux, te);
             }
-            auxiliar = p_desapilar(pila_aux);
-            p_apilar(p, auxiliar);
-            p_apilar(pila_resultado, auxiliar);
+            auxiliar = p_desapilar(p);
+            p_apilar(pila_aux, auxiliar);
+            p_apilar(pila_resultado_aux, auxiliar);
             indice++;
         }
     }
+    
+    p_intercambiar(pila_aux, p);
+    p_intercambiar(pila_resultado_aux, pila_resultado);
 
     return pila_resultado;
 }
