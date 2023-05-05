@@ -39,6 +39,8 @@ int main(){
     c_mostrar(cola_original);
     printf("Cola Sin repetitos : ");
     c_mostrar(cola_resultado);
+
+    printf("La complejidad algorítmica de la solución es de Orden Cuadrática");
     return 0;
 }
 
