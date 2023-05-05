@@ -9,7 +9,6 @@
 
 bool verificarEntradaInt(int* valor);
 char* conversion_de_base(int valor, int base);
-char* valor_letra(int valor);
 int cantidad_elementos(Pila p);
 void p_intercambiar(Pila pAux, Pila p);
 
@@ -37,7 +36,7 @@ int main(){
     }
 
     resultado = conversion_de_base(a_convertir, base);
-    printf("El valor %d en base %d es : %s\n", a_convertir, base, resultado);
+    printf("El valor %d en base %d es : %s \n", a_convertir, base, resultado);
 
     printf("-------------------Complejidad----------------------\n");
     printf("La complejidad algorítmica es Orden Logarítmico");
@@ -93,78 +92,35 @@ void p_intercambiar(Pila pAux, Pila p){
 // a su correspondiente valor expresado en una base de 2 a 16 (hexadecimal). 
 // Determinar la complejidad algorítmica de la solución.
 //-----------------------------------------------------------------------------
+
 char* conversion_de_base(int valor, int base){
     TipoElemento te = te_crear(0);
     Pila pila_resultado = p_crear();
-    char* resultado;
+    char* resultado = (char*)calloc(30,1);
     int resto = 0;
-    int valor_actual = valor;
+    int indice = 0;
 
-    while(valor_actual > base)
+    while(valor > 0)
     {
-        te = te_crear(0);
-        resto = valor_actual % base;
-        valor_actual = valor_actual / base;
+        resto = valor % base;
+        valor = valor / base;
 
-        te->clave = resto;
+        te = te_crear(resto);
         p_apilar(pila_resultado, te);
     }
-    te = te_crear(0);
-    resto = valor_actual % base;
-    te->clave = resto;
-    p_apilar(pila_resultado, te);
     
-    te = te_crear(0);
-    valor_actual = valor_actual / base;
-    te->clave = valor_actual;
-    p_apilar(pila_resultado, te);
 
-    resultado = malloc(sizeof(char)*cantidad_elementos(pila_resultado));
-    resultado = calloc(cantidad_elementos(pila_resultado), sizeof(char));
     while (p_es_vacia(pila_resultado) != true)
     {   
-        char* valor = malloc(sizeof(char));
         te = p_desapilar(pila_resultado);
 
         if (te->clave > 9 && te->clave < 16){ 
-            strcat(resultado, valor_letra(te->clave)); 
+            *(resultado + indice) = 55 + te->clave; 
         }
         else{ 
-            strcat(resultado, itoa(te->clave, valor, 10)); 
+            *(resultado + indice) = 48 + te->clave; 
         }
-    }
-
-    return resultado;
-}
-
-char* valor_letra(int valor){
-    char* resultado = malloc(sizeof(char));
-
-    switch (valor)
-    {
-    case 10:
-        itoa('A', resultado, 10);
-        break;
-    
-    case 11:
-        itoa('B', resultado, 10);
-        break;
-    
-    case 12:
-        itoa('C', resultado, 10);
-        break;
-
-    case 13:
-        itoa('D', resultado, 10);
-        break;
-
-    case 14:
-        itoa('E', resultado, 10);
-        break;
-
-    case 15:
-        itoa('F', resultado, 10);
-        break;
+        indice++;
     }
 
     return resultado;

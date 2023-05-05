@@ -3,7 +3,6 @@
 #include <stdio.h>
 #include <stdbool.h>
 
-
 static const int TAM_MAX = 100;
 
 struct Nodo
