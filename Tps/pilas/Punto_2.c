@@ -9,6 +9,7 @@
 
 void p_intercambiar(Pila pAux, Pila p);
 void cargar_azar(Pila p, int longitud, int maximo);
+void cargar_pila(Pila pila);
 bool verificarEntradaInt(int* valor);
 
 bool buscar_clave(Pila p, int clave);
@@ -24,7 +25,7 @@ int cantidad_elementos(Pila p);
 //------------------------------------------------------
 int main(){
     int clave, longitud, maximo, posicion, valor_auxiliar, clave_a_eliminar;
-    int posicion1, posicion2;
+    int posicion1, posicion2, carga_de_datos;
     bool valor_en_pila = false;
     Pila pila = p_crear();
     Pila pila_clave_agregada = p_crear();
@@ -35,37 +36,55 @@ int main(){
 
 
     printf("-------------IMPORTANTE-------------\n");
-    printf("Todas las funciones del ejercicio se van a realizar sobre la pila original creada al azar\n");
+    printf("Todas las funciones del ejercicio se van a realizar sobre la pila original creada al azar o cargada por el usuario\n");
     printf("------------------------------------\n");
-    //------------------------------------------------------
-    // Se pide los valores de la longitud y del máximo valor
-    // que va a contener la Pila
-    //------------------------------------------------------
-    printf("Ingresar la longitud deseada para la pila : ");
-    if(!verificarEntradaInt(&longitud)){
-        printf("El valor ingresado no es un Entero...");
-        return 0;
-    }else if (longitud <= 0)
-    {
-        printf("El valor de la longitud debe ser Positivo...");
-        return 0;
-    }
-    
-    printf("La Pila se genera entre 1 y ¿qué valor? Ingrese dicho valor máximo : ");
-    if(!verificarEntradaInt(&maximo)){
-        printf("El valor ingresado no es un Entero...");
-        return 0;
-    }else if (maximo <= 1)
-    {
-        printf("El valor del máximo debe ser MAYOR que 1...");
-        return 0;
-    }
 
-    //------------------------------------------------------
-    // Se carga la Pila con valores al azar y se muestra
-    // por pantalla la Pila cargada
-    //------------------------------------------------------
-    cargar_azar(pila, longitud, maximo);
+    printf("-------------CARGA DE DATOS-------------\n");
+    printf("1 - Cargar datos manualmente \n");
+    printf("2 - Cargar datos al azar \n");
+    printf("¿De qué forma quiere cargar la pila? : ");
+    if(!verificarEntradaInt(&carga_de_datos)){
+        printf("El valor ingresado no es un Entero...");
+        return 0;
+    }else if(carga_de_datos == 1){
+        printf("------------------------------------\n");
+        cargar_pila(pila);
+        p_mostrar(pila);
+    }else if(carga_de_datos == 2){
+        printf("------------------------------------\n");
+        //------------------------------------------------------
+        // Se pide los valores de la longitud y del máximo valor
+        // que va a contener la Pila
+        //------------------------------------------------------
+        printf("Ingresar la longitud deseada para la pila : ");
+        if(!verificarEntradaInt(&longitud)){
+            printf("El valor ingresado no es un Entero...");
+            return 0;
+        }else if (longitud <= 0)
+        {
+            printf("El valor de la longitud debe ser Positivo...");
+            return 0;
+        }
+        
+        printf("La Pila se genera entre 1 y ¿qué valor? Ingrese dicho valor máximo : ");
+        if(!verificarEntradaInt(&maximo)){
+            printf("El valor ingresado no es un Entero...");
+            return 0;
+        }else if (maximo <= 1)
+        {
+            printf("El valor del máximo debe ser MAYOR que 1...");
+            return 0;
+        }
+
+        //------------------------------------------------------
+        // Se carga la Pila con valores al azar y se muestra
+        // por pantalla la Pila cargada
+        //------------------------------------------------------
+        cargar_azar(pila, longitud, maximo);
+    }else{
+        printf("La opción seleccionada no existe.");
+        return 0;
+    }
 
     if(p_es_vacia(pila) != true){ 
         printf("Pila creada con éxito\n"); 
@@ -78,6 +97,7 @@ int main(){
     // Se pide que ingrese la clave a buscar 
     // dentro de la Pila
     //------------------------------------------------------
+    printf("-------------- Buscar clave en la Pila --------------\n");
     printf("Ingrese la clave a buscar en la Pila : ");
     if(!verificarEntradaInt(&clave)){
         printf("El valor ingresado no es un Entero...");
@@ -100,6 +120,7 @@ int main(){
     //------------------------------------------------------
     // Pedimos el valor y la posición para agregar en la Pila
     //------------------------------------------------------
+    printf("-------------- Insertar clave en la Pila --------------\n");
     printf("Ingrese el valor que desea agregar a la Pila : ");
     if(!verificarEntradaInt(&valor_auxiliar)){
         printf("El valor ingresado no es un Entero...");
@@ -116,6 +137,9 @@ int main(){
     {
         printf("El valor de la posición debe ser Positivo...");
         return 0;
+    }else if(posicion > (cantidad_elementos(pila) + 1)){
+        printf("El valor de la posición es errónea...");
+        return 0;
     }
 
     //------------------------------------------------------
@@ -123,9 +147,9 @@ int main(){
     // Y mostramos la pila por pantalla
     //------------------------------------------------------
     pila_clave_agregada = insertar_elemento(pila, tipo_elemento, posicion);
-    printf("Pila original --> ");
+    printf("Pila original :");
     p_mostrar(pila);
-    printf("Pila con clave insertada --> ");
+    printf("Pila con clave insertada : ");
     p_mostrar(pila_clave_agregada);
 
     printf("\n");
@@ -136,6 +160,7 @@ int main(){
     //------------------------------------------------------
     // Pedimos el valor a eliminar de la Pila
     //------------------------------------------------------
+    printf("-------------- Eliminar clave en la Pila --------------\n");
     printf("Ingrese el valor que desea eliminar de la Pila : ");
     if(!verificarEntradaInt(&clave_a_eliminar)){
         printf("El valor ingresado no es un Entero...");
@@ -143,9 +168,9 @@ int main(){
     }
 
     pila_clave_eliminada = eliminar_clave(pila, clave_a_eliminar); 
-    printf("Pila original --> "); 
+    printf("Pila original : "); 
     p_mostrar(pila);
-    printf("Pila con clave eliminada --> "); 
+    printf("Pila con clave eliminada : "); 
     p_mostrar(pila_clave_eliminada);
     
     printf("\n");
@@ -155,6 +180,7 @@ int main(){
     //------------------------------------------------------
     // Se pide las posiciones que se desean intercambiar
     //------------------------------------------------------
+    printf("-------------- Intercambiar claves en la Pila --------------\n");
     printf("Ingresar la 1° posición a intercambiar : ");
     if(!verificarEntradaInt(&posicion1)){
         printf("El valor ingresado no es un Entero...");
@@ -176,9 +202,9 @@ int main(){
     }
 
     pila_claves_intercambiadas = intercambiar_valores(pila, posicion1, posicion2);
-    printf("Pila original --> ");
+    printf("Pila original : ");
     p_mostrar(pila);
-    printf("Pila con valores intercambiados --> ");
+    printf("Pila con valores intercambiados : ");
     p_mostrar(pila_claves_intercambiadas);
     
 
@@ -189,6 +215,7 @@ int main(){
     //------------------------------------------------------
     // Duplicamos la Pila
     //------------------------------------------------------
+    printf("-------------- Duplicar Pila --------------\n");
     pila_clonada = duplicar_pila(pila);
     printf("La pila original : ");
     p_mostrar(pila);
@@ -203,6 +230,7 @@ int main(){
     //------------------------------------------------------
     // Mostramos la cantidad de elementos en la Pila
     //------------------------------------------------------
+    printf("-------------- Cantidad de elementos en la pila --------------\n");
     printf("La cantidad de Elementos en la Pila es : %d", cantidad_elementos(pila));
 
     printf("\n");
@@ -239,6 +267,26 @@ void cargar_azar(Pila p, int longitud, int maximo){
         valor->clave = (rand() % maximo) + 1;
         p_apilar(p, valor);
     }  
+}
+
+//---------------------------------------------------------------------
+// Procedimiento para cargar pila de forma manual por el usuario
+//---------------------------------------------------------------------
+void cargar_pila(Pila pila){
+    int valor = 0;
+    bool agregar = true;
+
+    while(agregar){
+        printf("Ingrese el valor del dato para guardar en la Pila o cualquier letra para finalizar la carga : ");
+        if(!verificarEntradaInt(&valor)){ agregar = false; }
+        else{
+            TipoElemento te = te_crear(valor);
+            p_apilar(pila, te);
+        }
+    }
+
+    // Limpiamos el buffer de entrada
+    while (getchar() != '\n');
 }
 
 //------------------------------------------------------
@@ -278,30 +326,34 @@ bool buscar_clave(Pila p, int clave){
 //------------------------------------------------------
 Pila insertar_elemento(Pila p, TipoElemento te, int posicion){
     Pila pila_aux = p_crear();
+    Pila pila_resultado_aux = p_crear();
     Pila pila_resultado = p_crear();
     TipoElemento auxiliar = te_crear(0);
     int indice = 1;
-
-    p_intercambiar(p, pila_aux);
-    if(cantidad_elementos(pila_aux) < posicion){
-        while (p_es_vacia(pila_aux) != true)
+    
+    if((cantidad_elementos(p) - posicion) == -1){
+        while (p_es_vacia(p) != true)
         {
-            auxiliar = p_desapilar(pila_aux);
-            p_apilar(p, auxiliar);
-            p_apilar(pila_resultado, auxiliar);
+            auxiliar = p_desapilar(p);
+            p_apilar(pila_aux, auxiliar);
+            p_apilar(pila_resultado_aux, auxiliar);
         }
-        p_apilar(pila_resultado, te);        
+        p_apilar(pila_resultado_aux, te);
     }else{
-        while(p_es_vacia(pila_aux) != true){
+        while (p_es_vacia(p) != true)
+        {
             if(indice == posicion){
-                p_apilar(pila_resultado, te);
+                p_apilar(pila_resultado_aux, te);
             }
-            auxiliar = p_desapilar(pila_aux);
-            p_apilar(p, auxiliar);
-            p_apilar(pila_resultado, auxiliar);
+            auxiliar = p_desapilar(p);
+            p_apilar(pila_aux, auxiliar);
+            p_apilar(pila_resultado_aux, auxiliar);
             indice++;
         }
     }
+    
+    p_intercambiar(pila_aux, p);
+    p_intercambiar(pila_resultado_aux, pila_resultado);
 
     return pila_resultado;
 }
@@ -387,7 +439,6 @@ Pila intercambiar_valores(Pila p, int posicion1, int posicion2){
 
     return pila_resultado;
 }
-
 
 
 //------------------------------------------------------
