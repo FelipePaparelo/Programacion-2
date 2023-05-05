@@ -15,7 +15,7 @@ complejidad algorítmica de la solución
 #include "colas_punteros.c"
 #include <stdbool.h>
 
-void cargar_pila(Cola cola);
+void cargar_cola(Cola cola);
 bool verificarEntradaInt(int* valor);
 
 Cola sin_repetir(Cola c);
@@ -30,7 +30,7 @@ int main(){
     Cola cola_original = c_crear();
     Cola cola_resultado = c_crear();
 
-    cargar_pila(cola_original);
+    cargar_cola(cola_original);
     c_mostrar(cola_original);   
 
     cola_resultado = sin_repetir(cola_original);
@@ -45,7 +45,7 @@ int main(){
 //---------------------------------------------------------------------
 // Procedimiento para cargar cola de forma manual por el usuario
 //---------------------------------------------------------------------
-void cargar_pila(Cola cola){
+void cargar_cola(Cola cola){
     int valor = 0;
     bool agregar = true;
 
