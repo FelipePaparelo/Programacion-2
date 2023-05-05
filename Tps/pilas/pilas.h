@@ -3,6 +3,7 @@
 #include <stdbool.h>
 #include "tipo_elemento.h"
 
+
 struct PilaRep;
 typedef struct PilaRep *Pila;
 Pila p_crear();

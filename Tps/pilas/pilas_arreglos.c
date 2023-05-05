@@ -3,8 +3,7 @@
 #include <stdbool.h>
 #include <stdio.h>
 
-
-static const int TAM_MAX = 10;
+static const int TAM_MAX = 100;
 
 struct PilaRep
 {
@@ -87,7 +86,7 @@ int p_longitud(Pila p)
 bool p_es_llena(Pila pila)
 {
     int i = p_longitud(pila);
-    return (i == TAM_MAX);
+    return (pila->tope == TAM_MAX);
 }
 
 void p_mostrar(Pila pila)
