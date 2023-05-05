@@ -4,8 +4,8 @@
 #include <stdlib.h>
 #include "pilas.h"
 #include "T_Element.c"
-// #include "pilas_arreglos.c"
-#include "pilas_puntero.c"
+#include "pilas_arreglos.c"
+// #include "pilas_puntero.c"
 
 void p_intercambiar(Pila pAux, Pila p);
 void cargar_azar(Pila p, int longitud, int maximo);

@@ -6,7 +6,9 @@
 #include "pilas.h"
 #include "tipo_elemento.h"
 #include "pilas_arreglos.c"
-//#include "pilas_puntero.c"
+#include "T_Element.c"
+
+// #include "pilas_puntero.c"
 
 void validar_numeros(char *m)
 {
@@ -40,16 +42,16 @@ void validar_numeros(char *m)
         bandera_2 = 0;
         if (aux == largo && aux <= 9)
         {
-            //num_de_m = atoi(m);
-            // if (num_de_m > 999.999.999 || num_de_m < -99999999)
-            // {
-            //     bandera_2 = 1;
-            //     aux = -1;
-            //     printf("ingrese un numero mayor a -10.000.000 o menor a 100.000.000\n");
-            // }
-            // else{
-            //     bandera_2 = 0;
-            // }
+            // num_de_m = atoi(m);
+            //  if (num_de_m > 999.999.999 || num_de_m < -99999999)
+            //  {
+            //      bandera_2 = 1;
+            //      aux = -1;
+            //      printf("ingrese un numero mayor a -10.000.000 o menor a 100.000.000\n");
+            //  }
+            //  else{
+            //      bandera_2 = 0;
+            //  }
 
             if (bandera_2 == 1)
             {
@@ -255,6 +257,7 @@ int main()
                 p_mostrar(p2);
                 printf("pila original \n");
                 p_mostrar(p);
+                printf("La complejidad algoritmica es lineal.\n");
             }
             else if (valor_resol == 2)
             {
@@ -273,6 +276,7 @@ int main()
                 p_mostrar(p2);
                 printf("pila original \n");
                 p_mostrar(p);
+                printf("La complejidad algoritmica es lineal.\n");
             }
             else
             {
@@ -310,6 +314,7 @@ int main()
                 p_mostrar(p2);
                 printf("pila original \n");
                 p_mostrar(p);
+                printf("La complejidad algoritmica es lineal.\n");
             }
             else if (valor_resol == 2)
             {
@@ -328,6 +333,7 @@ int main()
                 p_mostrar(p2);
                 printf("pila original \n");
                 p_mostrar(p);
+                printf("La complejidad algoritmica es lineal.\n");
             }
             else
             {

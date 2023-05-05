@@ -6,6 +6,8 @@
 #include "pilas.h"
 #include "tipo_elemento.h"
 #include "pilas_arreglos.c"
+#include "T_Element.c"
+
 // #include "pilas_puntero.c"
 
 void validar_numeros(char *m)
@@ -129,7 +131,7 @@ void cargar_datos_teclado2(int dato_i, Pila p2)
     }
 }
 
-void repetidas(Pila p1, Pila p2)
+Pila repetidas(Pila p1, Pila p2, Pila p3)
 {
     if (p_es_vacia(p1) || p_es_vacia(p2))
     {
@@ -137,7 +139,6 @@ void repetidas(Pila p1, Pila p2)
         return;
     }
 
-    Pila p3 = p_crear();
     Pila p_aux = p_crear();
     Pila p_aux2 = p_crear();
     int largo1 = p_longitud(p1);
@@ -169,23 +170,19 @@ void repetidas(Pila p1, Pila p2)
         aux = p_desapilar(p_aux);
         p_apilar(p1, aux);
     }
-
-    printf("Elementos repetidos:\n");
-    while (!p_es_vacia(p3))
-    {
-        aux = p_desapilar(p3);
-        printf("%d ", aux->clave);
-    }
-    printf("\n");
+    return p3;
 }
 
 int main()
 {
-    int dato_i = 3;
+    Pila p3 = p_crear();
+
+    int dato_i = 5;
     Pila p1 = p_crear();
     Pila p2 = p_crear();
     cargar_datos_teclado(dato_i, p1);
     cargar_datos_teclado2(dato_i, p2);
-    repetidas(p1, p2);
+    p3 = repetidas(p1, p2, p3);
+    p_mostrar(p3);
     return 0;
 }
