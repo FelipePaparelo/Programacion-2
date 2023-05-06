@@ -444,7 +444,7 @@ Pila eliminar_clave(Pila p, int clave)
 //------------------------------------------------------
 Pila intercambiar_valores(Pila p, int posicion1, int posicion2)
 {
-    int indice = cantidad_elementos(p);
+    int indice = 1;
     int insertados = 0;
     Pila pila_aux = p_crear();
     Pila pila_resultado = p_crear();
@@ -452,7 +452,7 @@ Pila intercambiar_valores(Pila p, int posicion1, int posicion2)
     TipoElemento te_pos1 = te_crear(0);
     TipoElemento te_pos2 = te_crear(0);
 
-    if (posicion1 > indice || posicion2 > indice || posicion1 == posicion2)
+    if (posicion1 > cantidad_elementos(p) || posicion2 > cantidad_elementos(p) || posicion1 == posicion2)
     {
         return pila_resultado;
     }
@@ -473,10 +473,10 @@ Pila intercambiar_valores(Pila p, int posicion1, int posicion2)
             p_apilar(pila_aux, te);
         }
 
-        indice--;
+        indice++;
     }
 
-    indice = 1;
+    indice = cantidad_elementos(pila_aux) + 2;
     while (p_es_vacia(pila_aux) != true || insertados != 2)
     {
         if (indice == posicion1)
@@ -498,7 +498,7 @@ Pila intercambiar_valores(Pila p, int posicion1, int posicion2)
             p_apilar(pila_resultado, te);
         }
 
-        indice++;
+        indice--;
     }
 
     return pila_resultado;
