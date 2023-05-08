@@ -129,8 +129,8 @@ void cargar_datos_teclado2(int dato_i, Pila p2)
     }
 }
 
-
-void p_intercambiar(Pila pAux, Pila p){
+void p_intercambiar(Pila pAux, Pila p)
+{
     TipoElemento te;
 
     while (p_es_vacia(pAux) != true)
@@ -138,48 +138,49 @@ void p_intercambiar(Pila pAux, Pila p){
         te = p_desapilar(pAux);
         p_apilar(p, te);
     }
-
 }
 
-Pila repeticiones_punto8(Pila pila1, int vec[], int tamanio, Pila pila_original){
+Pila repeticiones_punto8(Pila pila1, int vec[], int tamanio, Pila pila_original)
+{
     Pila pila_aux = p_crear();
     TipoElemento x;
     int contador = 0;
     int longitud = p_longitud(pila1);
 
-    for(int i = 0 ; i < longitud; i++){
+    for (int i = 0; i < longitud; i++)
+    {
 
         x = p_desapilar(pila1);
 
-        for(int j = 0 ; j < tamanio ; j++){
+        for (int j = 0; j < tamanio; j++)
+        {
 
-            if(x->clave == vec[j]){
-                contador+=1;
+            if (x->clave == vec[j])
+            {
+                contador += 1;
             }
-
         }
-        
+
         x->valor = contador;
         p_apilar(pila_aux, x);
         contador = 0;
     }
-    
+
     p_mostrar(pila_aux);
     return (pila_aux);
     return (pila_original);
-    
 }
 
-
-
-Pila punto_8 (Pila pila){
+Pila punto_8(Pila pila)
+{
     int contador = p_longitud(pila);
-    int* vec_claves = (int*) malloc(contador * sizeof(int));
+    int *vec_claves = (int *)malloc(contador * sizeof(int));
     Pila pila_aux = p_crear();
     TipoElemento x;
     TipoElemento y;
 
-    for (int i = 0 ; i < contador ; i++){
+    for (int i = 0; i < contador; i++)
+    {
         x = p_desapilar(pila);
         vec_claves[i] = x->clave;
         p_apilar(pila_aux, x);
@@ -214,7 +215,6 @@ Pila punto_8 (Pila pila){
         if (es_unica)
         {
             p_apilar(p_unicos, x);
- 
         }
         else
         {
@@ -223,9 +223,7 @@ Pila punto_8 (Pila pila){
         p_apilar(p_aux, x);
     }
     repeticiones_punto8(p_unicos, vec_claves, p_longitud(p_aux), p_aux);
-    
 }
-
 
 int main()
 {
@@ -234,7 +232,5 @@ int main()
     Pila p2 = p_crear();
     cargar_datos_teclado(dato_i, p1);
     printf("Lista cargada:\n");
-    p_mostrar(p1);
-    punto_8 (p1);
-
+    punto_8(p1);
 }

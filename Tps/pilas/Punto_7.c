@@ -193,6 +193,5 @@ int main()
     cargar_datos_teclado2(largo, p2);
     p3 = repetidas(p1, p2, p3);
     p_mostrar(p3);
-
-    return 0;
+    printf("Complejidad cuadrática, ya que es proporcional al producto de los tamaños de entrada (n y m) elevado al cuadrado. Se representa como O(nm) o O(n^2) si se considera que n y m son del mismo orden de magnitud.");
 }
