@@ -148,6 +148,34 @@ void p_intercambiar(Pila pAux, Pila p)
         p_apilar(p, te);
     }
 }
+void p_mostrar_con_valor(Pila pila)
+{
+    while (p_es_vacia(pila))
+    {
+        printf("\n-----es vacia-----\n");
+        return;
+    }
+
+    Pila p_aux = p_crear();
+    TipoElemento x = te_crear(0);
+
+    printf("\n--ELEMENTOS DE LA PILA--\n");
+    printf("\n{ ");
+    while (p_es_vacia(pila) != true)
+    {
+        x = p_desapilar(pila);
+        printf("clave: %i\t\t", x->clave);
+        printf("valor: %i\n", x->valor);
+        p_apilar(p_aux, x);
+    }
+    printf(" }\n");
+
+    while (p_es_vacia(p_aux) != true)
+    {
+        x = p_desapilar(p_aux);
+        p_apilar(pila, x);
+    }
+}
 
 Pila repeticiones_punto8(Pila pila1, int vec[], int tamanio, Pila pila_original)
 {
@@ -175,12 +203,8 @@ Pila repeticiones_punto8(Pila pila1, int vec[], int tamanio, Pila pila_original)
         p_apilar(pila_aux, x);
         contador = 0;
     }
-
     p_mostrar_con_valor(pila_aux);
-    p_intercambiar(pila_original, pila_origen);
-    p_mostrar(pila_origen);
     return (pila_aux);
-    return (pila_origen);
 }
 
 Pila punto_8(Pila pila)
