@@ -1,7 +1,8 @@
 #ifndef PILAS_H
 #define PILAS_H
 #include <stdbool.h>
-#include "T_Element.c"
+#include "tipo_elemento.h"
+
 
 struct PilaRep;
 typedef struct PilaRep *Pila;

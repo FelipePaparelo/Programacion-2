@@ -6,6 +6,8 @@
 #include "pilas.h"
 #include "tipo_elemento.h"
 #include "pilas_arreglos.c"
+#include "T_Element.c"
+
 // #include "pilas_puntero.c"
 
 void validar_numeros(char *m)
@@ -99,6 +101,13 @@ void validar_numeros_positivos(char *m)
         }
     }
 }
+int cargar_largo()
+{
+    char cad[100];
+    validar_numeros_positivos(cad);
+    int dato_i = atoi(cad);
+    return dato_i;
+}
 
 void cargar_datos_teclado(int dato_i, Pila p1)
 {
@@ -129,18 +138,15 @@ void cargar_datos_teclado2(int dato_i, Pila p2)
     }
 }
 
-void repetidas(Pila p1, Pila p2)
+Pila repetidas(Pila p1, Pila p2, Pila p3)
 {
     if (p_es_vacia(p1) || p_es_vacia(p2))
     {
         printf("Alguna de las pilas está vacía\n");
-        return;
     }
 
-    Pila p3 = p_crear();
     Pila p_aux = p_crear();
     Pila p_aux2 = p_crear();
-    int largo1 = p_longitud(p1);
     int largo2 = p_longitud(p2);
     TipoElemento aux, aux3, aux2;
 
@@ -169,23 +175,24 @@ void repetidas(Pila p1, Pila p2)
         aux = p_desapilar(p_aux);
         p_apilar(p1, aux);
     }
-
-    printf("Elementos repetidos:\n");
-    while (!p_es_vacia(p3))
-    {
-        aux = p_desapilar(p3);
-        printf("%d ", aux->clave);
-    }
-    printf("\n");
+    return p3;
 }
 
 int main()
 {
-    int dato_i = 3;
+    Pila p3 = p_crear();
+    int largo;
     Pila p1 = p_crear();
     Pila p2 = p_crear();
-    cargar_datos_teclado(dato_i, p1);
-    cargar_datos_teclado2(dato_i, p2);
-    repetidas(p1, p2);
+    printf("Punto 7 de pilas: Elementos en comun\n");
+    printf("Cuantos elementos quiere que tengan las pilas?\n");
+    largo = cargar_largo();
+    printf("Ingrese los datos de la pila 1:\n");
+    cargar_datos_teclado(largo, p1);
+    printf("Ingrese los datos de la pila 2:\n");
+    cargar_datos_teclado2(largo, p2);
+    p3 = repetidas(p1, p2, p3);
+    p_mostrar(p3);
+
     return 0;
 }
