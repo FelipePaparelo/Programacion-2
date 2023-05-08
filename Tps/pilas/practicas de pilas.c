@@ -224,13 +224,108 @@ Pila consigna_c(Pila pila_original, int elemento){
 // d. Intercambiar los valores de 2 posiciones ordinales de la pila, por ejemplo la
 // 2da con la 4ta. 
 
-Pila consigna_d(Pila pila_original, int pos1, int pos2){
-    Pila p_aux = p_crear()
+// Pila consigna_d(Pila pila_original, int pos1, int pos2){
+//     Pila p_aux = p_crear()
+// }
+
+
+
+// Dada una pila con valores repetidos, se desea obtener una nueva pila con todos los
+// valores (sin repetición) y la cantidad de veces que aparecen. No debe perderse la pila
+// original. El proceso recibe la pila con las repeticiones y retorna una nueva pila.
+// Determinar la complejidad algorítmica de la solución
+// Ejemplo: si “P” contiene (1, 2,1, 3, 4, 5, 2, 1, 3, 5, 5), la pila resultado del proceso será
+// “PR” = (1:3, 2:2, 3:2, 4:1, 5:3). 
+
+Pila repeticiones_punto8(Pila pila1, int vec[], int tamanio, Pila pila_original){
+    Pila pila_aux = p_crear();
+    TipoElemento x;
+    int contador = 0;
+    int longitud = p_longitud(pila1);
+
+    for(int i = 0 ; i < longitud; i++){
+
+        x = p_desapilar(pila1);
+
+        for(int j = 0 ; j < tamanio ; j++){
+
+            if(x->clave == vec[j]){
+                contador+=1;
+            }
+
+        }
+        
+        x->valor = contador;
+        p_apilar(pila_aux, x);
+        contador = 0;
+    }
+    
+    p_mostrar(pila_aux);
+    return (pila_aux);
+    return (pila_original);
+    
 }
+
+
+
+Pila punto_8 (Pila pila){
+    int contador = p_longitud(pila);
+    int* vec_claves = (int*) malloc(contador * sizeof(int));
+    Pila pila_aux = p_crear();
+    TipoElemento x;
+    TipoElemento y;
+
+    for (int i = 0 ; i < contador ; i++){
+        x = p_desapilar(pila);
+        vec_claves[i] = x->clave;
+        p_apilar(pila_aux, x);
+    }
+
+    p_intercambiar(pila_aux, pila);
+    Pila pila_resultado = p_crear();
+
+    Pila p_aux = p_crear();
+    Pila p_unicos = p_crear();
+    int count = 0;
+
+    while (!p_es_vacia(pila))
+    {
+        TipoElemento x = p_desapilar(pila);
+        bool es_unica = true;
+        Pila p_aux_copia = p_crear();
+        while (!p_es_vacia(p_aux))
+        {
+            TipoElemento y = p_desapilar(p_aux);
+            if (x->clave == y->clave)
+            {
+                es_unica = false;
+            }
+            p_apilar(p_aux_copia, y);
+        }
+        while (!p_es_vacia(p_aux_copia))
+        {
+            TipoElemento y = p_desapilar(p_aux_copia);
+            p_apilar(p_aux, y);
+        }
+        if (es_unica)
+        {
+            p_apilar(p_unicos, x);
+ 
+        }
+        else
+        {
+            count++;
+        }
+        p_apilar(p_aux, x);
+    }
+    repeticiones_punto8(p_unicos, vec_claves, p_longitud(p_aux), p_aux);
+    
+}
+
 
 int main()
 {
-    int dato_i = 5;
+    int dato_i = 10;
     Pila p1 = p_crear();
     Pila p2 = p_crear();
     cargar_datos_teclado(dato_i, p1);
@@ -249,7 +344,8 @@ int main()
 
     // ---------- consigna d -------------
 
-
+    // ---------- Punto 8 -------------
+    punto_8 (p1);
 
 }
     
