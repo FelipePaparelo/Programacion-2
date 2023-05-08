@@ -11,21 +11,158 @@ f. Invertir del contenido de una cola sin destruir la cola original.
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <ctype.h>
+#include <time.h>
 #include "tipo_elemento.h"
 #include "colas.h"
 #include "T_Element.c"
 // #include "colas_arreglos_circular.c"
 #include "colas_punteros.c"
 #include <stdbool.h>
-#include "../pilas/pilas.h"
-#include "../pilas/pilas_arreglos.c"
+// #include "../pilas/pilas.h"
+// #include "../pilas/pilas_arreglos.c"
 
-bool esta(Cola c1, int n)
+void validar_numeros(char *m)
 {
+    int aux = 0;
+    int bandera = 1;
+    int bandera_2;
+    fgets(m, 100, stdin);
+    int largo = strlen(m) - 1;
+    while (bandera == 1)
+    {
+        if (strcmp(m, "\n") == 0)
+        {
+            printf("Has ingresado un salto de linea.\n");
+            aux = -1;
+        }
+
+        for (int j = 0; j < largo; j++)
+        {
+
+            if ((j == 0) && (m[j] == '-'))
+            {
+                aux++;
+            }
+
+            if ((isdigit(m[j]) != 0))
+            {
+                aux++;
+            }
+        }
+
+        bandera_2 = 0;
+        if (aux == largo && aux <= 9)
+        {
+            if (bandera_2 == 1)
+            {
+                bandera = 1;
+            }
+            else if (bandera_2 == 0)
+            {
+                bandera = 0;
+            }
+        }
+        else
+        {
+            aux = 0;
+            printf("intente otra vez: ");
+            fgets(m, 100, stdin);
+            fflush(stdin);
+            largo = strlen(m) - 1;
+        }
+    }
+}
+
+void validar_numeros_positivos(char *m)
+{
+    int aux = 0;
+    int bandera = 1;
+    fgets(m, 100, stdin);
+    int largo = strlen(m) - 1;
+    while (bandera == 1)
+    {
+        if (strcmp(m, "\n") == 0)
+        {
+            printf("Has ingresado un salto de linea.\n");
+            aux = -1;
+        }
+
+        for (int j = 0; j < largo; j++)
+        {
+
+            if ((isdigit(m[j]) != 0))
+            {
+                aux++;
+            }
+        }
+
+        if (aux == largo)
+        {
+            bandera = 0;
+        }
+        else if (aux > 6)
+        {
+            printf("El dato que Ingresa no esta permitido.");
+            validar_numeros_positivos(*m);
+        }
+
+        else
+        {
+            aux = 0;
+            printf("El dato que Ingresa no es un numero positivo, intente otra vez: ");
+            fgets(m, 100, stdin);
+            fflush(stdin);
+            largo = strlen(m) - 1;
+        }
+    }
+}
+void cargar_datos_teclado(int dato_i, Cola c1)
+{
+    TipoElemento x;
+    char cad[100];
+    int i, numero;
+    for (i = 0; i < dato_i; ++i)
+    {
+        printf("ingrese el valor para la clave del %i tipoelemento:\n", 1 + i);
+        validar_numeros(cad);
+        numero = atoi(cad);
+        x = te_crear(numero);
+        c_encolar(c1, x);
+    }
+}
+
+void cargar_datos_alazar(int dato_i, Cola c_azar)
+{
+    int i, r;
+    TipoElemento x;
+    srand(time(NULL)); // Se inicializa la semilla de la función rand() con el tiempo actual
+
+    for (i = 0; i < dato_i; ++i)
+    {
+        r = rand(); // Se genera un número aleatorio entre 0 y RAND_MAX
+        r = r % 11; // Se obtiene un número entre 0 y 100 utilizando el operador módulo
+        x = te_crear(r);
+        p_apilar(c_azar, x);
+    }
+}
+int cargar_largo()
+{
+    char cad[100];
+    validar_numeros_positivos(cad);
+    int dato_i = atoi(cad);
+    return dato_i;
+}
+
+bool esta(Cola c1, int n, int dato_i)
+{
+    cargar_datos_teclado(dato_i, c1);
     if (c_es_vacia(c1))
     {
         return false;
     }
+    printf("Ingrese el numero a buscar:\n");
+
     Cola c1_aux = c_crear();
     int longitud = c_longitud(c1);
     int contador = 0;
@@ -71,6 +208,22 @@ void agregado(Cola c1, int pos, TipoElemento j)
         c_encolar(c1_aux, x);
     }
     c_mostrar(c1_aux);
+}
+
+void borrar(Cola c1, int n)
+{
+    Cola cola_borrados = c_crear();
+    int largo = c_longitud(c1);
+    TipoElemento x;
+    for (int k = 0; k < largo; k++)
+    {
+        x = c_desencolar(c1);
+        if (x->clave != n)
+        {
+            c_encolar(cola_borrados, x);
+        }
+    }
+    return cola_borrados;
 }
 
 void repetido(Cola c1, int n)
@@ -133,62 +286,42 @@ void copia(Cola c1)
     c_mostrar(c1_copia);
 }
 
-void invertir(Cola c1)
-{
-    if (c_es_vacia(c1))
-    {
-        return;
-    }
-    int longitud = c_longitud(c1);
+// void invertir(Cola c1)
+// {
+//     if (c_es_vacia(c1))
+//     {
+//         return;
+//     }
+//     int longitud = c_longitud(c1);
 
-    Cola c1_copia = c_crear();
-    Cola c1_rever = c_crear();
-    Pila pila_aux = p_crear();
-    for (int k = 0; k < longitud; k++)
-    {
-        TipoElemento x = c_desencolar(c1);
-        c_encolar(c1_copia, x);
-        p_apilar(pila_aux, x);
-    }
-    for (int j = 0; j < longitud; j++)
-    {
-        TipoElemento y = p_desapilar(pila_aux);
-        c_encolar(c1_rever, y);
-    }
+//     Cola c1_copia = c_crear();
+//     Cola c1_rever = c_crear();
+//     Pila pila_aux = p_crear();
+//     for (int k = 0; k < longitud; k++)
+//     {
+//         TipoElemento x = c_desencolar(c1);
+//         c_encolar(c1_copia, x);
+//         p_apilar(pila_aux, x);
+//     }
+//     for (int j = 0; j < longitud; j++)
+//     {
+//         TipoElemento y = p_desapilar(pila_aux);
+//         c_encolar(c1_rever, y);
+//     }
 
-    c_mostrar(c1_copia);
-    c_mostrar(c1_rever);
-}
+//     c_mostrar(c1_copia);
+//     c_mostrar(c1_rever);
+// }
 
 int main()
 {
-
-    int n = 4;
-    int pos = 2;
-    TipoElemento j = te_crear(20);
-
     Cola c1 = c_crear();
-    TipoElemento y1 = te_crear(1);
-    c_encolar(c1, y1);
-    TipoElemento y2 = te_crear(2);
-    c_encolar(c1, y2);
-    TipoElemento y3 = te_crear(3);
-    c_encolar(c1, y3);
-    TipoElemento y4 = te_crear(4);
-    c_encolar(c1, y4);
-    invertir(c1);
-    // copia(c1);
-    // cantidad(c1);
-    // agregado(c1, pos, j);
-    // repetido(c1, n);
-    // bool flag = esta(c1, n);
-    // if (flag == true)
-    // {
-    //     printf("El elemento %d esta en la cola\n", n);
-    // }
-    // else
-    // {
-    //     printf("El elemento %d no esta en la cola\n", n);
-    // }
+    int n, dato_i;
+    TipoElemento q;
+    printf("Ingrese el largo de la cola:\n");
+    largo = cargar_largo();
+    printf("###########PUNTO 2-a###########");
+    esta(c1, n);
+
     return 0;
 }
