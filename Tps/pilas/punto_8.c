@@ -274,4 +274,5 @@ int main()
     printf("Lista cargada:\n");
     p_mostrar(p1);
     punto_8(p1);
+    printf("\n>>>>>>>>>La complejidad algoritmica es de O(N^2)<<<<<<<<<\n");
 }
