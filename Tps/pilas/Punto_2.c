@@ -78,9 +78,9 @@ int main()
             printf("El valor ingresado no es un Entero...");
             return 0;
         }
-        else if (maximo <= 1)
+        else if (maximo <= 1 || maximo > 9999999)
         {
-            printf("El valor del máximo debe ser MAYOR que 1...");
+            printf("El valor del máximo debe ser MAYOR que 1 o MENOR que 9999999...");
             return 0;
         }
 
