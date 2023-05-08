@@ -315,6 +315,8 @@ void cargar_pila(Pila pila)
         if (!verificarEntradaInt(&valor))
         {
             agregar = false;
+        }else if(valor < -9999999 || valor > 9999999){
+            printf("El valor ingresado no esta en el rango permitido, debe ser menor a 9999999 o mayor a -9999999...\n");
         }
         else
         {
