@@ -263,7 +263,7 @@ int main()
             {
                 p = p_crear();
                 cargar_datos_alazar(valor_a_llenar, p);
-                printf("pila original \n");
+                printf("-------------Pila original--------------\n");
                 p_mostrar(p);
                 printf("que elemento desea eliminar: \n");
                 validar_numeros(cad);

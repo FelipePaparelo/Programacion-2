@@ -1,3 +1,4 @@
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <ctype.h>
@@ -8,6 +9,7 @@
 #include "pilas_arreglos.c"
 #include "T_Element.c"
 // #include "pilas_puntero.c"
+
 void validar_numeros(char *m)
 {
     int aux = 0;
@@ -99,6 +101,13 @@ void validar_numeros_positivos(char *m)
         }
     }
 }
+int cargar_largo()
+{
+    char cad[100];
+    validar_numeros_positivos(cad);
+    int dato_i = atoi(cad);
+    return dato_i;
+}
 
 void cargar_datos_teclado(int dato_i, Pila p1)
 {
@@ -143,6 +152,7 @@ void p_intercambiar(Pila pAux, Pila p)
 Pila repeticiones_punto8(Pila pila1, int vec[], int tamanio, Pila pila_original)
 {
     Pila pila_aux = p_crear();
+    Pila pila_origen = p_crear();
     TipoElemento x;
     int contador = 0;
     int longitud = p_longitud(pila1);
@@ -166,9 +176,11 @@ Pila repeticiones_punto8(Pila pila1, int vec[], int tamanio, Pila pila_original)
         contador = 0;
     }
 
-    p_mostrar(pila_aux);
+    p_mostrar_con_valor(pila_aux);
+    p_intercambiar(pila_original, pila_origen);
+    p_mostrar(pila_origen);
     return (pila_aux);
-    return (pila_original);
+    return (pila_origen);
 }
 
 Pila punto_8(Pila pila)
@@ -229,8 +241,13 @@ int main()
 {
     int dato_i = 10;
     Pila p1 = p_crear();
-    Pila p2 = p_crear();
-    cargar_datos_teclado(dato_i, p1);
+    printf("Punto 8 de pilas\n");
+    printf("Cuantos elementos quiere que tengan las pilas?\n");
+    int largo = cargar_largo();
+    printf("Ingrese los datos de la pila 1:\n");
+    cargar_datos_teclado(largo, p1);
+    printf("\n---------Las repeticiones de cada elemento estarán almacenadas en x->valor---------\n");
     printf("Lista cargada:\n");
+    p_mostrar(p1);
     punto_8(p1);
 }
