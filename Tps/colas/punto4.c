@@ -15,7 +15,7 @@ Ejemplo: si "C" contiene (12,6, 8, 5, 8, 12, 12) la cola resultado del proceso s
 #include <stdbool.h>
 
 void cargar_cola(Cola cola);
-bool verificarEntradaInt(int *valor);
+bool verificar_entrada_int(int *valor);
 
 Cola sin_repetir(Cola c);
 Cola copia(Cola c);
@@ -58,6 +58,8 @@ void cargar_cola(Cola cola)
         if (!verificarEntradaInt(&valor))
         {
             agregar = false;
+        }else if(valor < -9999999 || valor > 9999999){
+            printf("El valor ingresado no esta en el rango permitido, debe ser menor a 9999999 o mayor a -9999999...\n");
         }
         else
         {
@@ -74,7 +76,7 @@ void cargar_cola(Cola cola)
 //---------------------------------------------------------------------
 // Función para verificar que la entrada sea Entero
 //---------------------------------------------------------------------
-bool verificarEntradaInt(int *valor)
+bool verificar_entrada_int(int *valor)
 {
     if (scanf("%d", valor) != 1)
         return false;
