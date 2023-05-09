@@ -34,6 +34,7 @@ int main(){
     Cola cola_parcial = c_crear();
 
     cargar_cola(cola_principal);
+    printf("Cola cargada : ");
     c_mostrar(cola_principal);   
 
     cola_total = divisor_total(cola_principal, cola_parcial);
@@ -59,8 +60,8 @@ void cargar_cola(Cola cola){
     while(agregar){
         printf("Ingrese el valor del dato para guardar en la Cola o cualquier letra para finalizar la carga : ");
         if(!verificar_entrada_int(&valor)){ agregar = false; }
-        else if(valor < 2){
-            printf("El valor tiene que ser mayor o igual a 2");
+        else if(valor < 2 || valor > 9999999){
+            printf("El valor tiene que ser MAYOR o igual a 2 y MENOR a 9999999\n");
         }
         else{
             if(verificar_duplicado(cola, valor) == true){
@@ -128,12 +129,12 @@ Cola divisor_total(Cola c, Cola cola_parcial){
     Cola cola_resultado = c_crear();
     int contador;
     float valor;
-    float longitud = c_longitud(c);
+    float longitud = c_longitud(c) - 1;
 
     while (c_es_vacia(c) != true)
     {
         te = c_desencolar(c);
-        contador = 1;
+        contador = 0;
         while (c_es_vacia(cola_duplicada) != true)
         {
             te_duplicada = c_desencolar(cola_duplicada);
