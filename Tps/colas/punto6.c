@@ -177,16 +177,6 @@ void validar_numeros_no_rep_pila(char *m, Pila pila)
         num_de_m = atoi(m);
         if (aux == largo && aux <= 9)
         {
-            while(!p_es_vacia(pila)){
-                x = p_desapilar(pila);
-                if (x->clave == num_de_m && bandera_2 == 0)
-                {
-                    printf("el numero ya existe en la pila, Ingrese un elemento distinto a los ingresados anteriormente.\n");
-                    validar_numeros_no_rep_pila(m, pila);
-                }
-                p_apilar(p_aux, x);
-            }
-            p_intercambiar(p_aux, pila);
 
             if (num_de_m > 100000000 || num_de_m < -10000000)
             {
@@ -197,6 +187,20 @@ void validar_numeros_no_rep_pila(char *m, Pila pila)
             else{
                 bandera_2 = 0;
             }
+
+            while(!p_es_vacia(pila)){
+                x = p_desapilar(pila);
+                if (x->clave == num_de_m && bandera_2 == 0)
+                {
+                    bandera_2 = 1;
+                    aux = -1;
+                    printf("el numero ya existe en la pila, Ingrese un elemento distinto a los ingresados anteriormente.\n");
+                }
+                p_apilar(p_aux, x);
+            }
+            p_intercambiar(p_aux, pila);
+
+            
 
             if (bandera_2 == 1){
                 bandera = 1;
