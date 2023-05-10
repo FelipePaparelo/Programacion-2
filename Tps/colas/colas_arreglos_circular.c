@@ -3,7 +3,7 @@
 #include<stdio.h>
 #include"colas.h"
 
-static const int MAX = 11;
+static const int MAX = 101;
 
 struct ColaRep{
     TipoElemento *valores;
