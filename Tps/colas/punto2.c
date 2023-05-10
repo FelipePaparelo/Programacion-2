@@ -319,7 +319,7 @@ int main()
     int n, dato_i;
     TipoElemento q;
     printf("Ingrese el largo de la cola:\n");
-    largo = cargar_largo();
+    int largo = cargar_largo();
     printf("###########PUNTO 2-a###########");
     esta(c1, n);
 

@@ -179,9 +179,6 @@ int main(){
     minutos_empleado=validar_numeros_positivos(cadena);
     trabajo_del_empleado(cola_1,cola_2,cola_3,minutos_empleado);
     
-
-
-
     
     return 0;
 }
