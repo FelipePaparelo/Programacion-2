@@ -77,7 +77,8 @@ void trabajo_del_empleado(Cola c1, Cola c2, Cola c3,int minutos){
     TipoElemento x;
     int cliente_cola_1=-1,cliente_cola_2=-1,cliente_cola_3=-1;
     int salida_cola_1=0,salida_cola_2=0,salida_cola_3=0;
-    while (!c_es_vacia(c1) || !c_es_vacia(c2)|| !c_es_vacia(c3)){
+    int bandera_1=0,bandera_2=0,bandera_3=0;
+    while ((!c_es_vacia(c1)||cliente_cola_1>0) || (!c_es_vacia(c2)||cliente_cola_2>0) || (!c_es_vacia(c3)||cliente_cola_3>0)){
 
         //proceso de la cola 1
         if (!c_es_vacia(c1)&&cliente_cola_1<0){
@@ -87,11 +88,15 @@ void trabajo_del_empleado(Cola c1, Cola c2, Cola c3,int minutos){
         if (cliente_cola_1>0){
             cliente_cola_1-=minutos;
         }
-        if (cliente_cola_1<=0){
+        if (cliente_cola_1<=0 && !c_es_vacia(c1)){
             salida_cola_1++;
             printf("cliente %i, Cola 1\n",salida_cola_1);
             x=c_desencolar(c1);
             cliente_cola_1=x->clave;
+        }else if (c_es_vacia(c1) && bandera_1==0){
+            salida_cola_1++;
+            printf("cliente %i, Cola 1\n",salida_cola_1);
+            bandera_1=1;
         }
 
         //proceso de la cola 2
@@ -107,9 +112,10 @@ void trabajo_del_empleado(Cola c1, Cola c2, Cola c3,int minutos){
             printf("cliente %i, Cola 2\n",salida_cola_2);
             x=c_desencolar(c2);
             cliente_cola_2=x->clave;
-        }else if (c_es_vacia(c2)){
+        }else if (c_es_vacia(c2) && bandera_2==0){
             salida_cola_2++;
             printf("cliente %i, Cola 2\n",salida_cola_2);
+            bandera_2=1;
         }
         
 
@@ -126,12 +132,13 @@ void trabajo_del_empleado(Cola c1, Cola c2, Cola c3,int minutos){
             printf("cliente %i, Cola 3\n",salida_cola_3);
             x=c_desencolar(c3);
             cliente_cola_3=x->clave;
-        }else if (c_es_vacia(c3)){
+        }else if (c_es_vacia(c3) && bandera_3==0){
             salida_cola_3++;
-            printf("cliente %i, Cola 2\n",salida_cola_3);
+            printf("cliente %i, Cola 3\n",salida_cola_3);
+            bandera_3=1;
         }
     }
-    printf("finalizo el trabajo\n");
+    printf("finalizo el trabajo del empleado, ya no queda ningun cliente en las tres colas\n");
 }
 
 
