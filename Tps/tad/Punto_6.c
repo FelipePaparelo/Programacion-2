@@ -54,6 +54,8 @@ void validar_numeros_positivos(char *m)
     }
 }
 
+
+
 void validar_numeros_no_rep(char *m, Lista l1)
 {
     int aux = 0;

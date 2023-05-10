@@ -148,6 +148,7 @@ void p_intercambiar(Pila pAux, Pila p)
         p_apilar(p, te);
     }
 }
+
 void p_mostrar_con_valor(Pila pila)
 {
     while (p_es_vacia(pila))
