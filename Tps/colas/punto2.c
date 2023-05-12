@@ -324,7 +324,7 @@ void copia(Cola c1, int dato_i)
     int longitud = c_longitud(c1);
     TipoElemento x;
 
-    for (int k = 0; k < longitud / 2; k++)
+    for (int k = 0; k < longitud; k++)
     {
         x = c_desencolar(c1);
         c_encolar(c1_original, x);
@@ -344,7 +344,6 @@ void invertir(Cola c1, int dato_i)
         return;
     }
     int longitud = c_longitud(c1);
-
     Pila pila_aux = p_crear();
     for (int k = 0; k < longitud; k++)
     {
@@ -369,14 +368,19 @@ int main()
     int largo = cargar_largo();
     printf("###########PUNTO 2-a###########\n");
     esta(c1, largo);
+    vaciar_cola(c1);
     printf("###########PUNTO 2-b###########\n");
     agregado(c1, largo);
+    vaciar_cola(c1);
     printf("###########PUNTO 2-c###########\n");
     borrar(c1, largo);
+    vaciar_cola(c1);
     printf("###########PUNTO 2-d###########\n");
     cantidad(c1, largo);
+    vaciar_cola(c1);
     printf("###########PUNTO 2-e###########\n");
     copia(c1, largo);
+    vaciar_cola(c1);
     printf("###########PUNTO 2-f###########\n");
     invertir(c1, largo);
     return 0;
