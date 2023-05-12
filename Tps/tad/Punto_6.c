@@ -54,6 +54,8 @@ void validar_numeros_positivos(char *m)
     }
 }
 
+
+
 void validar_numeros_no_rep(char *m, Lista l1)
 {
     int aux = 0;
@@ -87,16 +89,6 @@ void validar_numeros_no_rep(char *m, Lista l1)
         if (aux == largo && aux <= 9)
         {
             num_de_m = atoi(m);
-            for (p = 0; p < l_longitud(l1); p++)
-            {
-                x = l_recuperar(l1, p + 1);
-                if (x->clave == num_de_m && bandera_2 == 0)
-                {
-                    printf("el numero ya fue ingresado\n");
-                    bandera_2 = 1;
-                    aux = -1;
-                }
-            }
 
             if (num_de_m > 100000000 || num_de_m < -10000000)
             {
@@ -108,12 +100,28 @@ void validar_numeros_no_rep(char *m, Lista l1)
                 bandera_2 = 0;
             }
 
+           
+            
+            for (p = 0; p < l_longitud(l1); p++)
+            {
+                x = l_recuperar(l1, p + 1);
+                if (x->clave == num_de_m && bandera_2 == 0)
+                {
+                    printf("el numero ya fue ingresado\n");
+                    bandera_2 = 1;
+                    aux = -1;
+                }
+            }
+
             if (bandera_2 == 1){
                 bandera = 1;
             }
             else if (bandera_2 == 0){
                 bandera = 0;
             }
+
+
+           
         }
         else
         {
