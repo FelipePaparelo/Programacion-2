@@ -235,20 +235,20 @@ Pila punto_8(Pila pila)
         TipoElemento x = p_desapilar(pila);
         bool es_unica = true;
         Pila p_aux_copia = p_crear();
-        while (!p_es_vacia(p_aux))
-        {
-            TipoElemento y = p_desapilar(p_aux);
-            if (x->clave == y->clave)
+            while (!p_es_vacia(p_aux))
             {
-                es_unica = false;
+                TipoElemento y = p_desapilar(p_aux);
+                if (x->clave == y->clave)
+                {
+                    es_unica = false;
+                }
+                p_apilar(p_aux_copia, y);
             }
-            p_apilar(p_aux_copia, y);
-        }
-        while (!p_es_vacia(p_aux_copia))
-        {
-            TipoElemento y = p_desapilar(p_aux_copia);
-            p_apilar(p_aux, y);
-        }
+            while (!p_es_vacia(p_aux_copia))
+            {
+                TipoElemento y = p_desapilar(p_aux_copia);
+                p_apilar(p_aux, y);
+            }
         if (es_unica)
         {
             p_apilar(p_unicos, x);

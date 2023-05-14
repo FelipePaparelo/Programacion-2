@@ -131,7 +131,7 @@ void trabajo_del_empleado(Cola c1, Cola c2, Cola c3,int minutos){
             salida_cola_3++;
             printf("cliente %i, Cola 3\n",salida_cola_3);
             x=c_desencolar(c3);
-            cliente_cola_3=x->clave;
+            cliente_cola_3 = x->clave;
         }else if (c_es_vacia(c3) && bandera_3==0){
             salida_cola_3++;
             printf("cliente %i, Cola 3\n",salida_cola_3);
