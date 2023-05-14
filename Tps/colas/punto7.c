@@ -73,70 +73,92 @@ void cargar_cola(Cola c,int cant){
     printf("Finalizo la Carga\n");
 }
 
+void c_copiar_cola(Cola cola_ori,Cola cola_copy){
+    TipoElemento x=te_crear(0);
+    Cola cola_aux=c_crear();
+    while (!c_es_vacia(cola_ori)){
+        x=c_desencolar(cola_ori);
+        c_encolar(cola_copy,x);
+        c_encolar(cola_aux,x);
+    }
+
+    while (!c_es_vacia(cola_aux)){
+        x=c_desencolar(cola_aux);
+        c_encolar(cola_ori,x);
+    }    
+}
+
 void trabajo_del_empleado(Cola c1, Cola c2, Cola c3,int minutos){
+    Cola c1_copy=c_crear(),c2_copy=c_crear(),c3_copy=c_crear();
     TipoElemento x;
     int cliente_cola_1=-1,cliente_cola_2=-1,cliente_cola_3=-1;
     int salida_cola_1=0,salida_cola_2=0,salida_cola_3=0;
     int bandera_1=0,bandera_2=0,bandera_3=0;
-    while ((!c_es_vacia(c1)||cliente_cola_1>0) || (!c_es_vacia(c2)||cliente_cola_2>0) || (!c_es_vacia(c3)||cliente_cola_3>0)){
+
+    c_copiar_cola(c1,c1_copy);
+    c_copiar_cola(c2,c2_copy);
+    c_copiar_cola(c3,c3_copy);
+
+    while ((!c_es_vacia(c1_copy)||cliente_cola_1>0) || (!c_es_vacia(c2_copy)||cliente_cola_2>0) || (!c_es_vacia(c3_copy)||cliente_cola_3>0)){
 
         //proceso de la cola 1
-        if (!c_es_vacia(c1)&&cliente_cola_1<0){
-            x=c_desencolar(c1);
+        if (!c_es_vacia(c1_copy)&&cliente_cola_1<0){
+            x=c_desencolar(c1_copy);
             cliente_cola_1=x->clave;
         }
         if (cliente_cola_1>0){
             cliente_cola_1-=minutos;
         }
-        if (cliente_cola_1<=0 && !c_es_vacia(c1)){
+        if (cliente_cola_1<=0 && !c_es_vacia(c1_copy)){
             salida_cola_1++;
             printf("cliente %i, Cola 1\n",salida_cola_1);
-            x=c_desencolar(c1);
+            x=c_desencolar(c1_copy);
             cliente_cola_1=x->clave;
-        }else if (c_es_vacia(c1) && bandera_1==0){
+        }else if (c_es_vacia(c1_copy) && bandera_1==0 && cliente_cola_1<=0){
             salida_cola_1++;
             printf("cliente %i, Cola 1\n",salida_cola_1);
             bandera_1=1;
         }
 
         //proceso de la cola 2
-        if (!c_es_vacia(c2)&&cliente_cola_2<0){
-            x=c_desencolar(c2);
+        if (!c_es_vacia(c2_copy)&&cliente_cola_2<0){
+            x=c_desencolar(c2_copy);
             cliente_cola_2=x->clave;
         }
         if (cliente_cola_2>0){
             cliente_cola_2-=minutos;
         }
-        if (cliente_cola_2<=0 && !c_es_vacia(c2)){
+        if (cliente_cola_2<=0 && !c_es_vacia(c2_copy)){
             salida_cola_2++;
             printf("cliente %i, Cola 2\n",salida_cola_2);
-            x=c_desencolar(c2);
+            x=c_desencolar(c2_copy);
             cliente_cola_2=x->clave;
-        }else if (c_es_vacia(c2) && bandera_2==0){
+        }else if (c_es_vacia(c2_copy) && bandera_2==0 && cliente_cola_2<=0){
             salida_cola_2++;
             printf("cliente %i, Cola 2\n",salida_cola_2);
             bandera_2=1;
         }
-        
+        //printf("cliente cola 2 :%i\n",cliente_cola_2);
 
         //proceso de la cola 3
-        if (!c_es_vacia(c3)&&cliente_cola_3<0){
-            x=c_desencolar(c3);
+        if (!c_es_vacia(c3_copy)&&cliente_cola_3<0){
+            x=c_desencolar(c3_copy);
             cliente_cola_3=x->clave;
         }
         if (cliente_cola_3>0){
             cliente_cola_3-=minutos;
         }
-        if (cliente_cola_3<=0 && !c_es_vacia(c3)){
+        if (cliente_cola_3<=0 && !c_es_vacia(c3_copy)){
             salida_cola_3++;
             printf("cliente %i, Cola 3\n",salida_cola_3);
-            x=c_desencolar(c3);
+            x=c_desencolar(c3_copy);
             cliente_cola_3=x->clave;
-        }else if (c_es_vacia(c3) && bandera_3==0){
+        }else if (c_es_vacia(c3_copy) && bandera_3==0 && cliente_cola_3<=0){
             salida_cola_3++;
             printf("cliente %i, Cola 3\n",salida_cola_3);
             bandera_3=1;
         }
+        //printf("cliente cola 3 :%i\n",cliente_cola_3);
     }
     printf("finalizo el trabajo del empleado, ya no queda ningun cliente en las tres colas\n");
 }
@@ -168,7 +190,7 @@ int main(){
     }
     printf("¿cuantos clientes va a tener en la cola 3?\n ");
     cant_elem_cola3=validar_numeros_positivos(cadena);
-    if (cant_elem_cola2>=101){
+    if (cant_elem_cola3>=101){
         printf("la cola es de 100 elementos, intente con un valor entre 0 o 100.\n");
     }
     else{
@@ -178,6 +200,9 @@ int main(){
     printf("¿Cuanto tiempo va a tener el empleado para atender a cada cliente?\n");
     minutos_empleado=validar_numeros_positivos(cadena);
     trabajo_del_empleado(cola_1,cola_2,cola_3,minutos_empleado);
+    c_mostrar(cola_1);
+    c_mostrar(cola_2);
+    c_mostrar(cola_3);
     
     
     return 0;
