@@ -21,7 +21,7 @@ f. Invertir del contenido de una cola sin destruir la cola original.
 #include <stdbool.h>
 #include "../pilas/pilas.h"
 #include "../pilas/pilas_arreglos.c"
-
+#include "funciones_utiles.c"
 void validar_numeros(char *m)
 {
     int aux = 0;
@@ -179,7 +179,7 @@ bool esta(Cola c1, int dato_i)
     printf("Ingrese el numero a buscar:");
     int n = cargar_n();
     Cola c1_aux = c_crear();
-    int longitud = c_longitud(c1);
+    int longitud = c_longitud_fu(c1);
     int contador = 0;
     for (int k = 0; k < longitud; k++)
     {
@@ -221,8 +221,8 @@ void agregado(Cola c1, int dato_i)
         agregado(c1, dato_i);
     }
     Cola c1_aux = c_crear();
-    //TipoElemento aux = te_crear(0);
-    int longitud = c_longitud(c1);
+    // TipoElemento aux = te_crear(0);
+    int longitud = c_longitud_fu(c1);
     for (int k = 1; k <= longitud + 1; k++)
     {
         if (k == pos)
@@ -246,7 +246,7 @@ Cola borrar(Cola c1, int dato_i)
         return;
     }
     Cola cola_borrados = c_crear();
-    int largo = c_longitud(c1);
+    int largo = c_longitud_fu(c1);
     printf("Ingrese el numero a borrar:\n");
     int n = cargar_n();
     TipoElemento x = te_crear(n);
@@ -308,7 +308,7 @@ void cantidad(Cola c1, int dato_i)
     {
         return;
     }
-    int cantidad_elemt = c_longitud(c1);
+    int cantidad_elemt = c_longitud_fu(c1);
     printf("Hay %i elementos en la cola\n", cantidad_elemt);
 }
 
@@ -321,7 +321,7 @@ void copia(Cola c1, int dato_i)
     }
     Cola c1_copia = c_crear();
     Cola c1_original = c_crear();
-    int longitud = c_longitud(c1);
+    int longitud = c_longitud_fu(c1);
     TipoElemento x;
 
     for (int k = 0; k < longitud; k++)
@@ -343,7 +343,7 @@ void invertir(Cola c1, int dato_i)
     {
         return;
     }
-    int longitud = c_longitud(c1);
+    int longitud = c_longitud_fu(c1);
     Pila pila_aux = p_crear();
     for (int k = 0; k < longitud; k++)
     {
@@ -362,32 +362,34 @@ void invertir(Cola c1, int dato_i)
 int main()
 {
     Cola c1 = c_crear();
-    //int dato_i, n;
-    //TipoElemento q;
+    // int dato_i, n;
+    // TipoElemento q;
     printf("Ingrese el largo de la cola:\n");
     int largo = cargar_largo();
-    if (largo>100){
+    if (largo > 100)
+    {
         printf("la cola es de 100 elementos, intente con un valor entre 0 o 100.\n");
     }
-    else{
-    
-    printf("###########PUNTO 2-a###########\n");
-    esta(c1, largo);
-    vaciar_cola(c1);
-    printf("###########PUNTO 2-b###########\n");
-    agregado(c1, largo);
-    vaciar_cola(c1);
-    printf("###########PUNTO 2-c###########\n");
-    borrar(c1, largo);
-    vaciar_cola(c1);
-    printf("###########PUNTO 2-d###########\n");
-    cantidad(c1, largo);
-    vaciar_cola(c1);
-    printf("###########PUNTO 2-e###########\n");
-    copia(c1, largo);
-    vaciar_cola(c1);
-    printf("###########PUNTO 2-f###########\n");
-    invertir(c1, largo);
+    else
+    {
+
+        printf("###########PUNTO 2-a###########\n");
+        esta(c1, largo);
+        vaciar_cola(c1);
+        printf("###########PUNTO 2-b###########\n");
+        agregado(c1, largo);
+        vaciar_cola(c1);
+        printf("###########PUNTO 2-c###########\n");
+        borrar(c1, largo);
+        vaciar_cola(c1);
+        printf("###########PUNTO 2-d###########\n");
+        cantidad(c1, largo);
+        vaciar_cola(c1);
+        printf("###########PUNTO 2-e###########\n");
+        copia(c1, largo);
+        vaciar_cola(c1);
+        printf("###########PUNTO 2-f###########\n");
+        invertir(c1, largo);
     }
     return 0;
 }

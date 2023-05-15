@@ -9,7 +9,9 @@ problema una sola cola auxiliar. Determinar la complejidad algorítmica del prob
 #include "tipo_elemento.h"
 #include "colas.h"
 #include "T_Element.c"
-//#include "colas_arreglos_circular.c"
+#include "funciones_utiles.c"
+
+// #include "colas_arreglos_circular.c"
 #include "colas_punteros.c"
 #include <stdbool.h>
 
@@ -131,7 +133,7 @@ void iguales(Cola c1, Cola c2)
         return;
     }
     bool flag = false;
-    int largo1 = c_longitud(c1);
+    int largo1 = c_longitud_fu(c1);
     // int largo2 = c_longitud(c2);
     Cola aux = c_crear();
     TipoElemento x = te_crear(0);
