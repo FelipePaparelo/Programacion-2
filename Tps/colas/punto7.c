@@ -65,10 +65,14 @@ void cargar_cola(Cola c,int cant){
     while (cant>0){
         printf("cuantos minutos necesita para ser atendido el cliente %i:\n",cliente);
         minutos=validar_numeros_positivos(cadena);
+        if (minutos==0){
+            printf("los minutos tienen que ser mayor a cero, intente otra vez.\n");
+        }
+        else{
         x=te_crear(minutos);
         c_encolar(c,x);
         cliente++;
-        cant--;
+        cant--;}
     }
     printf("Finalizo la Carga\n");
 }

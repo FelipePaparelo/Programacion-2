@@ -212,8 +212,6 @@ int main() {
     Pila pila = llenar_pila_al_azar();
     Cola cola = llenar_cola_al_azar();
     int cantidad_elementos = 1;
-    cargar_cola(cola, cantidad_elementos);
-    cargar_datos_teclado_pila(cantidad_elementos, pila);
     p_mostrar(pila);
     c_mostrar(cola);
     printf("[REPETIDOS CON ORDINAL]\n");
