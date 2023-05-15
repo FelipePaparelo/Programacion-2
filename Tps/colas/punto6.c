@@ -248,7 +248,6 @@ void validar_numeros_no_rep_cola(char *m, Cola c1, int tamano)
     }
 }
 
-
 void cargar_datos_teclado_pila(int tamano, Pila p1)
 {
     TipoElemento x;
@@ -282,7 +281,6 @@ Cola copiar_cola(Cola colaOriginal) {
     return colaCopia;
 }
 
-
 void cargar_cola(Cola c,int cant){
     int elemento = 0;
     int iterador = 1;
@@ -303,7 +301,6 @@ void cargar_cola(Cola c,int cant){
     printf("\n\n");
 }
 
-
 void strtrim(char *cadena) { 
     char *comienzoDeCadena = cadena;
     char *finalDeCadena = cadena + strlen(cadena) - 1;
@@ -316,7 +313,6 @@ void strtrim(char *cadena) {
     *(finalDeCadena + 1) = '\0';
     memmove(cadena, comienzoDeCadena,   finalDeCadena - comienzoDeCadena + 2);
 }
-
 
 bool estaEnLista(Lista L, int dato) { 
     Iterador iter = iterador(L);
@@ -413,8 +409,6 @@ Pila copiar_pila(Pila pilaOriginal) {
     return pilaCopia;
 }
 
-
-
 // 6. Dada una pila y una cola generada con valores al azar retornar en una lista todos los
 // valores comunes a ambas y en qué posición ordinal se encontró cada uno en su
 // estructura. No se deben destruir las estructuras originales. No se deben perderse las
@@ -433,7 +427,6 @@ void mostrar_punto_6(Lista lista) {
         }
     }
 }
-
 
 Lista punto6(Pila pila, Cola cola) { // Complejidad: O(n^2).
     Lista lista = l_crear();
@@ -477,7 +470,6 @@ Lista punto6(Pila pila, Cola cola) { // Complejidad: O(n^2).
     mostrar_punto_6(lista);
     return lista;
 }
-
 
 int main() {
     printf("----------Punto 6----------\n");
