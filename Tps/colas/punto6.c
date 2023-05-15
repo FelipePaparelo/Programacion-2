@@ -237,44 +237,44 @@ void l_mostrarListaConValor(Lista lista)
 // Ejemplo: si “P” = (2,5,8,19,3,4) y “C” = (4, 18, 12, 5, 6) la lista tendría L = (5:2:4, 4:6:5). 
 
 // void punto_6(Pila p1, Cola c1, Lista l1){  
-    // Cola c_aux = c_crear();
-    // int elemento_pila, elemento_cola;
-    // int vector_cola[100];
-    // TipoElemento x;
-    // TipoElemento y;
-    // TipoElemento z;
-    // int pos = 0;
-    // char posiciones[200];
-    // int tamanio_pila = p_longitud(p1);
-    // int tamanio_cola = c_longitud(c1);
-    // for(int i = 0 ; i < tamanio_cola ; i++){
-    //     x = c_desencolar(c1);
-    //     vector_cola[i] = x->clave;
-    //     c_encolar(c_aux, x);
-    // }
-    // while(!p_es_vacia(p1)){
-    //     x = p_desapilar(p1);
+//     Cola c_aux = c_crear();
+//     int elemento_pila, elemento_cola;
+//     int vector_cola[100];
+//     TipoElemento x;
+//     TipoElemento y;
+//     TipoElemento z;
+//     int pos = 0;
+//     char posiciones[200];
+//     int tamanio_pila = p_longitud(p1);
+//     int tamanio_cola = c_longitud(c1);
+//     for(int i = 0 ; i < tamanio_cola ; i++){
+//         x = c_desencolar(c1);
+//         vector_cola[i] = x->clave;
+//         c_encolar(c_aux, x);
+//     }
+//     while(!p_es_vacia(p1)){
+//         x = p_desapilar(p1);
 
-    //     for ( int i = 0 ; i < tamanio_cola ; i++){
-    //         if(x->clave == vector_cola[i]){
-    //             char str[10];
-    //             if (pos > 0){
-    //                 strcat(str, ", ");
-    //             }
-    //             sprintf(str, "%i", i+1);
-    //             strcat(posiciones, str);
-    //             pos++;
-    //             // printf("dato que entra a valor: %s\n", posiciones);
-    //             x->valor = posiciones;
-    //             // printf("valor ciclo = %s\n", x->valor);
-    //             l_agregar(l1, x);
-    //         }
-    //     }
-    //     printf("valor  = %s\n", x->valor);
-    //     posiciones[0] = '\0';
-    //     printf("valor  = %s\n", x->valor);
-    // }
-    // l_mostrarListaConValor(l1);
+//         for ( int i = 0 ; i < tamanio_cola ; i++){
+//             if(x->clave == vector_cola[i]){
+//                 char str[10];
+//                 if (pos > 0){
+//                     strcat(str, ", ");
+//                 }
+//                 sprintf(str, "%i", i+1);
+//                 strcat(posiciones, str);
+//                 pos++;
+//                 // printf("dato que entra a valor: %s\n", posiciones);
+//                 x->valor = posiciones;
+//                 // printf("valor ciclo = %s\n", x->valor);
+//                 l_agregar(l1, x);
+//             }
+//         }
+//         printf("valor  = %s\n", x->valor);
+//         posiciones[0] = '\0';
+//         printf("valor  = %s\n", x->valor);
+//     }
+//     l_mostrarListaConValor(l1);
 // }
 
 // void punto_6(Pila p1, Cola c1, Lista l1){  

@@ -221,7 +221,7 @@ void agregado(Cola c1, int dato_i)
         agregado(c1, dato_i);
     }
     Cola c1_aux = c_crear();
-    TipoElemento aux = te_crear(0);
+    //TipoElemento aux = te_crear(0);
     int longitud = c_longitud(c1);
     for (int k = 1; k <= longitud + 1; k++)
     {
@@ -238,7 +238,7 @@ void agregado(Cola c1, int dato_i)
     c_mostrar(c1_aux);
 }
 
-void borrar(Cola c1, int dato_i)
+Cola borrar(Cola c1, int dato_i)
 {
     cargar_datos_teclado(dato_i, c1);
     if (c_es_vacia(c1))
@@ -362,10 +362,15 @@ void invertir(Cola c1, int dato_i)
 int main()
 {
     Cola c1 = c_crear();
-    int dato_i, n;
-    TipoElemento q;
+    //int dato_i, n;
+    //TipoElemento q;
     printf("Ingrese el largo de la cola:\n");
     int largo = cargar_largo();
+    if (largo>100){
+        printf("la cola es de 100 elementos, intente con un valor entre 0 o 100.\n");
+    }
+    else{
+    
     printf("###########PUNTO 2-a###########\n");
     esta(c1, largo);
     vaciar_cola(c1);
@@ -383,5 +388,6 @@ int main()
     vaciar_cola(c1);
     printf("###########PUNTO 2-f###########\n");
     invertir(c1, largo);
+    }
     return 0;
 }
