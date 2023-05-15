@@ -15,8 +15,8 @@ el orden en que fueron atendidos los clientes*/
 #include "tipo_elemento.h"
 #include "colas.h"
 #include "T_Element.c"
-//#include "colas_arreglos_circular.c"
-#include "colas_punteros.c"
+#include "colas_arreglos_circular.c"
+//#include "colas_punteros.c"
 
 int validar_numeros_positivos(char *m)
 {
