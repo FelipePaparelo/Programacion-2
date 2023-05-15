@@ -59,11 +59,11 @@ int c_longitud(Cola c){
 }
 
 bool c_es_llena(Cola c){
-    return paso(paso(c->final))==c->frente;
+    return (paso(paso(c->final))==c->frente);
 }
 
 bool c_es_vacia(Cola c){
-    return paso(c->final)==c->frente;
+    return (paso(c->final)==c->frente);
 }
 
 void c_mostrar(Cola c){

@@ -10,7 +10,7 @@ Ejemplo: si "C" contiene (12,6, 8, 5, 8, 12, 12) la cola resultado del proceso s
 #include "tipo_elemento.h"
 #include "colas.h"
 #include "T_Element.c"
-// #include "colas_arreglos_circular.c"
+//#include "colas_arreglos_circular.c"
 #include "colas_punteros.c"
 #include <stdbool.h>
 
@@ -108,7 +108,6 @@ Cola copia(Cola c)
     Cola c_copia = c_crear();
     Cola c_original = c_crear();
     TipoElemento x = te_crear(0);
-    int longitud = c_longitud(c);
 
     if (c_es_vacia(c))
     {
