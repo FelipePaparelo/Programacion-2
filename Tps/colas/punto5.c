@@ -17,7 +17,7 @@ complejidad algorítmica de la solución
 #include <stdbool.h>
 
 void cargar_cola(Cola cola);
-bool verificar_entrada_int(int* valor);
+bool verificar_entrada_int(int *valor);
 bool verificar_repetido(Cola cola, int clave);
 
 Cola divisor_total(Cola c, Cola cola_parcial);
@@ -28,14 +28,15 @@ bool verificar_duplicado(Cola c, int clave);
 //------------------------------------------------------
 // MAIN
 //------------------------------------------------------
-int main(){
+int main()
+{
     Cola cola_principal = c_crear();
     Cola cola_total = c_crear();
     Cola cola_parcial = c_crear();
 
     cargar_cola(cola_principal);
     printf("Cola cargada : ");
-    c_mostrar(cola_principal);   
+    c_mostrar(cola_principal);
 
     cola_total = divisor_total(cola_principal, cola_parcial);
 
@@ -53,21 +54,31 @@ int main(){
 //---------------------------------------------------------------------
 // Procedimiento para cargar cola de forma manual por el usuario
 //---------------------------------------------------------------------
-void cargar_cola(Cola cola){
+void cargar_cola(Cola cola)
+{
     int valor = 0;
     bool agregar = true;
 
-    while(agregar){
+    while (agregar)
+    {
         printf("Ingrese el valor del dato para guardar en la Cola o cualquier letra para finalizar la carga : ");
-        if(!verificar_entrada_int(&valor)){ agregar = false; }
-        else if(valor < 2 || valor > 9999999){
+        if (!verificar_entrada_int(&valor))
+        {
+            agregar = false;
+        }
+        else if (valor < 2 || valor > 9999999)
+        {
             printf("El valor tiene que ser MAYOR o igual a 2 y MENOR a 9999999\n");
         }
-        else{
-            if(verificar_duplicado(cola, valor) == true){
+        else
+        {
+            if (verificar_duplicado(cola, valor) == true)
+            {
                 printf("El valor está repetido");
                 return;
-            }else{
+            }
+            else
+            {
                 TipoElemento te = te_crear(valor);
                 c_encolar(cola, te);
             }
@@ -75,18 +86,23 @@ void cargar_cola(Cola cola){
     }
 
     // Limpiamos el buffer de entrada
-    while (getchar() != '\n');
+    while (getchar() != '\n')
+        ;
 }
 
 //---------------------------------------------------------------------
 // Función para verificar que la entrada sea Entero
 //---------------------------------------------------------------------
-bool verificar_entrada_int(int* valor){
-    if(scanf("%d", valor) != 1)return false;
-    else return true;
+bool verificar_entrada_int(int *valor)
+{
+    if (scanf("%d", valor) != 1)
+        return false;
+    else
+        return true;
 }
 
-bool verificar_duplicado(Cola cola, int clave){
+bool verificar_duplicado(Cola cola, int clave)
+{
     TipoElemento x = te_crear(0);
     Cola cola_aux = c_crear();
     bool resultado = false;
@@ -95,20 +111,27 @@ bool verificar_duplicado(Cola cola, int clave){
     {
         x = c_desencolar(cola);
         c_encolar(cola_aux, x);
-        if(x->clave == clave){ resultado = true; }
+        if (x->clave == clave)
+        {
+            resultado = true;
+        }
     }
 
     c_intercambiar(cola_aux, cola);
-    return resultado;    
+    return resultado;
 }
 
 //---------------------------------------------------------------------
 // Función para intercambiar 2 colas
 //---------------------------------------------------------------------
-void c_intercambiar(Cola c_aux, Cola c){
+void c_intercambiar(Cola c_aux, Cola c)
+{
     TipoElemento x = te_crear(0);
 
-    if(c_es_vacia(c_aux)){ return; }
+    if (c_es_vacia(c_aux))
+    {
+        return;
+    }
 
     while (c_es_vacia(c_aux) != true)
     {
@@ -120,7 +143,8 @@ void c_intercambiar(Cola c_aux, Cola c){
 //---------------------------------------------------------------------
 // Función para realizar el ejercicio
 //---------------------------------------------------------------------
-Cola divisor_total(Cola c, Cola cola_parcial){
+Cola divisor_total(Cola c, Cola cola_parcial)
+{
     TipoElemento te = te_crear(0);
     TipoElemento te_duplicada = te_crear(0);
     Cola cola_duplicada = copia(c);
@@ -139,16 +163,26 @@ Cola divisor_total(Cola c, Cola cola_parcial){
         {
             te_duplicada = c_desencolar(cola_duplicada);
 
-            if(te->clave != te_duplicada->clave){
+            if (te->clave != te_duplicada->clave)
+            {
                 valor = te_duplicada->clave % te->clave;
-                if(valor == 0){ contador++; }
+                if (valor == 0)
+                {
+                    contador++;
+                }
             }
             c_encolar(cola_duplicada_aux, te_duplicada);
         }
         c_intercambiar(cola_duplicada_aux, cola_duplicada);
 
-        if(contador == longitud){ c_encolar(cola_resultado, te); }
-        else if(contador >= ceil(longitud/2)){ c_encolar(cola_parcial, te); }
+        if (contador == longitud)
+        {
+            c_encolar(cola_resultado, te);
+        }
+        else if (contador >= ceil(longitud / 2))
+        {
+            c_encolar(cola_parcial, te);
+        }
 
         c_encolar(cola_aux, te);
     }
@@ -161,17 +195,20 @@ Cola divisor_total(Cola c, Cola cola_parcial){
 //------------------------------------------------------
 // Función para duplicar una pila
 //------------------------------------------------------
-Cola copia(Cola c){
+Cola copia(Cola c)
+{
     Cola c_copia = c_crear();
     Cola c_original = c_crear();
     TipoElemento x = te_crear(0);
     int longitud = c_longitud(c);
-    
-    if(c_es_vacia(c)){
+
+    if (c_es_vacia(c))
+    {
         return c_copia;
     }
-    
-    while(c_es_vacia(c) != true){
+
+    while (c_es_vacia(c) != true)
+    {
         x = c_desencolar(c);
         c_encolar(c_copia, x);
         c_encolar(c_original, x);
@@ -182,6 +219,6 @@ Cola copia(Cola c){
         x = c_desencolar(c_original);
         c_encolar(c, x);
     }
-    
+
     return c_copia;
 }
