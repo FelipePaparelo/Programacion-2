@@ -55,7 +55,7 @@ void cargar_cola(Cola cola)
     while (agregar)
     {
         printf("Ingrese el valor del dato para guardar en la Cola o cualquier letra para finalizar la carga : ");
-        if (!verificarEntradaInt(&valor))
+        if (!verificar_entrada_int(&valor))
         {
             agregar = false;
         }else if(valor < -9999999 || valor > 9999999){
