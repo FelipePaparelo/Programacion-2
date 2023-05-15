@@ -19,7 +19,7 @@ const int TAM_MAXIMO = 100;
 int validar_numeros_positivos(char *m)
 {
     int aux = 0;
-    int bandera = 1,numero;
+    int bandera = 1, numero;
     fgets(m, 100, stdin);
     int largo = strlen(m) - 1;
     while (bandera == 1)
@@ -39,7 +39,7 @@ int validar_numeros_positivos(char *m)
             }
         }
 
-        if (aux == largo && aux<6)
+        if (aux == largo && aux < 6)
         {
             bandera = 0;
         }
@@ -52,7 +52,7 @@ int validar_numeros_positivos(char *m)
             largo = strlen(m) - 1;
         }
     }
-    numero=atoi(m);
+    numero = atoi(m);
     return numero;
 }
 
@@ -108,15 +108,15 @@ void validar_numeros_no_rep_pila(char *m, Pila p1, int tamano)
                 aux = -1;
                 printf("ingrese un numero mayor a -10.000.000 o menor a 100.000.000\n");
             }
-            else{
+            else
+            {
                 bandera_2 = 0;
             }
 
-
-    
             for (p = 0; p < tamano; p++)
             {
-                if(!p_es_vacia(p1)){
+                if (!p_es_vacia(p1))
+                {
                     x = p_desapilar(p1);
                     if (x->clave == num_de_m && bandera_2 == 0)
                     {
@@ -129,10 +129,12 @@ void validar_numeros_no_rep_pila(char *m, Pila p1, int tamano)
             }
             p_intercambiar(p_aux, p1);
 
-            if (bandera_2 == 1){
+            if (bandera_2 == 1)
+            {
                 bandera = 1;
             }
-            else if (bandera_2 == 0){
+            else if (bandera_2 == 0)
+            {
                 bandera = 0;
             }
         }
@@ -146,7 +148,6 @@ void validar_numeros_no_rep_pila(char *m, Pila p1, int tamano)
         }
     }
 }
-
 
 void cargar_datos_teclado_pila(int tamano, Pila p1)
 {
@@ -165,14 +166,17 @@ void cargar_datos_teclado_pila(int tamano, Pila p1)
     printf("\n\n");
 }
 
-Cola copiar_cola(Cola colaOriginal) { // C.A.: O(n)
+Cola copiar_cola(Cola colaOriginal)
+{ // C.A.: O(n)
     Cola colaAuxiliar = c_crear();
     Cola colaCopia = c_crear();
-    while (!c_es_vacia(colaOriginal)) {
+    while (!c_es_vacia(colaOriginal))
+    {
         TipoElemento elemento = c_desencolar(colaOriginal);
         c_encolar(colaAuxiliar, elemento);
     }
-    while (!c_es_vacia(colaAuxiliar)) {
+    while (!c_es_vacia(colaAuxiliar))
+    {
         TipoElemento elemento = c_desencolar(colaAuxiliar);
         c_encolar(colaCopia, elemento);
         c_encolar(colaOriginal, elemento);
@@ -180,101 +184,21 @@ Cola copiar_cola(Cola colaOriginal) { // C.A.: O(n)
     return colaCopia;
 }
 
-void validar_numeros_no_rep_cola(char *m, Cola c1, int tamano)
+
+void cargar_cola(Cola c, int cant)
 {
-    int aux = 0;
-    int cant = tamano;
-    int bandera = 1, p, num_de_m, bandera_2;
-    TipoElemento x;
-    // Cola c_aux = copiar_cola(c1);
-    Cola c_aux = c_crear();
-    Pila p_aux = p_crear();
-    fgets(m, 100, stdin);
-    int largo = strlen(m) - 1;
-    while (bandera == 1)
-    {
-        if (strcmp(m, "\n") == 0)
-        {
-            printf("Has ingresado un salto de linea.\n");
-            aux = -1;
-        }
-
-        for (int j = 0; j < largo; j++)
-        {
-
-            if ((j == 0) && (m[j] == '-'))
-            {
-                aux++;
-            }
-
-            if ((isdigit(m[j]) != 0))
-            {
-                aux++;
-            }
-        }
-
-        bandera_2 = 0;
-        if (aux == largo && aux <= 9)
-        {
-            num_de_m = atoi(m);
-
-            if (num_de_m > 100000000 || num_de_m < -10000000)
-            {
-                bandera_2 = 1;
-                aux = -1;
-                printf("ingrese un numero mayor a -10.000.000 o menor a 100.000.000\n");
-            }
-            else{
-                bandera_2 = 0;
-            }
-
-
-        int elemento = 0;
-        int iterador = 1;    
-        while (cant>0){
-            x = c_desencolar(c1);
-            if (x->clave == num_de_m && bandera_2 == 0){
-                printf("el numero ya fue ingresado\n");
-                bandera_2 = 1;
-                aux = -1;
-            }  
-            c_encolar(c_aux,x);
-            iterador++;
-            elemento++;
-            cant--;
-        }
-
-
-            if (bandera_2 == 1){
-                bandera = 1;
-            }
-            else if (bandera_2 == 0){
-                bandera = 0;
-            }
-        }
-        else
-        {
-            aux = 0;
-            printf("intente otra vez: ");
-            fgets(m, 100, stdin);
-            fflush(stdin);
-            largo = strlen(m) - 1;
-        }
-    }
-}
-
-void cargar_cola(Cola c,int cant){
     int elemento = 0;
     int iterador = 1;
     char cadena[100];
     int tamano = cant;
     TipoElemento x;
-    while (cant>0){
+    while (cant > 0)
+    {
         printf("ingrese el valor para la clave del %i tipoelemento de la cola: ", iterador);
         validar_numeros_no_rep_cola(cadena, c, tamano);
         elemento = atoi(cadena);
         x = te_crear(elemento);
-        c_encolar(c,x);
+        c_encolar(c, x);
         iterador++;
         elemento++;
         cant--;
@@ -283,69 +207,82 @@ void cargar_cola(Cola c,int cant){
     printf("\n\n");
 }
 
-
-void strtrim(char *cadena) { // C.A.: O(n)
+void strtrim(char *cadena)
+{ // C.A.: O(n)
     char *comienzoDeCadena = cadena;
     char *finalDeCadena = cadena + strlen(cadena) - 1;
-    while (isspace(*comienzoDeCadena)) {
+    while (isspace(*comienzoDeCadena))
+    {
         comienzoDeCadena++;
     }
-    while (isspace(*finalDeCadena) && finalDeCadena >= comienzoDeCadena) {
+    while (isspace(*finalDeCadena) && finalDeCadena >= comienzoDeCadena)
+    {
         finalDeCadena--;
     }
     *(finalDeCadena + 1) = '\0';
-    memmove(cadena, comienzoDeCadena,   finalDeCadena - comienzoDeCadena + 2);
+    memmove(cadena, comienzoDeCadena, finalDeCadena - comienzoDeCadena + 2);
 }
 
-
-bool estaEnLista(Lista L, int dato) { // C.A.: O(n)
+bool estaEnLista(Lista L, int dato)
+{ // C.A.: O(n)
     Iterador iter = iterador(L);
     TipoElemento X;
-    bool resultado=false;
-    while(hay_siguiente(iter) && (resultado==false)){
+    bool resultado = false;
+    while (hay_siguiente(iter) && (resultado == false))
+    {
         X = siguiente(iter);
-        if(X->clave == dato){
-            resultado= true;
+        if (X->clave == dato)
+        {
+            resultado = true;
         }
     }
     return resultado;
 }
 
-int leer_entero() { // C.A.: O(n^2)
+int leer_entero()
+{ // C.A.: O(n^2)
     char entrada[100];
     long numero;
     char *finptr;
     int valido = 0;
-    while (!valido) {
+    while (!valido)
+    {
         printf("Ingrese un numero entero: ");
         fgets(entrada, sizeof(entrada), stdin);
-        entrada[strlen(entrada)-1] = '\0';
+        entrada[strlen(entrada) - 1] = '\0';
         strtrim(entrada);
         errno = 0;
         numero = strtol(entrada, &finptr, 10);
-        if (errno != 0 || *finptr != '\0') {
+        if (errno != 0 || *finptr != '\0')
+        {
             printf("Entrada invalida. Intentelo de nuevo.\n");
-        } else {
+        }
+        else
+        {
             valido = 1;
         }
     }
-    return (int) numero;
+    return (int)numero;
 }
 
-Cola llenar_cola_al_azar() { // C.A.: O(tamano * n)
+Cola llenar_cola_al_azar()
+{ // C.A.: O(tamano * n)
     Cola cola = c_crear();
     Lista listaAux = l_crear();
     printf("Ingreso de datos de la cola\n");
     printf("Tamaño de la cola. ");
     int tamano = leer_entero();
-    while (tamano > TAM_MAXIMO || tamano <= 0) {
+    while (tamano > TAM_MAXIMO || tamano <= 0)
+    {
         printf("Tamaño invalido. Intentelo de nuevo. ");
         tamano = leer_entero();
     }
     int valor = 0;
-    for (int i = 0; i < tamano; i++) {
+    for (int i = 0; i < tamano; i++)
+    {
         valor = (rand() % tamano) + 1;
-        while (estaEnLista(listaAux, valor)) {
+        while (estaEnLista(listaAux, valor))
+        {
             valor = (rand() % tamano) + 1;
         }
         TipoElemento elemento = te_crear(valor);
@@ -355,20 +292,24 @@ Cola llenar_cola_al_azar() { // C.A.: O(tamano * n)
     return cola;
 }
 
-Pila llenar_pila_al_azar() { // C.A.: O(tamano * n)
+Pila llenar_pila_al_azar()
+{ // C.A.: O(tamano * n)
     Pila pila = p_crear();
     Lista listaAux = l_crear();
     printf("Ingreso de datos a la pila\n");
     printf("Tamaño de la pila. ");
     int tamano = leer_entero();
-    while (tamano > TAM_MAXIMO || tamano <= 0) {
+    while (tamano > TAM_MAXIMO || tamano <= 0)
+    {
         printf("Tamaño invalido. Intentelo de nuevo. ");
         tamano = leer_entero();
     }
     int valor = 0;
-    for (int i = 0; i < tamano; i++) {
+    for (int i = 0; i < tamano; i++)
+    {
         valor = (rand() % tamano) + 1;
-        while (estaEnLista(listaAux, valor)) {
+        while (estaEnLista(listaAux, valor))
+        {
             valor = (rand() % tamano) + 1;
         }
         TipoElemento elemento = te_crear(valor);
@@ -378,14 +319,17 @@ Pila llenar_pila_al_azar() { // C.A.: O(tamano * n)
     return pila;
 }
 
-Pila copiar_pila(Pila pilaOriginal) { // C.A.: O(n)
+Pila copiar_pila(Pila pilaOriginal)
+{ // C.A.: O(n)
     Pila pilaAuxiliar = p_crear();
     Pila pilaCopia = p_crear();
-    while (!p_es_vacia(pilaOriginal)) {
+    while (!p_es_vacia(pilaOriginal))
+    {
         TipoElemento elemento = p_desapilar(pilaOriginal);
         p_apilar(pilaAuxiliar, elemento);
     }
-    while (!p_es_vacia(pilaAuxiliar)) {
+    while (!p_es_vacia(pilaAuxiliar))
+    {
         TipoElemento elemento = p_desapilar(pilaAuxiliar);
         p_apilar(pilaOriginal, elemento);
         p_apilar(pilaCopia, elemento);
@@ -393,45 +337,51 @@ Pila copiar_pila(Pila pilaOriginal) { // C.A.: O(n)
     return pilaCopia;
 }
 
-
-
 // 6. Dada una pila y una cola generada con valores al azar retornar en una lista todos los
 // valores comunes a ambas y en qué posición ordinal se encontró cada uno en su
 // estructura. No se deben destruir las estructuras originales. No se deben perderse las
 // estructuras originales. Determinar la complejidad algorítmica de la solución empleada.
 // Ejemplo: si “P” = (2,5,8,19,3,4) y “C” = (4, 18, 12, 5, 6) la lista tendría L = (5:2:4, 4:6:5).
- 
-void mostrar_punto_6(Lista lista) { // C.A.: O(n)
 
-    if (l_es_vacia(lista)) {
+void mostrar_punto_6(Lista lista)
+{ // C.A.: O(n)
+
+    if (l_es_vacia(lista))
+    {
         printf("No se repiten posiciones.\n");
-    } else {
+    }
+    else
+    {
         Iterador iter = iterador(lista);
-        while (hay_siguiente(iter)) {
+        while (hay_siguiente(iter))
+        {
             TipoElemento elemento = siguiente(iter);
-            printf("%d:%s ", elemento->clave, (char*)elemento->valor);
+            printf("%d:%s ", elemento->clave, (char *)elemento->valor);
         }
     }
 }
 
-
-Lista punto6(Pila pila, Cola cola) { // C.A.: O(m * n), donde "m" es el tamaño de la pila y "n" es el tamaño de la cola
+Lista punto6(Pila pila, Cola cola)
+{ // C.A.: O(m * n), donde "m" es el tamaño de la pila y "n" es el tamaño de la cola
     Lista lista = l_crear();
     Cola copiaCola = copiar_cola(cola);
     Pila copiaPila = copiar_pila(pila);
     int contadorCola = 0;
     int contadorPila = 0;
-    while (!p_es_vacia(copiaPila)) {
+    while (!p_es_vacia(copiaPila))
+    {
 
         TipoElemento elementoActualPila = p_desapilar(copiaPila);
         contadorPila++;
 
-        while (!c_es_vacia(copiaCola)) {
+        while (!c_es_vacia(copiaCola))
+        {
 
             TipoElemento elementoActualCola = c_desencolar(copiaCola);
             contadorCola++;
 
-            if (elementoActualCola->clave == elementoActualPila->clave) {
+            if (elementoActualCola->clave == elementoActualPila->clave)
+            {
 
                 char posP[10];
                 itoa(contadorPila, posP, 10);
@@ -442,7 +392,7 @@ Lista punto6(Pila pila, Cola cola) { // C.A.: O(m * n), donde "m" es el tamaño 
                 strcat(resultado, posP);
                 strcat(resultado, ":");
                 strcat(resultado, posC);
-                char* valorAux = (char*) malloc(sizeof(char) * 10);
+                char *valorAux = (char *)malloc(sizeof(char) * 10);
                 strcpy(valorAux, resultado);
 
                 TipoElemento elementoAgregar = te_crear(elementoActualPila->clave);
@@ -458,8 +408,8 @@ Lista punto6(Pila pila, Cola cola) { // C.A.: O(m * n), donde "m" es el tamaño 
     return lista;
 }
 
-
-int main() {
+int main()
+{
     printf("----------Punto 6----------\n");
     char s;
     char m;
@@ -474,18 +424,21 @@ int main() {
     n = validar_numeros_positivos(&s);
     while (a == 1)
     {
-        switch (n) {
+        switch (n)
+        {
         case 1:
             printf("\nIngrese la cantidad de elementos de la pila:\n");
             tamano_pila = validar_numeros_positivos(&p);
-            while(tamano_pila > 100){
+            while (tamano_pila > 100)
+            {
                 printf("Ingrese una cantidad de elementos menor a 100: ");
                 tamano_pila = validar_numeros_positivos(&p);
             }
             cargar_datos_teclado_pila(tamano_pila, pila);
             printf("\nIngrese la cantidad de elementos de la cola: \n");
             tamano_cola = validar_numeros_positivos(&p);
-            while(tamano_cola > 100){
+            while (tamano_cola > 100)
+            {
                 printf("Ingrese una cantidad de elementos menor a 100: ");
                 tamano_cola = validar_numeros_positivos(&p);
             }
@@ -494,7 +447,7 @@ int main() {
             c_mostrar(cola);
             a = 0;
             break;
-            
+
         case 2:
             pila = llenar_pila_al_azar();
             cola = llenar_cola_al_azar();
@@ -518,4 +471,3 @@ int main() {
         }
     }
 }
-
