@@ -62,6 +62,7 @@ TipoElemento c_desencolar(Cola c)
 
 bool c_es_vacia(Cola c)
 {
+
     return (c->frente == NULL);
 }
 
