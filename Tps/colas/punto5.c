@@ -60,13 +60,15 @@ void cargar_cola(Cola cola){
     while(agregar){
         printf("Ingrese el valor del dato para guardar en la Cola o cualquier letra para finalizar la carga : ");
         if(!verificar_entrada_int(&valor)){ agregar = false; }
-        else if(valor < 2 || valor > 9999999){
-            printf("El valor tiene que ser MAYOR o igual a 2 y MENOR a 9999999\n");
+        else if(valor < -9999999 || valor > 9999999){
+            printf("El valor tiene que ser MAYOR a -9999999 y MENOR a 9999999\n");
+        }
+        else if(valor > -2 && valor < 2){
+            printf("El valor NO puede estar en el rango de -1 y 1\n");
         }
         else{
             if(verificar_duplicado(cola, valor) == true){
-                printf("El valor está repetido");
-                return;
+                printf("El valor está repetido, ingrese otro.\n");
             }else{
                 TipoElemento te = te_crear(valor);
                 c_encolar(cola, te);
@@ -120,7 +122,7 @@ void c_intercambiar(Cola c_aux, Cola c){
 //---------------------------------------------------------------------
 // Función para realizar el ejercicio
 //---------------------------------------------------------------------
-Cola divisor_total(Cola c, Cola cola_parcial){
+/*Cola divisor_total(Cola c, Cola cola_parcial){
     TipoElemento te = te_crear(0);
     TipoElemento te_duplicada = te_crear(0);
     Cola cola_duplicada = copia(c);
@@ -156,8 +158,45 @@ Cola divisor_total(Cola c, Cola cola_parcial){
     c_intercambiar(cola_aux, c);
 
     return cola_resultado;
-}
+}*/
 
+Cola divisor_total(Cola c, Cola cola_parcial){
+    TipoElemento te = te_crear(0);
+    TipoElemento te_duplicada = te_crear(0);
+    Cola cola_duplicada = copia(c);
+    Cola cola_aux = c_crear();
+    Cola cola_duplicada_aux = c_crear();
+    Cola cola_resultado = c_crear();
+    int contador;
+    float valor;
+    float longitud = c_longitud(c);
+
+    while (c_es_vacia(c) != true)
+    {
+        te = c_desencolar(c);
+        contador = 1;
+        while (c_es_vacia(cola_duplicada) != true)
+        {
+            te_duplicada = c_desencolar(cola_duplicada);
+            
+            if(te->clave != te_duplicada->clave){
+                valor = te_duplicada->clave % te->clave;
+                if(valor == 0){ contador++; }
+            }
+            c_encolar(cola_duplicada_aux, te_duplicada);
+        }
+        c_intercambiar(cola_duplicada_aux, cola_duplicada);
+
+        if(contador == longitud){ c_encolar(cola_resultado, te); }
+        else if(contador >= ceil(longitud/2)){ c_encolar(cola_parcial, te); }
+
+        c_encolar(cola_aux, te);
+    }
+
+    c_intercambiar(cola_aux, c);
+
+    return cola_resultado;
+}
 //------------------------------------------------------
 // Función para duplicar una pila
 //------------------------------------------------------
