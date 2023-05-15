@@ -12,6 +12,7 @@ complejidad algorítmica de la solución
 #include "tipo_elemento.h"
 #include "colas.h"
 #include "T_Element.c"
+#include "funciones_utiles.c"
 // #include "colas_arreglos_circular.c"
 #include "colas_punteros.c"
 #include <stdbool.h>
@@ -153,56 +154,7 @@ Cola divisor_total(Cola c, Cola cola_parcial)
     Cola cola_resultado = c_crear();
     int contador;
     float valor;
-    float longitud = c_longitud(c) - 1;
-
-    while (c_es_vacia(c) != true)
-    {
-        te = c_desencolar(c);
-        contador = 0;
-        while (c_es_vacia(cola_duplicada) != true)
-        {
-            te_duplicada = c_desencolar(cola_duplicada);
-
-            if (te->clave != te_duplicada->clave)
-            {
-                valor = te_duplicada->clave % te->clave;
-                if (valor == 0)
-                {
-                    contador++;
-                }
-            }
-            c_encolar(cola_duplicada_aux, te_duplicada);
-        }
-        c_intercambiar(cola_duplicada_aux, cola_duplicada);
-
-        if (contador == longitud)
-        {
-            c_encolar(cola_resultado, te);
-        }
-        else if (contador >= ceil(longitud / 2))
-        {
-            c_encolar(cola_parcial, te);
-        }
-
-        c_encolar(cola_aux, te);
-    }
-
-    c_intercambiar(cola_aux, c);
-
-    return cola_resultado;
-}
-
-Cola divisor_total(Cola c, Cola cola_parcial)
-{
-    TipoElemento te = te_crear(0);
-    TipoElemento te_duplicada = te_crear(0);
-    Cola cola_duplicada = copia(c);
-    Cola cola_aux = c_crear();
-    Cola cola_duplicada_aux = c_crear();
-    Cola cola_resultado = c_crear();
-    int contador;
-    float valor;
-    float longitud = c_longitud(c);
+    float longitud = c_longitud_fu(c);
 
     while (c_es_vacia(c) != true)
     {
