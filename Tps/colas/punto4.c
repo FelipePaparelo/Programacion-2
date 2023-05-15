@@ -108,7 +108,6 @@ Cola copia(Cola c)
     Cola c_copia = c_crear();
     Cola c_original = c_crear();
     TipoElemento x = te_crear(0);
-    int longitud = c_longitud(c);
 
     if (c_es_vacia(c))
     {
