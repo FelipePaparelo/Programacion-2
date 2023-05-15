@@ -15,8 +15,9 @@ el orden en que fueron atendidos los clientes*/
 #include "tipo_elemento.h"
 #include "colas.h"
 #include "T_Element.c"
-#include "colas_arreglos_circular.c"
-//#include "colas_punteros.c"
+//#include "colas_arreglos_circular.c"
+#include "colas_punteros.c"
+#include "funciones_utiles.c"
 
 int validar_numeros_positivos(char *m)
 {
@@ -183,6 +184,8 @@ int main(){
     else{
         printf("Cargar de la Cola 1\n");
         cargar_cola(cola_1,cant_elem_cola1);
+        int lingit=c_longitud_fu(cola_1);
+        printf("%i,largo\n",lingit);
     }
     printf("¿cuantos clientes va a tener en la cola 2?\n ");
     cant_elem_cola2=validar_numeros_positivos(cadena);
