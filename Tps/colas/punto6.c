@@ -267,7 +267,7 @@ void cargar_datos_teclado_pila(int tamano, Pila p1)
     printf("\n\n");
 }
 
-Cola copiar_cola(Cola colaOriginal) { // C.A.: O(n)
+Cola copiar_cola(Cola colaOriginal) { 
     Cola colaAuxiliar = c_crear();
     Cola colaCopia = c_crear();
     while (!c_es_vacia(colaOriginal)) {
@@ -288,7 +288,6 @@ void cargar_cola(Cola c,int cant){
     int iterador = 1;
     char cadena[100];
     int tamano = cant;
-    // Cola cola_aux = copiar_cola(c);
     TipoElemento x;
     while (cant>0){
         printf("ingrese el valor para la clave del %i tipoelemento de la cola: ", iterador);
@@ -305,7 +304,7 @@ void cargar_cola(Cola c,int cant){
 }
 
 
-void strtrim(char *cadena) { // C.A.: O(n)
+void strtrim(char *cadena) { 
     char *comienzoDeCadena = cadena;
     char *finalDeCadena = cadena + strlen(cadena) - 1;
     while (isspace(*comienzoDeCadena)) {
@@ -319,7 +318,7 @@ void strtrim(char *cadena) { // C.A.: O(n)
 }
 
 
-bool estaEnLista(Lista L, int dato) { // C.A.: O(n)
+bool estaEnLista(Lista L, int dato) { 
     Iterador iter = iterador(L);
     TipoElemento X;
     bool resultado=false;
@@ -332,7 +331,7 @@ bool estaEnLista(Lista L, int dato) { // C.A.: O(n)
     return resultado;
 }
 
-int leer_entero() { // C.A.: O(n^2)
+int leer_entero() { 
     char entrada[100];
     long numero;
     char *finptr;
@@ -353,7 +352,7 @@ int leer_entero() { // C.A.: O(n^2)
     return (int) numero;
 }
 
-Cola llenar_cola_al_azar() { // C.A.: O(tamano * n)
+Cola llenar_cola_al_azar() { 
     Cola cola = c_crear();
     Lista listaAux = l_crear();
     printf("Ingreso de datos de la cola\n");
@@ -376,7 +375,7 @@ Cola llenar_cola_al_azar() { // C.A.: O(tamano * n)
     return cola;
 }
 
-Pila llenar_pila_al_azar() { // C.A.: O(tamano * n)
+Pila llenar_pila_al_azar() { 
     Pila pila = p_crear();
     Lista listaAux = l_crear();
     printf("Ingreso de datos a la pila\n");
@@ -399,7 +398,7 @@ Pila llenar_pila_al_azar() { // C.A.: O(tamano * n)
     return pila;
 }
 
-Pila copiar_pila(Pila pilaOriginal) { // C.A.: O(n)
+Pila copiar_pila(Pila pilaOriginal) { 
     Pila pilaAuxiliar = p_crear();
     Pila pilaCopia = p_crear();
     while (!p_es_vacia(pilaOriginal)) {
@@ -422,7 +421,7 @@ Pila copiar_pila(Pila pilaOriginal) { // C.A.: O(n)
 // estructuras originales. Determinar la complejidad algorítmica de la solución empleada.
 // Ejemplo: si “P” = (2,5,8,19,3,4) y “C” = (4, 18, 12, 5, 6) la lista tendría L = (5:2:4, 4:6:5).
  
-void mostrar_punto_6(Lista lista) { // C.A.: O(n)
+void mostrar_punto_6(Lista lista) { 
 
     if (l_es_vacia(lista)) {
         printf("No se repiten posiciones.\n");
@@ -436,7 +435,7 @@ void mostrar_punto_6(Lista lista) { // C.A.: O(n)
 }
 
 
-Lista punto6(Pila pila, Cola cola) { // C.A.: O(m * n), donde "m" es el tamaño de la pila y "n" es el tamaño de la cola
+Lista punto6(Pila pila, Cola cola) { // Complejidad: O(n^2).
     Lista lista = l_crear();
     Cola copiaCola = copiar_cola(cola);
     Pila copiaPila = copiar_pila(pila);
@@ -516,7 +515,7 @@ int main() {
             c_mostrar(cola);
             repetidos = punto6(pila, cola);
             printf("\n-----------------\n");
-            printf("La complejidad de la funcion pedida en el ejercicio (repetidos_con_ordinal()) tiene complejidad de O(m * n)\n");
+            printf("La complejidad de la funcion (punto6()) es de O(n^2)\n");
             a = 0;
             break;
             
@@ -526,10 +525,9 @@ int main() {
             int cantidad_elementos = 1;
             p_mostrar(pila);
             c_mostrar(cola);
-            printf("[REPETIDOS CON ORDINAL]\n");
             repetidos = punto6(pila, cola);
             printf("\n-----------------\n");
-            printf("La complejidad de la funcion pedida en el ejercicio (punto6) tiene complejidad de O(m * n)\n");
+            printf("La complejidad de la funcion pedida en el ejercicio (punto6) tiene complejidad de O(n^2)\n");
             a = 0;
             break;
         case 3:
