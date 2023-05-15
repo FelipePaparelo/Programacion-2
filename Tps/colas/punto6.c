@@ -535,7 +535,7 @@ int main() {
             break;
 
         default:
-            printf("\n-----Valor invalido, ingrese 1 para ingresar datos por teclado o ingrese 2 para que la cola y la pila se generen con elementos al azar-----\n");
+            printf("\nValor invalido, ingrese 1 para ingresar datos por teclado o ingrese 2 para que la cola y la pila se generen con elementos al azar\n");
             n = validar_numeros_positivos(&s);
         }
     }
