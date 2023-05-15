@@ -15,8 +15,8 @@ el orden en que fueron atendidos los clientes*/
 #include "tipo_elemento.h"
 #include "colas.h"
 #include "T_Element.c"
-// #include "colas_arreglos_circular.c"
-#include "colas_punteros.c"
+#include "colas_arreglos_circular.c"
+//#include "colas_punteros.c"
 
 int validar_numeros_positivos(char *m)
 {
@@ -151,12 +151,8 @@ void trabajo_del_empleado(Cola c1, Cola c2, Cola c3,int minutos){
         if (cliente_cola_3<=0 && !c_es_vacia(c3_copy)){
             salida_cola_3++;
             printf("cliente %i, Cola 3\n",salida_cola_3);
-
-            x=c_desencolar(c3);
-            cliente_cola_3 = x->clave;
-        }else if (c_es_vacia(c3) && bandera_3==0){
             x=c_desencolar(c3_copy);
-            cliente_cola_3=x->clave;
+            cliente_cola_3 = x->clave;
         }else if (c_es_vacia(c3_copy) && bandera_3==0 && cliente_cola_3<=0){
 
             salida_cola_3++;

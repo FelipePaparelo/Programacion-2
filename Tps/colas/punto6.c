@@ -362,19 +362,46 @@ void mostrar_posiciones_ordinales(Lista lista) { // C.A.: O(n)
     }
 }
 
-Lista repetidos_con_ordinal(Pila pila, Cola cola) { // C.A.: O(m * n), donde "m" es el tamaño de la pila y "n" es el tamaño de la cola
-    Lista lista = l_crear();
-    Cola copiaCola = copiar_cola(cola);
-    Pila copiaPila = copiar_pila(pila);
-    int contadorCola = 0;
-    int contadorPila = 0;
-    while (!p_es_vacia(copiaPila)) {
-        TipoElemento elementoActualPila = p_desapilar(copiaPila);
-        contadorPila++;
-        while (!c_es_vacia(copiaCola)) {
-            
-            TipoElemento elementoActualCola = c_desencolar(copiaCola);
-            contadorCola++;
+    //     for ( int i = 0 ; i < tamanio_cola ; i++){
+    //         if(x->clave == vector_cola[i]){
+    //             char str[10];
+    //             if (pos > 0){
+    //                 strcat(str, ", ");
+    //             }
+    //             sprintf(str, "%i", i+1);
+    //             strcat(posiciones, str);
+    //             pos++;
+    //             // printf("dato que entra a valor: %s\n", posiciones);
+    //             x->valor = posiciones;
+    //             // printf("valor ciclo = %s\n", x->valor);
+    //             l_agregar(l1, x);
+    //         }
+    //     }
+    //     printf("valor  = %s\n", x->valor);
+    //     posiciones[0] = '\0';
+    //     printf("valor  = %s\n", x->valor);
+    // }
+    // l_mostrarListaConValor(l1);
+// }
+
+// void punto_6(Pila p1, Cola c1, Lista l1){  
+//     Cola c_aux = c_crear();
+//     int elemento_pila, elemento_cola;
+//     int vector_cola[100];
+//     TipoElemento x;
+//     TipoElemento y;
+//     TipoElemento z;
+//     int pos = 0;
+//     char posiciones[200] = "";
+//     int tamanio_pila = p_longitud(p1);
+//     int tamanio_cola = c_longitud(c1);
+//     for(int i = 0 ; i < tamanio_cola ; i++){
+//         x = c_desencolar(c1);
+//         vector_cola[i] = x->clave;
+//         c_encolar(c_aux, x);
+//     }
+//     while(!p_es_vacia(p1)){
+//         x = p_desapilar(p1);
 
             if (elementoActualCola->clave == elementoActualPila->clave) {
                 char posP[10];

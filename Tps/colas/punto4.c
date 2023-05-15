@@ -10,7 +10,7 @@ Ejemplo: si "C" contiene (12,6, 8, 5, 8, 12, 12) la cola resultado del proceso s
 #include "tipo_elemento.h"
 #include "colas.h"
 #include "T_Element.c"
-// #include "colas_arreglos_circular.c"
+//#include "colas_arreglos_circular.c"
 #include "colas_punteros.c"
 #include <stdbool.h>
 
@@ -55,7 +55,7 @@ void cargar_cola(Cola cola)
     while (agregar)
     {
         printf("Ingrese el valor del dato para guardar en la Cola o cualquier letra para finalizar la carga : ");
-        if (!verificarEntradaInt(&valor))
+        if (!verificar_entrada_int(&valor))
         {
             agregar = false;
         }else if(valor < -9999999 || valor > 9999999){
