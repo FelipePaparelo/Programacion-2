@@ -67,6 +67,20 @@ void p_intercambiar(Pila pAux, Pila p)
     }
 }
 
+bool estaEnCola(Cola cola,int elemento, int tamano){
+    int longitudC = tamano;
+    TipoElemento X;
+    bool existe = false;
+    for(int i=0;i<longitudC;i++){
+        X = (c_desencolar(cola));
+        if(X->clave == elemento){
+            existe = true;
+        }
+        c_encolar(cola,X);
+    }
+    return existe;
+}
+
 void validar_numeros_no_rep_pila(char *m, Pila p1, int tamano)
 {
     int aux = 0;
@@ -147,48 +161,17 @@ void validar_numeros_no_rep_pila(char *m, Pila p1, int tamano)
     }
 }
 
-
-void cargar_datos_teclado_pila(int tamano, Pila p1)
-{
-    TipoElemento x;
-    char cad[100];
-    int i, numero;
-    for (i = 0; i < tamano; ++i)
-    {
-        printf("ingrese el valor para la clave del %i tipoelemento de la pila: ", 1 + i);
-        validar_numeros_no_rep_pila(cad, p1, tamano);
-        numero = atoi(cad);
-        x = te_crear(numero);
-        p_apilar(p1, x);
-    }
-    printf("Finalizo la Carga\n");
-    printf("\n\n");
-}
-
-Cola copiar_cola(Cola colaOriginal) { // C.A.: O(n)
-    Cola colaAuxiliar = c_crear();
-    Cola colaCopia = c_crear();
-    while (!c_es_vacia(colaOriginal)) {
-        TipoElemento elemento = c_desencolar(colaOriginal);
-        c_encolar(colaAuxiliar, elemento);
-    }
-    while (!c_es_vacia(colaAuxiliar)) {
-        TipoElemento elemento = c_desencolar(colaAuxiliar);
-        c_encolar(colaCopia, elemento);
-        c_encolar(colaOriginal, elemento);
-    }
-    return colaCopia;
-}
-
 void validar_numeros_no_rep_cola(char *m, Cola c1, int tamano)
 {
+    bool verificacion;
     int aux = 0;
-    int cant = tamano;
     int bandera = 1, p, num_de_m, bandera_2;
     TipoElemento x;
-    // Cola c_aux = copiar_cola(c1);
+    TipoElemento y;
     Cola c_aux = c_crear();
     Pila p_aux = p_crear();
+    int cantidad = tamano;
+    int cantidad2 = tamano;
     fgets(m, 100, stdin);
     int largo = strlen(m) - 1;
     while (bandera == 1)
@@ -226,24 +209,26 @@ void validar_numeros_no_rep_cola(char *m, Cola c1, int tamano)
             }
             else{
                 bandera_2 = 0;
+            } 
+
+            while(!c_es_vacia(c1)){
+                
+                x = c_desencolar(c1);
+                if (x->clave == num_de_m && bandera_2 == 0)
+                {
+                    printf("el numero ya fue ingresado\n");
+                    bandera_2 = 1;
+                    aux = -1;
+                }
+                c_encolar(c_aux, x);
             }
 
-
-        int elemento = 0;
-        int iterador = 1;    
-        while (cant>0){
-            x = c_desencolar(c1);
-            if (x->clave == num_de_m && bandera_2 == 0){
-                printf("el numero ya fue ingresado\n");
-                bandera_2 = 1;
-                aux = -1;
-            }  
-            c_encolar(c_aux,x);
-            iterador++;
-            elemento++;
-            cant--;
-        }
-
+            while (!c_es_vacia(c_aux))
+            {
+                x = c_desencolar(c_aux);
+                c_encolar(c1, x);
+            }
+            
 
             if (bandera_2 == 1){
                 bandera = 1;
@@ -263,11 +248,47 @@ void validar_numeros_no_rep_cola(char *m, Cola c1, int tamano)
     }
 }
 
+
+void cargar_datos_teclado_pila(int tamano, Pila p1)
+{
+    TipoElemento x;
+    char cad[100];
+    int i, numero;
+    
+    for (i = 0; i < tamano; ++i)
+    {
+        printf("ingrese el valor para la clave del %i tipoelemento de la pila: ", 1 + i);
+        validar_numeros_no_rep_pila(cad, p1, tamano);
+        numero = atoi(cad);
+        x = te_crear(numero);
+        p_apilar(p1, x);
+    }
+    printf("Finalizo la Carga\n");
+    printf("\n\n");
+}
+
+Cola copiar_cola(Cola colaOriginal) { // C.A.: O(n)
+    Cola colaAuxiliar = c_crear();
+    Cola colaCopia = c_crear();
+    while (!c_es_vacia(colaOriginal)) {
+        TipoElemento elemento = c_desencolar(colaOriginal);
+        c_encolar(colaAuxiliar, elemento);
+    }
+    while (!c_es_vacia(colaAuxiliar)) {
+        TipoElemento elemento = c_desencolar(colaAuxiliar);
+        c_encolar(colaCopia, elemento);
+        c_encolar(colaOriginal, elemento);
+    }
+    return colaCopia;
+}
+
+
 void cargar_cola(Cola c,int cant){
     int elemento = 0;
     int iterador = 1;
     char cadena[100];
     int tamano = cant;
+    // Cola cola_aux = copiar_cola(c);
     TipoElemento x;
     while (cant>0){
         printf("ingrese el valor para la clave del %i tipoelemento de la cola: ", iterador);
@@ -454,7 +475,7 @@ Lista punto6(Pila pila, Cola cola) { // C.A.: O(m * n), donde "m" es el tamaño 
         contadorCola = 0;
         copiaCola = copiar_cola(cola);
     }
-    mostrar_posiciones_ordinales(lista);
+    mostrar_punto_6(lista);
     return lista;
 }
 
@@ -465,11 +486,12 @@ int main() {
     char m;
     char p;
     int n;
-    Pila pila;
-    Cola cola;
+    Pila pila = p_crear();
+    Cola cola = c_crear();
     int a = 1;
     int tamano_pila;
     int tamano_cola;
+    Lista repetidos;
     printf("¿Como desea ingresar los datos?\nOpcion 1: Ingresar los datos por teclado\nOpcion 2: Ingresar elementos al azar.\nOpcion 3: finaliza el programa.\n");
     n = validar_numeros_positivos(&s);
     while (a == 1)
@@ -492,6 +514,9 @@ int main() {
             cargar_cola(cola, tamano_cola);
             p_mostrar(pila);
             c_mostrar(cola);
+            repetidos = punto6(pila, cola);
+            printf("\n-----------------\n");
+            printf("La complejidad de la funcion pedida en el ejercicio (repetidos_con_ordinal()) tiene complejidad de O(m * n)\n");
             a = 0;
             break;
             
@@ -502,10 +527,9 @@ int main() {
             p_mostrar(pila);
             c_mostrar(cola);
             printf("[REPETIDOS CON ORDINAL]\n");
-            Lista repetidos = punto6(pila, cola);
+            repetidos = punto6(pila, cola);
             printf("\n-----------------\n");
-            printf("La mayor complejidad la posee la funcion leer_entero() -> O(n^2)\n");
-            printf("La complejidad de la funcion pedida en el ejercicio (repetidos_con_ordinal()) tiene complejidad de O(m * n)\n");
+            printf("La complejidad de la funcion pedida en el ejercicio (punto6) tiene complejidad de O(m * n)\n");
             a = 0;
             break;
         case 3:
