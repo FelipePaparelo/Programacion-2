@@ -6,7 +6,7 @@
 #include "tipo_elemento.h"
 #include "nodo.h"
 #include "Nodo_funciones.c"
-#include "T_Element.c"
+#include "I_arboles_binarios.c"
 
 int altura(ArbolBinario A);
 void hojas(ArbolBinario A);
