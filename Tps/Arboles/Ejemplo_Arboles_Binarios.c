@@ -5,12 +5,54 @@
 #include "arbol-binario.h"
 #include "tipo_elemento.h"
 #include "nodo.h"
-#include "I_arboles_binarios.c"
-#include "T_Element.c"
 #include "Nodo_funciones.c"
+#include "T_Element.c"
 
 int altura(ArbolBinario A);
 void hojas(ArbolBinario A);
+
+//Muestra el arbol a partir de un nodo (de ahi hacia abajo)
+void pre_orden(NodoArbol N){
+    TipoElemento x;
+    if (N == NULL) {
+        printf(".");
+    }
+    else {
+        x = n_recuperar(N);
+        printf(" %d", x->clave);
+        pre_orden(n_hijoizquierdo(N));
+        pre_orden(n_hijoderecho(N));
+    }
+}
+
+//Muestra el arbol a partir de un nodo (de ahi hacia abajo)
+void in_orden(NodoArbol N){
+    TipoElemento x;
+    if (N == NULL) {
+        printf(".");
+    }
+    else {
+        in_orden(n_hijoizquierdo(N));
+        x = n_recuperar(N);
+        printf(" %d", x->clave);
+        in_orden(n_hijoderecho(N));
+    }
+}
+
+//Muestra el arbol a partir de un nodo (de ahi hacia abajo)
+void post_orden(NodoArbol N){
+    TipoElemento x;
+    if (N == NULL) {
+        printf(".");
+    }
+    else {
+        post_orden(n_hijoizquierdo(N));
+        post_orden(n_hijoderecho(N));
+        x = n_recuperar(N);
+        printf(" %d", x->clave);
+    }
+}
+
 
 
 int main()
@@ -84,48 +126,6 @@ int main()
 
     hojas(a);
 
-}
-
-//Muestra el arbol a partir de un nodo (de ahi hacia abajo)
-void pre_orden(NodoArbol N){
-    TipoElemento x;
-    if (N == NULL) {
-        printf(".");
-    }
-    else {
-        x = n_recuperar(N);
-        printf(" %d", x->clave);
-        pre_orden(n_hijoizquierdo(N));
-        pre_orden(n_hijoderecho(N));
-    }
-}
-
-//Muestra el arbol a partir de un nodo (de ahi hacia abajo)
-void in_orden(NodoArbol N){
-    TipoElemento x;
-    if (N == NULL) {
-        printf(".");
-    }
-    else {
-        in_orden(n_hijoizquierdo(N));
-        x = n_recuperar(N);
-        printf(" %d", x->clave);
-        in_orden(n_hijoderecho(N));
-    }
-}
-
-//Muestra el arbol a partir de un nodo (de ahi hacia abajo)
-void post_orden(NodoArbol N){
-    TipoElemento x;
-    if (N == NULL) {
-        printf(".");
-    }
-    else {
-        post_orden(n_hijoizquierdo(N));
-        post_orden(n_hijoderecho(N));
-        x = n_recuperar(N);
-        printf(" %d", x->clave);
-    }
 }
 
 //---------------------------------------------------------

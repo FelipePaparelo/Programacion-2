@@ -1,6 +1,7 @@
 #ifndef TIPO_ELEMENTO_H
 #define TIPO_ELEMENTO_H
 
+
 struct TipoElementoRep {
     int clave;
     void* valor;

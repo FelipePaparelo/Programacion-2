@@ -2,8 +2,6 @@
 #include <stdlib.h>
 #include <string.h>
 #include "nodo.h"
-#include "tipo_elemento.h"
-#include "T_Element.c"
 
 
 
@@ -40,7 +38,7 @@ NodoArbol n_crear (TipoElemento te) {
 
 // retorno el tipo elemento de un nodo o NULL si no existe
 TipoElemento n_recuperar (NodoArbol N) {
-    TipoElemento x = crear_te(0);
+    TipoElemento x = te_crear(0);
     if (N == NULL) {
         return NULL;
     }

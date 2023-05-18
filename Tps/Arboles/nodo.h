@@ -2,6 +2,7 @@
 #define NODO_H
 #include "tipo_elemento.h"
 
+
 struct NodoArbolRep {
     TipoElemento datos;
     struct NodoArbolRep *hi;
