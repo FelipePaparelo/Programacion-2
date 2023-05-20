@@ -59,8 +59,9 @@ int main()
     l_mostrarLista(lista_nodos_internos);
 }
 
-
-//Muestra el arbol a partir de un nodo (de ahi hacia abajo)
+//-------------------------------------
+// Muestra el arbol en forma pre-orden
+//-------------------------------------
 void pre_orden(NodoArbol N){
     TipoElemento x;
     if (N == NULL) {
@@ -74,7 +75,9 @@ void pre_orden(NodoArbol N){
     }
 }
 
-//Muestra el arbol a partir de un nodo (de ahi hacia abajo)
+//-------------------------------------
+//Muestra el arbol en forma in-orden
+//-------------------------------------
 void in_orden(NodoArbol N){
     TipoElemento x;
     if (N == NULL) {
@@ -88,7 +91,9 @@ void in_orden(NodoArbol N){
     }
 }
 
-//Muestra el arbol a partir de un nodo (de ahi hacia abajo)
+//-------------------------------------
+//Muestra el arbol en forma post-orden
+//-------------------------------------
 void post_orden(NodoArbol N){
     TipoElemento x;
     if (N == NULL) {
@@ -165,7 +170,7 @@ void cargar_arbol(ArbolBinario a){
 //---------------------------------------------------------
 // Funcion que retorna los nodos hojas en una lista
 //---------------------------------------------------------
-void hojasint(NodoArbol Q, Lista l){
+void hojas_interno(NodoArbol Q, Lista l){
     TipoElemento x;
 
     if(Q == NULL) { }
@@ -183,7 +188,7 @@ void hojasint(NodoArbol Q, Lista l){
 
 Lista hojas(ArbolBinario A){
     Lista lista_hojas = l_crear();
-    hojasint(a_raiz(A), lista_hojas);
+    hojas_interno(a_raiz(A), lista_hojas);
     return lista_hojas;
 };
 
@@ -191,7 +196,7 @@ Lista hojas(ArbolBinario A){
 //---------------------------------------------------------
 // Funcion para encontrar los nodos internos del arbol
 //---------------------------------------------------------
-void nodos_internos(ArbolBinario a, NodoArbol q, Lista l){
+void nodos_interno(ArbolBinario a, NodoArbol q, Lista l){
     TipoElemento x;
     TipoElemento aux;
 
@@ -215,6 +220,6 @@ void nodos_internos(ArbolBinario a, NodoArbol q, Lista l){
 
 Lista internos(ArbolBinario a){
     Lista lista_resultado = l_crear();
-    nodos_internos(a, a_raiz(a), lista_resultado);
+    nodos_interno(a, a_raiz(a), lista_resultado);
     return lista_resultado;
 }
