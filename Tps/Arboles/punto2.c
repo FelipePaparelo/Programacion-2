@@ -24,10 +24,11 @@ void cargar_subArbol(ArbolBinario a, NodoArbol n, int hijo);
 
 int main()
 {
+    // Árbol para realizar el ejercicio
     ArbolBinario a = a_crear();
-    TipoElemento x;
-    NodoArbol N;
+    // Lista que va a contener las hojas del árbol (Ejercicio 2A)
     Lista lista_hojas = l_crear();
+    // Lista que va a contener los nodos internos del árbol (Ejercicio 2B)
     Lista lista_nodos_internos = l_crear();
 
     if (a_es_vacio(a)) {
@@ -36,7 +37,12 @@ int main()
 
     cargar_arbol(a);
 
-    // LLamo al mostrar arbol
+    if(a_es_vacio(a)){ 
+        printf("El árbol está vacío, fin del programa."); 
+        return 0;
+    }
+
+    // Se muestra el árbol en las diferentes formas de recorrido
     printf("-----------------------------------------------------\n");
     printf("Pre-Orden Desde la raiz\n");
     pre_orden(a_raiz(a));
@@ -50,10 +56,20 @@ int main()
     post_orden(a_raiz(a));
     printf("\n");
 
+
+    //-----------------------------------------------------------------
+    // Obtiene todos los nodos hojas del árbol
+    //-----------------------------------------------------------------
+    printf("-----------------------------------------------------\n");
     lista_hojas = hojas(a);
     printf("Los nodos hojas son : ");
     l_mostrarLista(lista_hojas);
 
+
+    //-----------------------------------------------------------------
+    // Obtiene todos los nodos internos del árbol
+    //-----------------------------------------------------------------
+    printf("-----------------------------------------------------\n");
     lista_nodos_internos = internos(a);
     printf("Los nodos internos son : ");
     l_mostrarLista(lista_nodos_internos);
@@ -181,8 +197,8 @@ void hojas_interno(NodoArbol Q, Lista l){
             l_agregar(l, x);
         }
         // Llamo para el recorrido
-        hojasint(n_hijoizquierdo(Q), l);
-        hojasint(n_hijoderecho(Q), l);
+        hojas_interno(n_hijoizquierdo(Q), l);
+        hojas_interno(n_hijoderecho(Q), l);
     }
 }
 
@@ -213,8 +229,8 @@ void nodos_interno(ArbolBinario a, NodoArbol q, Lista l){
             if(aux->clave != x->clave){ l_agregar(l, x); }
         }
         // Llamo para el recorrido
-        nodos_internos(a, n_hijoizquierdo(q), l);
-        nodos_internos(a, n_hijoderecho(q), l);
+        nodos_interno(a, n_hijoizquierdo(q), l);
+        nodos_interno(a, n_hijoderecho(q), l);
     }
 }
 
