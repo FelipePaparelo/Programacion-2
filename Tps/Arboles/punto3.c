@@ -101,6 +101,7 @@ int main()
     //-----------------------------------------------------------------
     // Obtener cual es la clave del nodo padre
     //-----------------------------------------------------------------
+    printf("-----------------------------------------------------\n");
     nodo_padre = padre(a, nodo_clave);
     if(nodo_padre == NULL){ printf("El nodo %d NO tiene padre\n", nodo_clave); }
     else{ printf("El nodo padre de %d es : %d\n", nodo_clave, nodo_padre->clave); }
@@ -109,6 +110,7 @@ int main()
     //-----------------------------------------------------------------
     // Obtener una lista con los hijos
     //-----------------------------------------------------------------
+    printf("-----------------------------------------------------\n");
     lista_hijos = hijos(a, nodo_clave);
     if(l_es_vacia(lista_hijos) != true){ 
         printf("Los hijos del nodo %d es :");
@@ -120,6 +122,7 @@ int main()
     //-----------------------------------------------------------------
     // Obtener el Hermano del nodo elegido
     //-----------------------------------------------------------------
+    printf("-----------------------------------------------------\n");
     nodo_hermano = hermano(a, nodo_clave, nodo_padre);
     if(nodo_hermano == NULL){ printf("El nodo %d NO tiene hermanos\n", nodo_clave); }
     else{ printf("El nodo hermano de %d es : %d\n", nodo_clave, nodo_hermano->clave); }
@@ -128,6 +131,7 @@ int main()
     //-----------------------------------------------------------------
     // Obtener la altura en la que se encuentra la clave elegida
     //-----------------------------------------------------------------
+    printf("-----------------------------------------------------\n");
     altura_nodo = altura(a, nodo_clave);
     if(altura_nodo < 0){ printf("La clave a buscar no existe en el arbol\n"); }
     else{ printf("El nivel del nodo %d es : %d\n", nodo_clave, altura_nodo); }
@@ -136,6 +140,7 @@ int main()
     //-----------------------------------------------------------------
     // Obtener la altura del subarbol
     //-----------------------------------------------------------------
+    printf("-----------------------------------------------------\n");
     altura_rama = altura_subarbol(a, nodo_clave) - 1;
     if(altura_rama < 0){ printf("La clave a buscar no existe en el arbol\n"); }
     else{ printf("La altura del SubArbol %d es : %d\n", nodo_clave, altura_rama); }
@@ -144,6 +149,7 @@ int main()
     //-----------------------------------------------------------------
     // Obtener todos los nodos de la altura de la clave
     //-----------------------------------------------------------------
+    printf("-----------------------------------------------------\n");
     lista_hermanos = nivel_nodos(a, nodo_clave, altura_nodo);
     if(l_es_vacia(lista_hermanos)){ printf("No hay nodos en el mismo nivel del nodo %d\n", nodo_clave); }
     else{ 
