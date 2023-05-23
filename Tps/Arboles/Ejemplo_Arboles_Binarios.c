@@ -103,8 +103,9 @@ int main()
 
     // Inserto uno por derecha
     x = te_crear(14);
-    a_conectar_hi(a, NULL, x);
+    a_conectar_hi(a, N, x);
     printf("Cantidad de Nodos: %d \n", a_cantidad_elementos(a));
+    // Inserto uno por derecha
 
     // LLamo al mostrar arbol
     printf("-----------------------------------------------------\n");
