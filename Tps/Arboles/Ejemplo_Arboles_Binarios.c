@@ -61,7 +61,7 @@ int main()
     TipoElemento x;
     NodoArbol N;
 
-    printf("Creando el Arbol Binario Vacio (Tama�o = 10) !\n");
+    printf("Creando el Arbol Binario Vacio (Tamano = 10) !\n");
     a = a_crear();
 
     if (a_es_vacio(a)) {

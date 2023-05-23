@@ -30,6 +30,7 @@ bool a_es_lleno(ArbolBinario a){
 
 NodoArbol a_conectar_hi(ArbolBinario a, NodoArbol pa, TipoElemento te){
     if (pa==NULL){
+        return NULL;
     }
     else{
         if (pa->hi!=NULL){
@@ -68,7 +69,7 @@ NodoArbol a_establecer_raiz(ArbolBinario a, TipoElemento te){
 
 NodoArbol a_conectar_hd(ArbolBinario a, NodoArbol pa, TipoElemento te){
     if (pa == NULL){
-
+        return NULL;
     }
     else{ 
        if (pa->hd != NULL){
