@@ -8,10 +8,11 @@
 #include "nodo.h"
 #include "Nodo_funciones.c"
 #include "I_arboles_binarios.c"
-#include "C:\Users\nahul\OneDrive\Documentos\GitHub\Programacion-2\Tps\tad\listas_de_areglos.c"
+#include "listas_de_arreglos.c"
 
 Lista hojas(ArbolBinario A);
 Lista internos(ArbolBinario a);
+Lista ocurrencias(ArbolBinario a, int clave);
 
 void pre_orden(NodoArbol n);
 void in_orden(NodoArbol N);
@@ -20,6 +21,9 @@ void post_orden(NodoArbol N);
 bool verificar_entrada(int *valor);
 void cargar_arbol(ArbolBinario a);
 void cargar_subArbol(ArbolBinario a, NodoArbol n, int hijo);
+
+void mostrar_valores(Lista lista);
+bool verificar_entrada_int(int *valor);
 
 
 int main()
@@ -30,6 +34,9 @@ int main()
     Lista lista_hojas = l_crear();
     // Lista que va a contener los nodos internos del árbol (Ejercicio 2B)
     Lista lista_nodos_internos = l_crear();
+    // Lista que va a contener los punteros de las ocurrencias (Ejercicio 2C)
+    Lista lista_nodos_ocurrencias = l_crear();
+    int clave_a_buscar;
 
     if (a_es_vacio(a)) {
         printf("El arbol se creo y esta vacio!\n");
@@ -58,21 +65,59 @@ int main()
 
 
     //-----------------------------------------------------------------
-    // Obtiene todos los nodos hojas del árbol
+    // Obtiene todos los nodos hojas del árbol (Ejercicio 2A)
     //-----------------------------------------------------------------
     printf("-----------------------------------------------------\n");
     lista_hojas = hojas(a);
-    printf("Los nodos hojas son : ");
-    l_mostrarLista(lista_hojas);
+    if(l_es_vacia(lista_hojas)){
+        printf("No hay hojas en el árbol\n");
+    }else{
+        printf("Los nodos hojas son : ");
+        l_mostrarLista(lista_hojas);
+    }
 
+    printf("La complejidad algorítmica es de Orden Lineal\n");
+    
 
     //-----------------------------------------------------------------
-    // Obtiene todos los nodos internos del árbol
+    // Obtiene todos los nodos internos del árbol (Ejercicio 2B)
     //-----------------------------------------------------------------
     printf("-----------------------------------------------------\n");
     lista_nodos_internos = internos(a);
-    printf("Los nodos internos son : ");
-    l_mostrarLista(lista_nodos_internos);
+    if(l_es_vacia(lista_nodos_internos)){
+        printf("No hay nodos internos en el árbol\n");
+    }else{
+        printf("Los nodos internos son : ");
+        l_mostrarLista(lista_nodos_internos);
+    }
+
+    printf("La complejidad algorítmica es de Orden Lineal\n");
+    
+
+    //-----------------------------------------------------------------
+    // Obtiene todos los nodos internos del árbol (Ejercicio 2C)
+    //-----------------------------------------------------------------
+    printf("-----------------------------------------------------\n");
+    printf("Ingresar la clave para buscar las ocurrencias en el árbol : ");
+    if(!verificar_entrada_int(&clave_a_buscar)){
+        printf("La clave no es un Entero");
+        return 0;
+    }else if(clave_a_buscar < -9999999 || clave_a_buscar > 9999999){
+        printf("El valor debe estar en el rango de -9999999 y 9999999\n");
+        //return 0;
+    }else{
+        printf("Valor ingresado correcto.\n");
+    }
+
+    lista_nodos_ocurrencias = ocurrencias(a, clave_a_buscar);
+    if(l_es_vacia(lista_nodos_ocurrencias)){
+        printf("No hay ocurrencias de la clave dada\n");
+    }else{
+        printf("Las ocurrencias de la clave %d son : ");
+        mostrar_valores(lista_nodos_ocurrencias);
+    }
+
+    printf("La complejidad algorítmica es de Orden Lineal\n");
 }
 
 //-------------------------------------
@@ -141,19 +186,32 @@ bool verificar_entrada(int *valor){
             negativo = true;
             i++;
         }
-        for (i; entrada[i] != '\0'; i++) {
-            if (!isdigit(entrada[i])){
-                printf("El valor ingresado no es un entero, intente de nuevo\n");
-                verificar_entrada(valor);    
-                break;
-            }else if((entrada[i]>='0')&&(entrada[i]<='9')){
-                *valor = *valor * 10 + (entrada[i] - 48);
+        if(strlen(entrada) >= 10){
+            printf("La longitud del número tiene que ser menor a 10, intente de nuevo\n");
+            verificar_entrada(valor);
+        }else{
+            for (i; entrada[i] != '\0'; i++) {
+                if (!isdigit(entrada[i])){
+                    printf("El valor ingresado no es un entero, intente de nuevo\n");
+                    verificar_entrada(valor);    
+                    break;
+                }else if((entrada[i]>='0')&&(entrada[i]<='9')){
+                    *valor = *valor * 10 + (entrada[i] - 48);
+                }
             }
+            if(negativo){ *valor = *valor * (-1); }
         }
-        if(negativo){ *valor = *valor * (-1); }
     }
 
     return resultado;
+}
+
+bool verificar_entrada_int(int *valor)
+{
+    if (scanf("%d", valor) != 1)
+        return false;
+    else
+        return true;
 }
 
 //---------------------------------------------------------
@@ -183,14 +241,24 @@ void cargar_arbol(ArbolBinario a){
     cargar_subArbol(a, NULL, 0);
 }
 
-//---------------------------------------------------------
-// Funcion que retorna los nodos hojas en una lista
-//---------------------------------------------------------
+void mostrar_valores(Lista lista)
+{
+    printf("{ ");
+    for (int i = 0; i < lista->cantidad; i++) {
+        printf("Clave : %d, ", lista->valores[i]->clave);
+        printf("Puntero : %p \n", (NodoArbol)lista->valores[i]->valor);
+    }
+    printf("}");
+    printf("\n");
+}
+
+//-----------------------------------------------------------------
+// Funcion que retorna los nodos hojas en una lista (Ejercicio 2A)
+//-----------------------------------------------------------------
 void hojas_interno(NodoArbol Q, Lista l){
     TipoElemento x;
 
-    if(Q == NULL) { }
-    else {
+    if(Q != NULL) {
         // averigua si es un hoja
         if ((n_hijoizquierdo(Q) == NULL) && (n_hijoderecho(Q) == NULL)) {
             x = n_recuperar(Q);
@@ -209,15 +277,14 @@ Lista hojas(ArbolBinario A){
 };
 
 
-//---------------------------------------------------------
-// Funcion para encontrar los nodos internos del arbol
-//---------------------------------------------------------
+//-------------------------------------------------------------------
+// Funcion para encontrar los nodos internos del arbol (Ejercicio 2B)
+//-------------------------------------------------------------------
 void nodos_interno(ArbolBinario a, NodoArbol q, Lista l){
     TipoElemento x;
     TipoElemento aux;
 
-    if(q == NULL){}
-    else{
+    if(q != NULL){
         bool condicion_1 = n_hijoizquierdo(q) == NULL;
         bool condicion_2 = n_hijoderecho(q) != NULL;
         bool condicion_3 = n_hijoizquierdo(q) != NULL;
@@ -237,5 +304,33 @@ void nodos_interno(ArbolBinario a, NodoArbol q, Lista l){
 Lista internos(ArbolBinario a){
     Lista lista_resultado = l_crear();
     nodos_interno(a, a_raiz(a), lista_resultado);
+    return lista_resultado;
+}
+
+
+//---------------------------------------------------------------------
+// Funcion para encontrar ocurrencias dentro de un arbol (Ejercicio 2C)
+//---------------------------------------------------------------------
+void ocurrencias_interno(NodoArbol q, int clave, Lista l){
+    TipoElemento x;
+    TipoElemento valor;
+
+    if(q != NULL){
+        x = n_recuperar(q);
+
+        if(x->clave == clave){
+            valor = te_crear_con_valor(clave, (NodoArbol)q);
+            l_agregar(l, valor);
+        }
+
+        // Llamo para el recorrido
+        ocurrencias_interno(n_hijoizquierdo(q), clave, l);
+        ocurrencias_interno(n_hijoderecho(q), clave, l);
+    }
+}
+
+Lista ocurrencias(ArbolBinario a, int clave){
+    Lista lista_resultado = l_crear();
+    ocurrencias_interno(a_raiz(a), clave, lista_resultado);
     return lista_resultado;
 }

@@ -224,16 +224,21 @@ bool verificar_entrada(int *valor){
             negativo = true;
             i++;
         }
-        for (i; entrada[i] != '\0'; i++) {
-            if (!isdigit(entrada[i])){
-                printf("El valor ingresado no es un entero, intente de nuevo\n");
-                verificar_entrada(valor);    
-                break;
-            }else if((entrada[i]>='0')&&(entrada[i]<='9')){
-                *valor = *valor * 10 + (entrada[i] - 48);
+        if(strlen(entrada) >= 10){
+            printf("La longitud del número tiene que ser menor a 10, intente de nuevo\n");
+            verificar_entrada(valor);
+        }else{
+            for (i; entrada[i] != '\0'; i++) {
+                if (!isdigit(entrada[i])){
+                    printf("El valor ingresado no es un entero, intente de nuevo\n");
+                    verificar_entrada(valor);    
+                    break;
+                }else if((entrada[i]>='0')&&(entrada[i]<='9')){
+                    *valor = *valor * 10 + (entrada[i] - 48);
+                }
             }
+            if(negativo){ *valor = *valor * (-1); }
         }
-        if(negativo){ *valor = *valor * (-1); }
     }
 
     return resultado;
