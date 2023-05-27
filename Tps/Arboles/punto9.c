@@ -178,13 +178,24 @@ int main(){
     printf("Bienvenido al punto 9 del tp de arboles\n");
     printf("Carga del arbol binario\n");
     cargar_arbol(ab);
+    printf("termino la carga del arbol binario\n");
+    printf("Mostrar el arbol binario en pre-orden: \n");
     pre_orden(a_raiz(ab));
+    printf("\nComienzo de la carga del arbol avl\n");
     cargar_arbol_avl(ab,a_avl);
-    printf("\ntermino la carga del avl\n");
+    printf("Termino la carga del arbol avl\n");
+    printf("Mostrar el arbol avl en pre-orden: \n");
     pre_orden(avl_raiz(a_avl));
     alt_ab=altura_ab(ab);
-    printf("\n altura del arbol binario: %i",alt_ab);
+    printf("\n altura del arbol binario: %i\n",alt_ab);
     alt_avl=altura_avl(a_avl);
-    printf("\n altura del arbol avl: %i",alt_avl);
+    printf(" altura del arbol avl: %i\n",alt_avl);
+    if (alt_ab > alt_avl){
+        printf("el arbol avl tiene menos altura que el arbol binario.\n");
+    } else if (alt_ab< alt_avl){
+        printf("el arbol avl tiene mas altura que el arbol binario.\n");
+    }else{
+        printf("el arbol avl tiene la misma altura que el arbol binario.\n");
+    }
     return 0;
 }
