@@ -8,6 +8,9 @@
 #include "nodo.h"
 #include "Nodo_funciones.c"
 #include "I_arboles_binarios.c"
+#include "listas_arreglos.c"
+//#include "listas_cursores.c"
+//#include "listas_punteros.c"
 
 bool verificar_entrada(int *valor){
     char entrada[10];
@@ -112,7 +115,27 @@ bool hojasEnMismaAltura(NodoArbol n,int nivel,int contador,bool resultado){
     return resultado;
 }
 
-int main(){
+bool es_nodo_interno(NodoArbol n, ArbolBinario a) {
+    return ((n_hijoizquierdo(n) != NULL) && (a->raiz != n));
+}
+
+void nodos_internos_arbol_recursivo(NodoArbol n, Lista lista, ArbolBinario a) {
+    if (n != NULL) {
+        if (es_nodo_interno(n, a)) {
+            l_agregar(lista, n_recuperar(n));
+        }
+        nodos_internos_arbol_recursivo(n_hijoizquierdo(n), lista, a);
+        nodos_internos_arbol_recursivo(n_hijoderecho(n), lista, a);
+    }
+}
+
+Lista nodos_internos_arbol(ArbolBinario a) {
+    Lista lista = l_crear();
+    nodos_internos_arbol_recursivo(a_raiz(a), lista, a);
+    return lista;
+}
+
+int main() {
     ArbolBinario arbolTransformado = a_crear();
     printf("[ARBOL TRANSFORMADO - INGRESO]\n");
     cargar_arbol(arbolTransformado);
@@ -135,4 +158,13 @@ int main(){
     //if(resultado){
     //    printf("mismo nivel");
     //}else{printf("distinto nivel");}
+    // c. Listar todos los nodos internos (solo las claves)
+    Lista nodosInternos = nodos_internos_arbol(arbolTransformado);
+    if (l_es_vacia(nodosInternos)) {
+        printf("El arbol no tiene nodos internos.\n");
+    } else {
+        printf("[NODOS INTERNOS] \n");
+        l_mostrarLista(nodosInternos);
+    }
+    return 0;
 }
