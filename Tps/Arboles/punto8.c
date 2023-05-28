@@ -116,7 +116,7 @@ bool hojasEnMismaAltura(NodoArbol n,int nivel,int contador,bool resultado){
 }
 
 bool es_nodo_interno(NodoArbol n, ArbolBinario a) {
-    return ((n_hijoizquierdo(n) != NULL) && (a->raiz != n));
+    return ((n_hijoizquierdo(n) != NULL) && (a_raiz(a) != n));
 }
 
 void nodos_internos_arbol_recursivo(NodoArbol n, Lista lista, ArbolBinario a) {
