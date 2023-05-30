@@ -11,8 +11,6 @@
 #include "arbol-avl.h"
 #include "arbol-avl.c"
 
-
-
 bool validar_numeros(char *m)
 {
     int aux = 0;
@@ -36,7 +34,7 @@ bool validar_numeros(char *m)
                 aux++;
             }
 
-            if ((j == 0) && (m[j] == '-'))
+            if ((j == 0) && (m[j] == '-')&& (isdigit(m[j+1]) != 0))
             {
                 aux++;
             }
