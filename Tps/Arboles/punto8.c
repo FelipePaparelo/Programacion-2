@@ -97,6 +97,8 @@ void cargar_subArbol(ArbolBinario a, NodoArbol n, int hijo){
 
 void cargar_arbol(ArbolBinario a) {
     cargar_subArbol(a, NULL, 0);
+    int c;
+    while ((c = getchar()) != '\n' && c != EOF) {}
 }
 
 bool esHojaNArio(NodoArbol n){
