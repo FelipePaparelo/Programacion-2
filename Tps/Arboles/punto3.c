@@ -8,7 +8,7 @@
 #include "nodo.h"
 #include "Nodo_funciones.c"
 #include "I_arboles_binarios.c"
-#include "C:\Users\nahul\OneDrive\Documentos\GitHub\Programacion-2\Tps\tad\listas_de_areglos.c"
+#include "../tad/listas_de_areglos.c"
 
 TipoElemento padre(ArbolBinario A, int clave);
 Lista hijos(ArbolBinario a, int clave);
