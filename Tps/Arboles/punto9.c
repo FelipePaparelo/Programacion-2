@@ -53,7 +53,7 @@ bool validar_numeros(char *m)
         else
         {
             aux = 0;
-            printf("El dato que Ingresa no es un numero positivo o es mayor a 99.999, intente otra vez: ");
+            printf("El dato que Ingresa no es un numero o es mayor a 99.999 o menor a -9999, intente otra vez: ");
             fgets(m, 100, stdin);
             fflush(stdin);
             largo = strlen(m) - 1;
@@ -79,7 +79,7 @@ void cargar_subArbol(ArbolBinario a, NodoArbol n, int hijo){
         printf("Ingrese un numero o '.' para nulo: ");
         numero=validar_numeros(cadena);
         if (numero){
-            //printf("numero a cargar %i \n ",numero);
+
             numero_i=atoi(cadena);
             x = te_crear(numero_i);
 
@@ -128,18 +128,6 @@ void cargar_arbol_avl(ArbolBinario a, ArbolAVL avl){
     recorrer_arbol(a_raiz(a),avl);
 }
 
-void in_orden(NodoArbol N){
-    TipoElemento x;
-    if (N == NULL) {
-        printf(".");
-    }
-    else {
-        in_orden(n_hijoizquierdo(N));
-        x = n_recuperar(N);
-        printf(" %d", x->clave);
-        in_orden(n_hijoderecho(N));
-    }
-}
 
 void altint(NodoArbol Q, int *h, int c){
     if (Q == NULL) {
@@ -156,13 +144,13 @@ void altint(NodoArbol Q, int *h, int c){
 
 int altura_ab(ArbolBinario A){
     int alt = 0;
-    altint(a_raiz(A), &alt, -1);
+    altint(a_raiz(A), &alt, 0);
     return alt;
 }
 
 int altura_avl(ArbolAVL A){
     int alt = 0;
-    altint(avl_raiz(A), &alt, -1);
+    altint(avl_raiz(A), &alt, 0);
     return alt;
 }
 // Generar un algoritmo, recursivo o no, que permita construir un árbol binario de 
@@ -179,23 +167,28 @@ int main(){
     printf("Carga del arbol binario\n");
     cargar_arbol(ab);
     printf("termino la carga del arbol binario\n");
-    printf("Mostrar el arbol binario en pre-orden: \n");
-    pre_orden(a_raiz(ab));
-    printf("\nComienzo de la carga del arbol avl\n");
-    cargar_arbol_avl(ab,a_avl);
-    printf("Termino la carga del arbol avl\n");
-    printf("Mostrar el arbol avl en pre-orden: \n");
-    pre_orden(avl_raiz(a_avl));
-    alt_ab=altura_ab(ab);
-    printf("\n altura del arbol binario: %i\n",alt_ab);
-    alt_avl=altura_avl(a_avl);
-    printf(" altura del arbol avl: %i\n",alt_avl);
-    if (alt_ab > alt_avl){
-        printf("el arbol avl tiene menos altura que el arbol binario.\n");
-    } else if (alt_ab< alt_avl){
-        printf("el arbol avl tiene mas altura que el arbol binario.\n");
+    if (a_es_vacio(ab)){
+        printf("el arbol es vacio, asi que no puede crearse el arbol avl apartir del arbol\n");
+
     }else{
-        printf("el arbol avl tiene la misma altura que el arbol binario.\n");
+        printf("Mostrar el arbol binario en pre-orden: \n");
+        pre_orden(a_raiz(ab));
+        printf("\nComienzo de la carga del arbol avl\n");
+        cargar_arbol_avl(ab,a_avl);
+        printf("Termino la carga del arbol avl\n");
+        printf("Mostrar el arbol avl en pre-orden: \n");
+        pre_orden(avl_raiz(a_avl));
+        alt_ab=altura_ab(ab);
+        printf("\n altura del arbol binario: %i\n",alt_ab);
+        alt_avl=altura_avl(a_avl);
+        printf(" altura del arbol avl: %i\n",alt_avl);
+        if (alt_ab > alt_avl){
+            printf("el arbol avl tiene menos altura que el arbol binario.\n");
+        } else if (alt_ab< alt_avl){
+            printf("el arbol avl tiene mas altura que el arbol binario.\n");
+        }else{
+            printf("el arbol avl tiene la misma altura que el arbol binario.\n");
+        }
     }
     return 0;
 }
