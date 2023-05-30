@@ -12,6 +12,42 @@
 //#include "listas_cursores.c"
 //#include "listas_punteros.c"
 
+void strtrim(char *cadena) {
+    char *comienzoDeCadena = cadena;
+    char *finalDeCadena = cadena + strlen(cadena) - 1;
+    while (isspace(*comienzoDeCadena)) {
+        comienzoDeCadena++;
+    }
+    while (isspace(*finalDeCadena) && finalDeCadena >= comienzoDeCadena) {
+        finalDeCadena--;
+    }
+    *(finalDeCadena + 1) = '\0';
+    memmove(cadena, comienzoDeCadena,   finalDeCadena - comienzoDeCadena + 2);
+}
+
+int leer_entero() {
+    char entradaLeerEntero[100];
+    long numero;
+    char *finptr;
+    bool valido = 0;
+
+    while (!valido) {
+        printf("Ingrese un numero entero: ");
+        fgets(entradaLeerEntero, sizeof(entradaLeerEntero), stdin);
+        entradaLeerEntero[strlen(entradaLeerEntero)-1] = '\0';
+        strtrim(entradaLeerEntero);
+        errno = 0;
+        numero = strtol(entradaLeerEntero, &finptr, 10);
+        if (errno != 0 || *finptr != '\0') {
+            printf("Entrada invalida. Intentelo de nuevo.\n");
+        } else {
+            valido = 1;
+        }
+    }
+    return (int) numero;
+}
+
+
 bool verificar_entrada(int *valor){
     char entrada[10];
     bool resultado = true;
@@ -38,7 +74,6 @@ bool verificar_entrada(int *valor){
         }
         if(negativo){ *valor = *valor * (-1); }
     }
-
     return resultado;
 }
 
@@ -62,10 +97,12 @@ void cargar_subArbol(ArbolBinario a, NodoArbol n, int hijo){
 
 void cargar_arbol(ArbolBinario a) {
     cargar_subArbol(a, NULL, 0);
+    int c;
+    while ((c = getchar()) != '\n' && c != EOF) {}
 }
 
-bool esHoja(NodoArbol n){
-    return (n_hijoizquierdo(n) == NULL) && (n_hijoderecho(n) == NULL);
+bool esHojaNArio(NodoArbol n){
+    return (n_hijoizquierdo(n) == NULL);
 }
 
 int alturaArbolNArio(NodoArbol nodo, int contador, int altura) {
@@ -94,7 +131,7 @@ int determinarNivelNodo(int claveNodoABuscar,NodoArbol nodoArbol,int contador, i
 //ESTA ES MIA NO ES DEL EJERCICIO
 int nivelPrimerHoja(NodoArbol n,int nivel,int cont){
     if((n != NULL) && (nivel == 0)){
-        if(esHoja(n)){
+        if(esHojaNArio(n)){
             nivel = cont;
         }
         nivel = nivelPrimerHoja(n_hijoizquierdo(n),nivel,cont+1);
@@ -104,7 +141,7 @@ int nivelPrimerHoja(NodoArbol n,int nivel,int cont){
 
 bool hojasEnMismaAltura(NodoArbol n,int nivel,int contador,bool resultado){
     if((n!=NULL) && (resultado)){
-        if(esHoja(n)){
+        if(esHojaNArio(n)){
             if(nivel != contador){
                 resultado = false;
             }
@@ -136,29 +173,29 @@ Lista nodos_internos_arbol(ArbolBinario a) {
 }
 
 int main() {
+    printf("----------------------- PUNTO A -----------------------\n");
+    printf("Determinar la altura del mismo.");
     ArbolBinario arbolTransformado = a_crear();
-    printf("[ARBOL TRANSFORMADO - INGRESO]\n");
+    printf("[ARBOL TRANSFORMADO 1 - INGRESO]\n");
     cargar_arbol(arbolTransformado);
-    // a. sacar la altura
-    /*if (!a_es_vacio(arbolTransformado)) {
+
+    if (!a_es_vacio(arbolTransformado)) {
         int altura = alturaArbolNArio(a_raiz(arbolTransformado),1,1);
         printf("La altura del arbol es de %d.\n", altura);
     } else {
         printf("El arbol no tiene altura ya que esta vacio.\n");
-    }*/
+    }
 
-    /*int resultado = determinarNivelNodo(7,a_raiz(arbolTransformado),1,0);
+    printf("---------------------- PUNTO B -----------------------\n");
+    printf("Determinar el nivel de un nodo.\n");
+    int valorIngresado = leer_entero();
+    int resultado = determinarNivelNodo(valorIngresado,a_raiz(arbolTransformado),1,0);
     if( resultado != 0){
         printf("Nivel %d: ",resultado);
-    }else{printf("No se encontro");}
-    return 0;*/
+    }else{printf("\nNo se encontro\n");}
 
-    //bool mismoNivel =true;
-    //bool resultado = hojasEnMismaAltura(a_raiz(arbolTransformado),nivelPrimerHoja(a_raiz(arbolTransformado),0,1),1,mismoNivel);
-    //if(resultado){
-    //    printf("mismo nivel");
-    //}else{printf("distinto nivel");}
-    // c. Listar todos los nodos internos (solo las claves)
+    printf("---------------------- PUNTO C -----------------------\n");
+    printf("Listar todos los nodos internos (solo las claves).\n");
     Lista nodosInternos = nodos_internos_arbol(arbolTransformado);
     if (l_es_vacia(nodosInternos)) {
         printf("El arbol no tiene nodos internos.\n");
@@ -166,5 +203,14 @@ int main() {
         printf("[NODOS INTERNOS] \n");
         l_mostrarLista(nodosInternos);
     }
+
+    printf("---------------------- PUNTO D -----------------------\n");
+    printf("Determinar si todas las hojas estan al mismo nivel\n");
+    bool mismoNivel =true;
+    bool resultadoBooleano = hojasEnMismaAltura(a_raiz(arbolTransformado),nivelPrimerHoja(a_raiz(arbolTransformado),0,1),1,mismoNivel);
+    if(resultadoBooleano){
+        printf("mismo nivel");
+    }else{printf("distinto nivel");}
+
     return 0;
 }
