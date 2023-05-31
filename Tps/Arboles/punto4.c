@@ -192,35 +192,6 @@ void hojas(ArbolBinario A){
     hojasint(a_raiz(A));
 }
 
-// void anchura(ArbolBinario A){
-//     Cola c;
-//     NodoArbol N;
-//     TipoElemento x;
-//     TipoElemento b;
-//     if(!a_es_vacio(A)){
-//         c = c_crear();
-//         N = a_raiz(A);
-//         x = te_crear_con_valor(0, N);
-//         c_encolar(c, x);
-//         while(!c_es_vacia(c)){
-//             x = c_desencolar(c);
-//             N = (NodoArbol) x->valor;
-//             b =  n_recuperar(N);
-//             printf(" %i ", b->clave);
-//             if(!a_es_rama_nula(n_hijoderecho(N))){
-//                 x = te_crear_con_valor(0, n_hijoderecho(N));
-//                 c_encolar(c,x);
-//             }
-//             // nodoPadre(A, b->clave);
-//             // else if(!a_es_rama_nula(n_hijoizquierdo(N))){
-//             //     x = te_crear_con_valor(0, n_hijoizquierdo(N));
-//             //     c_encolar(c,x);
-//             // }
-            
-//         }
-//     }
-//     // c_mostrar(c);
-// }
 
 void anchura(ArbolBinario A){
     Cola c;
