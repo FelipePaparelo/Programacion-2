@@ -429,7 +429,7 @@ void hermano_interno(NodoArbol q, int clave, TipoElemento padre, TipoElemento* r
 }
 
 TipoElemento hermano(ArbolBinario a, int clave, TipoElemento padre){
-    TipoElemento resultado = te_crear(0);
+    TipoElemento resultado = NULL;
     if(padre == NULL){ return NULL; }
     else{ 
         hermano_interno(a_raiz(a), clave, padre, &resultado); 
