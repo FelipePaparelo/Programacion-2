@@ -209,39 +209,39 @@ void post_orden(NodoArbol N){
 //---------------------------------------------------------
 // Verificar entrada de datos
 //---------------------------------------------------------
-bool verificar_entrada(int *valor){
-    char entrada[10];
-    bool resultado = true;
-    bool negativo = false;
-    int i = 0;
-    *valor=0;
-    printf("Ingrese un numero o '.' para nulo: ");
-    scanf("%s", entrada);
-    if (entrada[0] == '.'){
-        resultado = false;
-    }else{
-        if(entrada[0] == '-'){
-            negativo = true;
-            i++;
+bool validar_numeros(char *m)
+{
+    int aux = 0;
+    int bandera = 1;
+    bool numero;
+    fgets(m, 100, stdin);
+    int largo = strlen(m) - 1;
+    while (bandera == 1){
+        if (strcmp(m, "\n") == 0){
+            printf("Has ingresado un salto de linea.\n");
+            aux = -1;
         }
-        if(strlen(entrada) >= 10){
-            printf("La longitud del número tiene que ser menor a 10, intente de nuevo\n");
-            verificar_entrada(valor);
-        }else{
-            for (i; entrada[i] != '\0'; i++) {
-                if (!isdigit(entrada[i])){
-                    printf("El valor ingresado no es un entero, intente de nuevo\n");
-                    verificar_entrada(valor);    
-                    break;
-                }else if((entrada[i]>='0')&&(entrada[i]<='9')){
-                    *valor = *valor * 10 + (entrada[i] - 48);
-                }
-            }
-            if(negativo){ *valor = *valor * (-1); }
+
+        for (int j = 0; j < largo; j++){
+
+            if ((isdigit(m[j]) != 0)){ aux++; }
+            if ((j == 0) && (m[j] == '-')&& (isdigit(m[j+1]) != 0)){ aux++; }
+        }
+
+        if (aux == largo && aux<6){ bandera = 0; }
+        else if(m[0] == '.' && m[1]== '\n'){ bandera = 0; }
+        else{
+            aux = 0;
+            printf("El dato que Ingresa no es un numero o es mayor a 99.999 o menor a -9999, intente otra vez: ");
+            fgets(m, 100, stdin);
+            fflush(stdin);
+            largo = strlen(m) - 1;
         }
     }
 
-    return resultado;
+    if (m[0] == '.'){ numero=false; }
+    else{ numero=true; }
+    return numero;
 }
 
 bool verificar_entrada_int(int *valor)
@@ -259,8 +259,7 @@ bool verificar_entrada_int(int *valor)
 void verificar_nodo_interno(NodoArbol q, int clave, bool *resultado){
     TipoElemento x;
 
-    if(q == NULL) { }
-    else {
+    if(q != NULL){
         x = n_recuperar(q);
 
         if(x->clave == clave){ *resultado = true; }
@@ -284,8 +283,7 @@ bool verificar_nodo(ArbolBinario a, int clave){
 void repetido_interno(NodoArbol q, int clave, bool *resultado){
     TipoElemento x;
     
-    if(q == NULL){}
-    else{
+    if(q != NULL){
         x = n_recuperar(q);
         if(x->clave == clave){
             *resultado = true;
@@ -299,17 +297,21 @@ void repetido_interno(NodoArbol q, int clave, bool *resultado){
 void cargar_subArbol(ArbolBinario a, NodoArbol n, int hijo){
     TipoElemento x;
     NodoArbol n1;
-    int valor_a_ingresar;
-    bool entero;
+    char cadena[100];
+    bool numero;
+    int numero_i;
     bool repetido = false;
 
     if(!a_es_lleno(a)){
-        entero = verificar_entrada(&valor_a_ingresar);
-        if(entero){
-            if(a_es_vacio(a) != true) { repetido_interno(a_raiz(a), valor_a_ingresar, &repetido); }
+        printf("Ingrese un numero o '.' para nulo: ");
+        numero=validar_numeros(cadena);
+        if (numero){
+            numero_i=atoi(cadena);
+
+            if(a_es_vacio(a) != true) { repetido_interno(a_raiz(a), numero_i, &repetido); }
 
             if(repetido != true){
-                x = te_crear(valor_a_ingresar);
+                x = te_crear(numero_i);
 
                 if(hijo == -1){ n1 = a_conectar_hi(a, n, x); }
                 else if(hijo == 1){ n1 = a_conectar_hd(a, n, x); }
@@ -318,7 +320,7 @@ void cargar_subArbol(ArbolBinario a, NodoArbol n, int hijo){
                 cargar_subArbol(a, n1, -1);
                 cargar_subArbol(a, n1, 1);
             }else{
-                printf("El valor %d ya se encuentra en el árbol, ingrese otro\n", valor_a_ingresar);
+                printf("El valor %d ya se encuentra en el árbol, ingrese otro\n", numero_i);
                 cargar_subArbol(a, n, hijo);
             }
         }
@@ -337,8 +339,7 @@ void padre_interno(NodoArbol q, int clave, TipoElemento* padre){
     TipoElemento x;
     TipoElemento y;
 
-    if(q == NULL) { }
-    else {
+    if(q != NULL){ 
         if(n_hijoizquierdo(q) != NULL){ 
             x = n_recuperar(n_hijoizquierdo(q)); 
             if (x->clave == clave) {
@@ -381,8 +382,7 @@ void hijos_interno(NodoArbol q, int clave, Lista l){
     TipoElemento x;
     TipoElemento y;
 
-    if(q == NULL) { }
-    else {
+    if(q != NULL){
         x = n_recuperar(q);
         if(x->clave == clave){
             if(n_hijoizquierdo(q) != NULL){ l_agregar(l, n_recuperar(n_hijoizquierdo(q))); }
@@ -409,8 +409,7 @@ void hermano_interno(NodoArbol q, int clave, TipoElemento padre, TipoElemento* r
     TipoElemento x;
     TipoElemento y;
 
-    if(q == NULL){}
-    else{
+    if(q != NULL){
         x = n_recuperar(q);
         if(x->clave == padre->clave){
             if(n_hijoizquierdo(q) != NULL){
@@ -445,8 +444,7 @@ TipoElemento hermano(ArbolBinario a, int clave, TipoElemento padre){
 void altura_nodo_interno(NodoArbol q, int clave, int *altura, int nivel){
     TipoElemento x;
 
-    if(q == NULL) {}
-    else {
+    if(q != NULL){
         x = n_recuperar(q);
         if(x->clave == clave){
             *altura = nivel;
@@ -483,8 +481,7 @@ void altura_total_interno(NodoArbol q, int *altura, int nivel){
 void nodo_a_buscar(NodoArbol q, int clave, NodoArbol* resultado){
     TipoElemento x;
 
-    if(q == NULL) {}
-    else {
+    if(q != NULL){
         x = n_recuperar(q);
         if(x->clave == clave){
             *resultado = q;
@@ -511,8 +508,7 @@ int altura_subarbol(ArbolBinario a, int clave){
 void nivel_nodos_interno(NodoArbol q, int altura, int nivel, Lista l){
     TipoElemento x;
 
-    if(q == NULL) {}
-    else {
+    if(q != NULL){
         x = n_recuperar(q);
         if(altura == nivel){
             l_agregar(l, x);
