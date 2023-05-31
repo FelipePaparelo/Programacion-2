@@ -300,7 +300,7 @@ bool arboles_similares(ArbolBinario A, ArbolBinario B){
     }
 
     else if(bandera == false){
-        printf("Los arboles no son similares.");
+        printf("\nLos arboles no son similares.");
     }
 
 }
@@ -338,19 +338,22 @@ Lista hermanos(ArbolBinario A, int clave){
         printf("\nAl ingresar un arbol que solo posee la raiz, este mismo no tiene hermanos.\n");
         return l;
     }
-    N = n_hijoizquierdo(Z);
-    x = n_recuperar(N);
-    if (x->clave != clave){
-        l_agregar(l, x);
-    }
-    
-    hermanos_nodo(N, clave, l);
-    if(!l_es_vacia(l)){
-        l_mostrarLista(l);
-        return l;
-    }
-    else{
-        printf("La clave seleccionada para encontrar sus hermanos resultó no tener hermanos");
+    if(n_hijoizquierdo(Z) != NULL)
+    {
+        N = n_hijoizquierdo(Z);
+        x = n_recuperar(N);
+        if (x->clave != clave){
+            l_agregar(l, x);
+        }
+
+        hermanos_nodo(N, clave, l);
+        if(!l_es_vacia(l)){
+            l_mostrarLista(l);
+            return l;
+        }
+        else{
+            printf("La clave seleccionada para encontrar sus hermanos resultó no tener hermanos");
+        }
     }
 
 }
@@ -427,11 +430,11 @@ int main(){
     cargar_arbol(ab2);
     N = a_raiz(ab2);
     if(n_hijoderecho(N) != NULL){
-        printf("\nEl arbol ingresado no es un arbol binario transformado\n");
+        printf("\nEl arbol ingresado no es un arbol binario transformado, por lo que no se intentara saber si los arboles ingresados son similares\n");
         return 0;
     }
     if(n_hijoizquierdo(N) == NULL && n_hijoderecho(N) == NULL){
-        printf("\nEl arbol ingresado no es un arbol binario transformado, por lo que no se intentara saber si los arboles ingresados son similares\n");
+        printf("\nEl arbol solo tiene un elemento, que es la raiz:\n");        
         printf("\nArbol:\n");
         pre_orden(a_raiz(ab2));
     }
@@ -457,7 +460,13 @@ int main(){
         pre_orden(a_raiz(ab3));
     }
     
-    if((n_hijoizquierdo(N) != NULL && n_hijoizquierdo(U) != NULL) || (n_hijoizquierdo(U) == NULL && n_hijoderecho(U) == NULL)){
+    if((n_hijoizquierdo(N) == NULL && n_hijoizquierdo(U) == NULL) && (n_hijoderecho(N) == NULL && n_hijoderecho(U) == NULL)){
+        arboles_similares(ab2, ab3);
+    }
+    if((n_hijoizquierdo(U) != NULL && n_hijoderecho(U) == NULL) && (n_hijoizquierdo(N) == NULL && n_hijoderecho(N) == NULL)){
+        arboles_similares(ab2, ab3);
+    }
+    if((n_hijoizquierdo(N) != NULL && n_hijoderecho(N) == NULL) && (n_hijoizquierdo(U) == NULL && n_hijoderecho(U) == NULL)){
         arboles_similares(ab2, ab3);
     }
 
