@@ -182,10 +182,13 @@ int main(){
         printf(" altura del arbol avl: %i\n",alt_avl);
         if (alt_ab > alt_avl){
             printf("el arbol avl tiene menos altura que el arbol binario.\n");
+            printf("la complejidad algoritmica de la funcion que resuelve el problema es de O(n).\n");
         } else if (alt_ab< alt_avl){
             printf("el arbol avl tiene mas altura que el arbol binario.\n");
+            printf("la complejidad algoritmica de la funcion que resuelve el problema es de O(n).\n");
         }else{
             printf("el arbol avl tiene la misma altura que el arbol binario.\n");
+            printf("la complejidad algoritmica de la funcion que resuelve el problema es de O(n).\n");
         }
     }
     return 0;
