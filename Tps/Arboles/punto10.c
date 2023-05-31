@@ -35,14 +35,14 @@ void altint(NodoArbol Q, int *h, int c)
 int altura_abb(ArbolBinarioBusqueda A)
 {
     int alt = 0;
-    altint(abb_raiz(A), &alt, -1);
+    altint(abb_raiz(A), &alt, 0);
     return alt;
 }
 
 int altura_avl(ArbolAVL A)
 {
     int alt = 0;
-    altint(avl_raiz(A), &alt, -1);
+    altint(avl_raiz(A), &alt, 0);
     return alt;
 }
 
@@ -185,6 +185,7 @@ void calcular_altura_prom(int cant, int count)
         promabb += alt_abb;
         promavl += alt_avl;
         i++;
+
         destruir(abb_raiz(abb_rand));
         // destruir(avl_raiz(aavl_rand));
         free(abb_rand);
