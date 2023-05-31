@@ -16,7 +16,9 @@ Carpeta "colas": Contiene las implentaciones de las tad para colas y las resoluc
 
 ## Contribuidores
 
-- Felipe Paparelo-192117
-- Agustin Irrazabal-176308
-- Renzo Bisso-186104
-- Nahuel Ledesma-174242
+- Felipe Paparelo  -192117
+- Agustin Irrazabal - 176308
+- Renzo Bisso - 186104
+- Nahuel Ledesma - 174242
+- Lucas Ortiz - 176300
+- Dante Terranova - 171599
