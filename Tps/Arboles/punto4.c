@@ -438,6 +438,9 @@ int main(){
         printf("\nArbol:\n");
         pre_orden(a_raiz(ab2));
     }
+    if(a_raiz(ab2) == NULL){
+        printf("\nEl arbol tiene raiz nula.\n");
+    }
     if(n_hijoizquierdo(N) != NULL){
         printf("\nArbol:\n");
         pre_orden(a_raiz(ab2));
@@ -455,6 +458,9 @@ int main(){
         printf("\nArbol:\n");
         pre_orden(a_raiz(ab3));
     }
+    if(a_raiz(ab3) == NULL){
+        printf("\nEl arbol tiene raiz nula.\n");
+    }
     if(n_hijoizquierdo(U) != NULL){
         printf("\nArbol 2:\n");
         pre_orden(a_raiz(ab3));
@@ -467,6 +473,9 @@ int main(){
         arboles_similares(ab2, ab3);
     }
     if((n_hijoizquierdo(N) != NULL && n_hijoderecho(N) == NULL) && (n_hijoizquierdo(U) == NULL && n_hijoderecho(U) == NULL)){
+        arboles_similares(ab2, ab3);
+    }
+    if((n_hijoizquierdo(N) != NULL && n_hijoderecho(N) == NULL) && (n_hijoizquierdo(U) != NULL && n_hijoderecho(U) == NULL)){
         arboles_similares(ab2, ab3);
     }
 
