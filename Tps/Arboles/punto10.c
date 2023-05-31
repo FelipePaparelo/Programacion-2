@@ -135,39 +135,23 @@ void pedir_cantidad_veces(int *count)
         }
     }
 }
-// void destruirArbol(NodoArbol nodo, ArbolBinarioBusqueda abb_rand, ArbolAVL aavl_rand)
-// {
-//     if (nodo != NULL)
-//     {
-//         destruirArbol(nodo->hi, abb_rand, aavl_rand);
-//         destruirArbol(nodo->hd, abb_rand, aavl_rand);
-//         // abb_eliminar(abb_rand, nodo->datos->clave);
-//         avl_eliminar(aavl_rand, nodo->datos->clave);
-//         free(nodo);
-//     }
-// }
-
-// void destruir(ArbolBinarioBusqueda abb_rand, ArbolAVL aavl_rand)
-// {
-//     destruirArbol(abb_rand->raiz, abb_rand, aavl_rand);
-//     abb_rand->raiz = NULL;
-//     aavl_rand->raiz = NULL;
-// }
-
-void destruirArbol(NodoArbol nodo)
+void destruirArbol(NodoArbol nodo, ArbolBinarioBusqueda abb_rand, ArbolAVL aavl_rand)
 {
     if (nodo != NULL)
     {
-        destruirArbol(nodo->hi);
-        destruirArbol(nodo->hd);
-        free(nodo->datos); // Liberar la memoria de los datos
-        free(nodo);        // Liberar la memoria del nodo
+        destruirArbol(nodo->hi, abb_rand, aavl_rand);
+        destruirArbol(nodo->hd, abb_rand, aavl_rand);
+        // abb_eliminar(abb_rand, nodo->datos->clave);
+        avl_eliminar(aavl_rand, nodo->datos->clave);
+        free(nodo);
     }
 }
+
 void destruir(ArbolBinarioBusqueda abb_rand, ArbolAVL aavl_rand)
 {
-    destruirArbol(abb_rand->raiz);
-    destruirArbol(aavl_rand->raiz);
+    destruirArbol(abb_rand->raiz, abb_rand, aavl_rand);
+    abb_rand->raiz = NULL;
+    aavl_rand->raiz = NULL;
 }
 
 void aleatorio(int cant, ArbolBinarioBusqueda abb_rand, ArbolAVL aavl_rand)
