@@ -224,7 +224,7 @@ void anchura(ArbolBinario A){
         N = (NodoArbol) x->valor;
 
         
-        while (!c_es_vacia(c) || n_hijoderecho(N) != NULL){
+        while (!c_es_vacia(c) || n_hijoderecho(N) != NULL || n_hijoizquierdo(N) != NULL){
             if(n_hijoizquierdo(N) != NULL){
                 x = te_crear_con_valor(0, n_hijoizquierdo(N));
                 x->clave = n_recuperar(n_hijoizquierdo(N))->clave;
