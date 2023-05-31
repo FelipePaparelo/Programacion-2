@@ -9,8 +9,7 @@
 #include "Nodo_funciones.c"
 #include "arbol-binario-busqueda.c"
 #include "arbol-avl.h"
-// #include "arbol-avl.c"
-#include "arbol_nuevo-avl.c"
+#include "arbol-avl.c"
 #include <time.h>
 #include "cola_punteros.c"
 
@@ -136,6 +135,14 @@ void pedir_cantidad_veces(int *count)
         }
     }
 }
+void destruir(NodoArbol nodo)
+{
+    if (nodo != NULL)
+    {
+        destruir(n_hijoderecho(nodo));
+        destruir(n_hijoizquierdo(nodo));
+    }
+}
 
 void aleatorio(int cant, ArbolBinarioBusqueda abb_rand, ArbolAVL aavl_rand, int alt_abb, int alt_avl)
 {
@@ -163,15 +170,6 @@ void aleatorio(int cant, ArbolBinarioBusqueda abb_rand, ArbolAVL aavl_rand, int 
         alt_avl = altura_avl(aavl_rand);
     }
     c_mostrar(cola_elem);
-}
-void destruir(NodoArbol nodo)
-{
-    if (nodo != NULL)
-    {
-        destruir(n_hijoderecho(nodo));
-        destruir(n_hijoizquierdo(nodo));
-        free(nodo);
-    }
 }
 
 void calcular_altura_prom(int cant, int count, int alt_avl, int alt_abb)
@@ -209,9 +207,19 @@ void calcular_altura_prom(int cant, int count, int alt_avl, int alt_abb)
         promabb += alt_abb;
         promavl += alt_avl;
         destruir(abb_raiz(abb_rand));
-        destruir(avl_raiz(aavl_rand));
-        free(abb_rand);
-        free(aavl_rand);
+        // destruir(avl_raiz(aavl_rand));
+        free(abb_raiz(abb_rand));
+        // free(avl_raiz(aavl_rand));
+
+        if (abb_es_vacio(abb_rand))
+        {
+            printf("True\n");
+        }
+        if (avl_es_vacio(aavl_rand))
+        {
+            printf("True\n");
+        }
+
         i++;
     }
 
