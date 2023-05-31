@@ -402,9 +402,14 @@ int main(){
    
 
     printf("\n------------------------------Consigna B-----------------------------------------\n");
-
-    printf("\nHojas del arbol:\n");
-    hojas(ab);
+    if(a_raiz(ab) == NULL){
+        printf("El arbol no tiene hojas ya que es vacio!");
+    }
+    else{
+        printf("\nHojas del arbol:\n");
+        hojas(ab);
+    }
+    
 
     printf("\n------------------------------Consigna C-----------------------------------------\n");
 
