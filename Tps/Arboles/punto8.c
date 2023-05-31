@@ -8,8 +8,8 @@
 #include "nodo.h"
 #include "Nodo_funciones.c"
 #include "I_arboles_binarios.c"
-//#include "listas_de_arreglos.c"
-#include "listas_cursores.c"
+#include "listas_arreglos.c"
+//#include "listas_cursores.c"
 //#include "listas_punteros.c"
 
 void strtrim(char *cadena) {
@@ -275,7 +275,7 @@ int main() {
     int valorIngresado = leer_entero();
     int resultado = determinarNivelNodo(valorIngresado,a_raiz(arbolTransformado),1,0);
     if( resultado != 0){
-        printf("Nivel %d: ",resultado);
+        printf("Nivel %d. \n",resultado);
     }else{printf("\nNo se encontro\n");}
 
     printf("---------------------- PUNTO C -----------------------\n");
