@@ -204,6 +204,11 @@ void hojasint(NodoArbol Q, int *contador){
 
 int hojas(ArbolBinario A){
     int contador = 0;
+    NodoArbol a = a_raiz(A);
+    if(n_hijoizquierdo(a) == NULL && n_hijoderecho(a) == NULL ){
+        printf("El arbol no tiene hojas ya que el unico elemento que posee es la raiz\n");
+        return 0;
+    }
     hojasint(a_raiz(A), &contador);
     printf("El arbol tiene un total de %i hojas", contador);
     return contador;
@@ -329,11 +334,14 @@ int hermanos(ArbolBinario A, int clave){
         printf("La clave deseada para buscar a sus hermanos es la raiz\n");
         return 1;
     }
+    if(n_hijoizquierdo(a_raiz(A)) == NULL && n_hijoderecho(a_raiz(A)) == NULL){
+        printf("\nAl ingresar un arbol que solo posee la raiz, este mismo no tiene hermanos.\n");
+        return 1;
+    }
     N = n_hijoizquierdo(Z);
     x = n_recuperar(N);
     printf("\nHermanos: %i", x->clave);
     hermanos_nodo(N, clave);
-    
 }
 
 
@@ -397,7 +405,7 @@ int main(){
         }
     }
     else{
-        printf("No se puede encontrar al padre de un elemento si el arbol es vacio!");
+        printf("No se puede encontrar al padre de un elemento si el arbol es vacio!\n");
     }
 
     printf("\n-----------------------------------------------------------------------\n");
@@ -412,14 +420,20 @@ int main(){
     printf("\nArbol:\n");
     pre_orden(a_raiz(ab3));
     printf("\n");
-    arboles_similares(ab2,ab3);
+    arboles_similares(ab2, ab3);
 
     printf("\n-----------------------------------------------------------------------\n");
-
-    printf("\nIngrese una clave para buscar sus hermanos en el arbol: \n");
-    validar_numeros(m);
-    z = atoi(m);
-    hermanos(ab, z);
+    printf("En esta consigna se utiliza el arbol ingresado al principio del programa\n");
+    if(!a_es_vacio(ab)){
+        printf("\nIngrese una clave para buscar sus hermanos en el arbol: \n");
+        validar_numeros(m);
+        z = atoi(m);
+        hermanos(ab, z);
+    }
+    else{
+        printf("\nNo se puede buscar los hermanos de un nodo si es arbol es vacio!\n");
+    }
+    
 
     return 0;
 }
