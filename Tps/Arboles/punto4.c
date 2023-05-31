@@ -257,16 +257,22 @@ void pre_orden_similares(NodoArbol N,NodoArbol P, bool *bandera){
     }
     else {
         x = n_recuperar(N);
+
         if((n_hijoizquierdo(N) != NULL && n_hijoizquierdo(P) != NULL) && (*bandera == true)){
+
             pre_orden_similares(n_hijoizquierdo(N),n_hijoizquierdo(P),  bandera);
         }
+
         else if((n_hijoizquierdo(N) != NULL && n_hijoizquierdo(P) == NULL) || (n_hijoizquierdo(N) == NULL && n_hijoizquierdo(P) != NULL) && (*bandera == true)){
-            
+
             *bandera = false;
         }
+
         if((n_hijoderecho(N) != NULL && n_hijoderecho(P) != NULL) && (*bandera == true)){
+
             pre_orden_similares(n_hijoderecho(N),n_hijoderecho(P), bandera);
         }
+
         else if((n_hijoderecho(N) != NULL && n_hijoderecho(P) == NULL) || (n_hijoderecho(N) == NULL && n_hijoderecho(P) != NULL) && (*bandera == true)){
            
             *bandera = false;
@@ -279,9 +285,11 @@ bool arboles_similares(ArbolBinario A, ArbolBinario B){
     NodoArbol a = a_raiz(A);
     NodoArbol b = a_raiz(B);
     pre_orden_similares(a, b, &bandera);
+
     if (bandera == true){
         printf("\nLos arboles son similares.");
     }
+
     else if(bandera == false){
         printf("Los arboles no son similares.");
     }
@@ -294,17 +302,33 @@ bool arboles_similares(ArbolBinario A, ArbolBinario B){
 int main(){
     ArbolBinario ab=a_crear();
     ArbolBinario ab2=a_crear();
+    NodoArbol N;
+    TipoElemento x;
     char m[100];
     int z;
 
     printf("Carga del arbol binario 1\n");
     cargar_arbol(ab);
     pre_orden(a_raiz(ab));
+    N = a_raiz(ab);
 
     printf("\n-----------------------------------------------------------------------\n");
 
-    printf("\nRecorrido en anchura:\n");
-    anchura(ab);
+    if(n_hijoderecho(N) != NULL){
+        printf("\nEl arbol ingresado no es un arbol binario transformado\n");
+        return 0;
+    }
+
+    if(n_hijoizquierdo(N) == NULL && n_hijoderecho(N) == NULL){
+        printf("\nEl arbol solo tiene un elemento, que es la raiz:\n");
+        printf("\nRecorrido en anchura:\n");
+        pre_orden(a_raiz(ab));
+    }
+    
+    else if(n_hijoizquierdo(N) != NULL){
+        printf("\nRecorrido en anchura:\n");
+        anchura(ab);
+    }
 
     printf("\n-----------------------------------------------------------------------\n");
 
