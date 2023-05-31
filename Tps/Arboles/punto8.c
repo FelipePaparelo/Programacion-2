@@ -8,7 +8,7 @@
 #include "nodo.h"
 #include "Nodo_funciones.c"
 #include "I_arboles_binarios.c"
-#include "listas_arreglos.c"
+#include "listas_de_arreglos.c"
 //#include "listas_cursores.c"
 //#include "listas_punteros.c"
 
