@@ -135,41 +135,75 @@ void pedir_cantidad_veces(int *count)
         }
     }
 }
-void destruir(NodoArbol nodo)
+// void destruirArbol(NodoArbol nodo, ArbolBinarioBusqueda abb_rand, ArbolAVL aavl_rand)
+// {
+//     if (nodo != NULL)
+//     {
+//         destruirArbol(nodo->hi, abb_rand, aavl_rand);
+//         destruirArbol(nodo->hd, abb_rand, aavl_rand);
+//         // abb_eliminar(abb_rand, nodo->datos->clave);
+//         avl_eliminar(aavl_rand, nodo->datos->clave);
+//         free(nodo);
+//     }
+// }
+
+// void destruir(ArbolBinarioBusqueda abb_rand, ArbolAVL aavl_rand)
+// {
+//     destruirArbol(abb_rand->raiz, abb_rand, aavl_rand);
+//     abb_rand->raiz = NULL;
+//     aavl_rand->raiz = NULL;
+// }
+
+void destruirArbol(NodoArbol nodo)
 {
     if (nodo != NULL)
     {
-        destruir(n_hijoderecho(nodo));
-        destruir(n_hijoizquierdo(nodo));
+        destruirArbol(nodo->hi);
+        destruirArbol(nodo->hd);
+        free(nodo->datos); // Liberar la memoria de los datos
+        free(nodo);        // Liberar la memoria del nodo
     }
 }
+void destruir(ArbolBinarioBusqueda abb_rand, ArbolAVL aavl_rand)
+{
+    destruirArbol(abb_rand->raiz);
+    destruirArbol(aavl_rand->raiz);
+}
 
-void aleatorio(int cant, ArbolBinarioBusqueda abb_rand, ArbolAVL aavl_rand, int alt_abb, int alt_avl)
+void aleatorio(int cant, ArbolBinarioBusqueda abb_rand, ArbolAVL aavl_rand)
 {
     int count = 0;
-
     TipoElemento n;
-    Cola cola_elem = c_crear();
-    n = te_crear(rand() % 2000);
-    abb_insertar(abb_rand, n);
-    avl_insertar(aavl_rand, n);
+    int *claves = malloc(cant * sizeof(int));
 
-    while ((count < cant))
+    while (count < cant)
     {
-        n = te_crear(rand() % 2000);
-        while ((avl_buscar(aavl_rand, n->clave)) != NULL)
+        int clave = rand() % 2000 + 1;
+
+        // Verificar si la clave ya existe en alguno de los árboles
+        int clave_existente = 0;
+        for (int i = 0; i < count; i++)
         {
-            n = te_crear(rand() % 2000);
+            if (claves[i] == clave)
+            {
+                clave_existente = 1;
+                break;
+            }
         }
-        c_encolar(cola_elem, n);
+
+        if (clave_existente)
+        {
+            continue; // Generar una nueva clave
+        }
+
+        claves[count] = clave;
+        n = te_crear(clave);
         abb_insertar(abb_rand, n);
         avl_insertar(aavl_rand, n);
-        srand(time(NULL));
         count++;
-        alt_abb = altura_abb(abb_rand);
-        alt_avl = altura_avl(aavl_rand);
     }
-    c_mostrar(cola_elem);
+
+    free(claves);
 }
 
 void calcular_altura_prom(int cant, int count, int alt_avl, int alt_abb)
@@ -178,12 +212,12 @@ void calcular_altura_prom(int cant, int count, int alt_avl, int alt_abb)
     int i = 0;
     int avl_max = 0, avl_min = 1000, abb_max = 0, abb_min = 1000;
 
-    while (count > i)
+    while (count >= i)
     {
+        printf("Agregando elemento Nº %d\n", i + 1);
         ArbolBinarioBusqueda abb_rand = abb_crear();
         ArbolAVL aavl_rand = avl_crear();
-        aleatorio(cant, abb_rand, aavl_rand, alt_avl, alt_abb);
-
+        aleatorio(cant, abb_rand, aavl_rand);
         alt_abb = altura_abb(abb_rand);
         alt_avl = altura_avl(aavl_rand);
 
@@ -199,36 +233,26 @@ void calcular_altura_prom(int cant, int count, int alt_avl, int alt_abb)
         {
             avl_min = alt_avl;
         }
-
         if (alt_abb < abb_min)
         {
             abb_min = alt_abb;
         }
         promabb += alt_abb;
         promavl += alt_avl;
-        destruir(abb_raiz(abb_rand));
-        // destruir(avl_raiz(aavl_rand));
-        free(abb_raiz(abb_rand));
-        // free(avl_raiz(aavl_rand));
-
-        if (abb_es_vacio(abb_rand))
-        {
-            printf("True\n");
-        }
-        if (avl_es_vacio(aavl_rand))
-        {
-            printf("True\n");
-        }
+        destruir(abb_rand, aavl_rand);
 
         i++;
     }
 
-    promabb /= (float)count;
-    promavl /= (float)count;
-    printf("La altura promedio del ABB es: %.2f.\n", promabb);
-    printf("La altura promedio del AVL es: %.2f.\n", promavl);
-    printf("La altura maxima del AVL es %d  y la de ABB es %d .\n", avl_max, abb_max);
-    printf("La altura minima del AVL es %d  y la de ABB es %d .\n", avl_min, abb_min);
+    promabb /= count;
+    promavl /= count;
+
+    printf("Altura promedio AVL: %.2f\n", promavl);
+    printf("Altura promedio ABB: %.2f\n", promabb);
+    printf("Altura maxima AVL: %d\n", avl_max);
+    printf("Altura minima AVL: %d\n", avl_min);
+    printf("Altura maxima ABB: %d\n", abb_max);
+    printf("Altura minima ABB: %d\n", abb_min);
 }
 int main()
 {
