@@ -300,7 +300,7 @@ bool arboles_similares(ArbolBinario A, ArbolBinario B){
     }
 
     else if(bandera == false){
-        printf("Los arboles no son similares.");
+        printf("\nLos arboles no son similares.");
     }
 
 }
@@ -309,39 +309,53 @@ bool arboles_similares(ArbolBinario A, ArbolBinario B){
 ///////////////////////////////////////////////////////////////
 
 
-void hermanos_nodo(NodoArbol A, int clave){
+void hermanos_nodo(NodoArbol A, int clave, Lista l){
     TipoElemento x;
     if(n_hijoderecho(A) != NULL && n_recuperar(n_hijoderecho(A))->clave != clave){
         x = n_recuperar(n_hijoderecho(A));
-        printf("\nhermanos: %i", x->clave);
-        hermanos_nodo(n_hijoderecho(A), clave);
+        l_agregar(l, x);
+        hermanos_nodo(n_hijoderecho(A), clave, l);
     }
     if(n_hijoderecho(A) != NULL){
         if(n_recuperar(n_hijoderecho(A))->clave == clave){
-            hermanos_nodo(n_hijoderecho(A), clave);
+            hermanos_nodo(n_hijoderecho(A), clave, l);
         }
     }
     
 }
 
-int hermanos(ArbolBinario A, int clave){
+Lista hermanos(ArbolBinario A, int clave){
     NodoArbol N = a_raiz(A);
-    NodoArbol Y = a_raiz(A);
     NodoArbol Z = a_raiz(A);
+    Lista l = l_crear();
     TipoElemento x;
     Z = nodopadre(A, clave);
     if (clave == n_recuperar(a_raiz(A))->clave){
-        printf("La clave deseada para buscar a sus hermanos es la raiz\n");
-        return 1;
+        printf("La clave deseada para buscar a sus hermanos es la raiz, la cual no tiene hermanos\n");
+        return l;
     }
     if(n_hijoizquierdo(a_raiz(A)) == NULL && n_hijoderecho(a_raiz(A)) == NULL){
         printf("\nAl ingresar un arbol que solo posee la raiz, este mismo no tiene hermanos.\n");
-        return 1;
+        return l;
     }
-    N = n_hijoizquierdo(Z);
-    x = n_recuperar(N);
-    printf("\nHermanos: %i", x->clave);
-    hermanos_nodo(N, clave);
+    if(n_hijoizquierdo(Z) != NULL)
+    {
+        N = n_hijoizquierdo(Z);
+        x = n_recuperar(N);
+        if (x->clave != clave){
+            l_agregar(l, x);
+        }
+
+        hermanos_nodo(N, clave, l);
+        if(!l_es_vacia(l)){
+            l_mostrarLista(l);
+            return l;
+        }
+        else{
+            printf("La clave seleccionada para encontrar sus hermanos resultó no tener hermanos");
+        }
+    }
+
 }
 
 
@@ -352,6 +366,7 @@ int main(){
     ArbolBinario ab2=a_crear();
     ArbolBinario ab3=a_crear();
     NodoArbol N;
+    NodoArbol U;
     NodoArbol Z = a_raiz(ab);
     TipoElemento x;
     TipoElemento y;
@@ -363,7 +378,7 @@ int main(){
     pre_orden(a_raiz(ab));
     N = a_raiz(ab);
 
-    printf("\n-----------------------------------------------------------------------\n");
+    printf("\n------------------------------Consigna A-----------------------------------------\n");
         if(!a_es_vacio(ab)){    
             if(n_hijoderecho(N) != NULL){
             printf("\nEl arbol ingresado no es un arbol binario transformado\n");
@@ -386,12 +401,12 @@ int main(){
         }   
    
 
-    printf("\n-----------------------------------------------------------------------\n");
+    printf("\n------------------------------Consigna B-----------------------------------------\n");
 
     printf("\nHojas del arbol:\n");
     hojas(ab);
 
-    printf("\n-----------------------------------------------------------------------\n");
+    printf("\n------------------------------Consigna C-----------------------------------------\n");
 
     if(!a_es_vacio(ab)){
         printf("\nIngrese una clave para buscar su padre en el arbol: \n");
@@ -408,21 +423,64 @@ int main(){
         printf("No se puede encontrar al padre de un elemento si el arbol es vacio!\n");
     }
 
-    printf("\n-----------------------------------------------------------------------\n");
+    printf("\n------------------------------Consigna D-----------------------------------------\n");
 
     printf("Comparacion de arboles");
     printf("\nIngrese un nuevo arbol\n");
     cargar_arbol(ab2);
-    printf("\nArbol:\n");
-    pre_orden(a_raiz(ab2));
+    N = a_raiz(ab2);
+    if(n_hijoderecho(N) != NULL){
+        printf("\nEl arbol ingresado no es un arbol binario transformado, por lo que no se intentara saber si los arboles ingresados son similares\n");
+        return 0;
+    }
+    if(n_hijoizquierdo(N) == NULL && n_hijoderecho(N) == NULL){
+        printf("\nEl arbol solo tiene un elemento, que es la raiz:\n");        
+        printf("\nArbol:\n");
+        pre_orden(a_raiz(ab2));
+    }
+    if(a_raiz(ab2) == NULL){
+        printf("\nEl arbol tiene raiz nula.\n");
+    }
+    if(n_hijoizquierdo(N) != NULL){
+        printf("\nArbol:\n");
+        pre_orden(a_raiz(ab2));
+    }
+    /////////////
     printf("\nIngrese otro nuevo arbol\n");
     cargar_arbol(ab3);
-    printf("\nArbol:\n");
-    pre_orden(a_raiz(ab3));
-    printf("\n");
-    arboles_similares(ab2, ab3);
+    U = a_raiz(ab3);
+    if(n_hijoderecho(U) != NULL){
+        printf("\nEl arbol ingresado no es un arbol binario transformado, por lo que no se intentara saber si los arboles ingresados son similares\n");
+        return 0;
+    }
+    if(n_hijoizquierdo(U) == NULL && n_hijoderecho(U) == NULL){
+        printf("\nEl arbol solo tiene un elemento, que es la raiz:\n");
+        printf("\nArbol:\n");
+        pre_orden(a_raiz(ab3));
+    }
+    if(a_raiz(ab3) == NULL){
+        printf("\nEl arbol tiene raiz nula.\n");
+    }
+    if(n_hijoizquierdo(U) != NULL){
+        printf("\nArbol 2:\n");
+        pre_orden(a_raiz(ab3));
+    }
+    
+    if((n_hijoizquierdo(N) == NULL && n_hijoizquierdo(U) == NULL) && (n_hijoderecho(N) == NULL && n_hijoderecho(U) == NULL)){
+        arboles_similares(ab2, ab3);
+    }
+    if((n_hijoizquierdo(U) != NULL && n_hijoderecho(U) == NULL) && (n_hijoizquierdo(N) == NULL && n_hijoderecho(N) == NULL)){
+        arboles_similares(ab2, ab3);
+    }
+    if((n_hijoizquierdo(N) != NULL && n_hijoderecho(N) == NULL) && (n_hijoizquierdo(U) == NULL && n_hijoderecho(U) == NULL)){
+        arboles_similares(ab2, ab3);
+    }
+    if((n_hijoizquierdo(N) != NULL && n_hijoderecho(N) == NULL) && (n_hijoizquierdo(U) != NULL && n_hijoderecho(U) == NULL)){
+        arboles_similares(ab2, ab3);
+    }
 
-    printf("\n-----------------------------------------------------------------------\n");
+    printf("\n------------------------------Consigna E-----------------------------------------\n");
+
     printf("En esta consigna se utiliza el arbol ingresado al principio del programa\n");
     if(!a_es_vacio(ab)){
         printf("\nIngrese una clave para buscar sus hermanos en el arbol: \n");

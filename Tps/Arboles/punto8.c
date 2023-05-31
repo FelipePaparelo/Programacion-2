@@ -47,60 +47,6 @@ int leer_entero() {
     return (int) numero;
 }
 
-
-// bool verificar_entrada(int *valor){
-//     char entrada[10];
-//     bool resultado = true;
-//     bool negativo = false;
-//     int i = 0;
-//     *valor=0;
-//     printf("Ingrese un numero o '.' para nulo: ");
-//     scanf("%s", entrada);
-//     if (entrada[0] == '.'){
-//         resultado = false;
-//     }else{
-//         if(entrada[0] == '-'){
-//             negativo = true;
-//             i++;
-//         }
-//         for (i; entrada[i] != '\0'; i++) {
-//             if (!isdigit(entrada[i])){
-//                 printf("El valor ingresado no es un entero, intente de nuevo\n");
-//                 verificar_entrada(valor);
-//                 break;
-//             } else if((entrada[i]>='0')&&(entrada[i]<='9')){
-//                 *valor = *valor * 10 + (entrada[i] - 48);
-//             }
-//         }
-//         if(negativo){ *valor = *valor * (-1); }
-//     }
-//     return resultado;
-// }
-
-// void cargar_subArbol(ArbolBinario a, NodoArbol n, int hijo){
-//     TipoElemento x;
-//     NodoArbol n1;
-//     int valor_a_ingresar;
-//     bool entero;
-//     if(!a_es_lleno(a)){
-//         entero = verificar_entrada(&valor_a_ingresar);
-//         if(entero){
-//             x = te_crear(valor_a_ingresar);
-//             if(hijo == -1){ n1 = a_conectar_hi(a, n, x); }
-//             else if(hijo == 1){ n1 = a_conectar_hd(a, n, x); }
-//             else n1 = a_establecer_raiz(a, x);
-//             cargar_subArbol(a, n1, -1);
-//             cargar_subArbol(a, n1, 1);
-//         }
-//     }
-// }
-
-// void cargar_arbol(ArbolBinario a) {
-//     cargar_subArbol(a, NULL, 0);
-//     int c;
-//     while ((c = getchar()) != '\n' && c != EOF) {}
-// }
-
 bool validar_numeros(char *m)
 {
     int aux = 0;
@@ -154,6 +100,10 @@ bool validar_numeros(char *m)
         numero=true;
     }
     return numero;
+}
+
+bool esBinarioTransformado(NodoArbol n){
+    return (n_hijoderecho(n) == NULL);
 }
 
 void cargar_subArbol(ArbolBinario a, NodoArbol n, int hijo){
@@ -262,39 +212,39 @@ int main() {
     ArbolBinario arbolTransformado = a_crear();
     printf("[ARBOL TRANSFORMADO 1 - INGRESO]\n");
     cargar_arbol(arbolTransformado);
-
-    if (!a_es_vacio(arbolTransformado)) {
+    if(esBinarioTransformado(a_raiz(arbolTransformado))){
+        if (!a_es_vacio(arbolTransformado)) {
         int altura = alturaArbolNArio(a_raiz(arbolTransformado),1,1);
         printf("La altura del arbol es de %d.\n", altura);
-    } else {
+        } else{
         printf("El arbol no tiene altura ya que esta vacio.\n");
-    }
+        }
 
-    printf("---------------------- PUNTO B -----------------------\n");
-    printf("Determinar el nivel de un nodo.\n");
-    int valorIngresado = leer_entero();
-    int resultado = determinarNivelNodo(valorIngresado,a_raiz(arbolTransformado),1,0);
-    if( resultado != 0){
-        printf("Nivel %d. \n",resultado);
-    }else{printf("\nNo se encontro\n");}
+        printf("---------------------- PUNTO B -----------------------\n");
+        printf("Determinar el nivel de un nodo, ingrese la claver del nodo a buscar.\n");
+        int valorIngresado = leer_entero();
+        int resultado = determinarNivelNodo(valorIngresado,a_raiz(arbolTransformado),1,0);
+        if( resultado != 0){
+            printf("Nivel %d. \n",resultado);
+        }else{printf("\nNo se encontro\n");}
 
-    printf("---------------------- PUNTO C -----------------------\n");
-    printf("Listar todos los nodos internos (solo las claves).\n");
-    Lista nodosInternos = nodos_internos_arbol(arbolTransformado);
-    if (l_es_vacia(nodosInternos)) {
-        printf("El arbol no tiene nodos internos.\n");
-    } else {
-        printf("[NODOS INTERNOS] \n");
-        l_mostrarLista(nodosInternos);
-    }
+        printf("---------------------- PUNTO C -----------------------\n");
+        printf("Listar todos los nodos internos (solo las claves).\n");
+        Lista nodosInternos = nodos_internos_arbol(arbolTransformado);
+        if (l_es_vacia(nodosInternos)) {
+            printf("El arbol no tiene nodos internos.\n");
+        } else {
+            printf("[NODOS INTERNOS] \n");
+            l_mostrarLista(nodosInternos);
+        }
 
-    printf("---------------------- PUNTO D -----------------------\n");
-    printf("Determinar si todas las hojas estan al mismo nivel\n");
-    bool mismoNivel =true;
-    bool resultadoBooleano = hojasEnMismaAltura(a_raiz(arbolTransformado),nivelPrimerHoja(a_raiz(arbolTransformado),0,1),1,mismoNivel);
-    if(resultadoBooleano){
-        printf("mismo nivel");
-    }else{printf("distinto nivel");}
-
+        printf("---------------------- PUNTO D -----------------------\n");
+        printf("Determinar si todas las hojas estan al mismo nivel\n");
+        bool mismoNivel =true;
+        bool resultadoBooleano = hojasEnMismaAltura(a_raiz(arbolTransformado),nivelPrimerHoja(a_raiz(arbolTransformado),0,1),1,mismoNivel);
+        if(resultadoBooleano){
+            printf("mismo nivel");
+        }else{printf("distinto nivel");}
+    }else{printf("No es arbol binario transformado,no se realizaran las operaciones");}
     return 0;
 }
