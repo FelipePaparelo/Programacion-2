@@ -10,8 +10,10 @@
 #include "I_arboles_binarios.c"
 #include "arbol-avl.h"
 #include "arbol-avl.c"
-#include "../colas/colas.h"
-#include "../colas/colas_punteros.c"
+#include "colas.h"
+#include "cola_punteros.c"
+#include "../tad/listas.h"
+#include "../tad/listas_de_areglos.c"
 // #include "../colas/colas_arreglos_circular.c"
 
 
@@ -165,7 +167,7 @@ NodoArbol nodopadre(ArbolBinario a, int clave){
        nodoPadreInt(a, R, NULL, clave, &N);
     }
     
-    // return N;
+    return N;
     y = n_recuperar(N);
     printf("padre: %i", y->clave);
 };
@@ -190,28 +192,90 @@ void hojas(ArbolBinario A){
     hojasint(a_raiz(A));
 }
 
+// void anchura(ArbolBinario A){
+//     Cola c;
+//     NodoArbol N;
+//     TipoElemento x;
+//     TipoElemento b;
+//     if(!a_es_vacio(A)){
+//         c = c_crear();
+//         N = a_raiz(A);
+//         x = te_crear_con_valor(0, N);
+//         c_encolar(c, x);
+//         while(!c_es_vacia(c)){
+//             x = c_desencolar(c);
+//             N = (NodoArbol) x->valor;
+//             b =  n_recuperar(N);
+//             printf(" %i ", b->clave);
+//             if(!a_es_rama_nula(n_hijoderecho(N))){
+//                 x = te_crear_con_valor(0, n_hijoderecho(N));
+//                 c_encolar(c,x);
+//             }
+//             // nodoPadre(A, b->clave);
+//             // else if(!a_es_rama_nula(n_hijoizquierdo(N))){
+//             //     x = te_crear_con_valor(0, n_hijoizquierdo(N));
+//             //     c_encolar(c,x);
+//             // }
+            
+//         }
+//     }
+//     // c_mostrar(c);
+// }
+
 void anchura(ArbolBinario A){
     Cola c;
+    Lista l = l_crear();
+    Cola c_aux;
     NodoArbol N;
+    NodoArbol Z;
     TipoElemento x;
+    TipoElemento b;
     if(!a_es_vacio(A)){
         c = c_crear();
         N = a_raiz(A);
-        x = te_crear_con_valor(0, N);
-        c_encolar(c, x);
-        while(!c_es_vacia(c)){
-            x = c_desencolar(c);
-            N = (NodoArbol) x->valor;
-            printf(" %d ", n_recuperar(N)->clave);
-            if(!a_es_rama_nula(n_hijoizquierdo(N))){
+        x = n_recuperar(N);
+        l_agregar(l, x);
+        x = n_recuperar(n_hijoizquierdo(N));
+        l_agregar(l, x);
+        x = te_crear_con_valor(0, n_hijoizquierdo(N));
+        N = (NodoArbol) x->valor;
+
+        
+        while (!c_es_vacia(c) || n_hijoderecho(N) != NULL){
+            if(n_hijoizquierdo(N) != NULL){
                 x = te_crear_con_valor(0, n_hijoizquierdo(N));
-                c_encolar(c,x);
+                x->clave = n_recuperar(n_hijoizquierdo(N))->clave;
+                c_encolar(c, x);
             }
-            if(!a_es_rama_nula(n_hijoderecho(N))){
-                x = te_crear_con_valor(0, n_hijoizquierdo(N));
-                c_encolar(c,x);
+            if(n_hijoderecho(N) != NULL){
+                x = te_crear_con_valor(0, n_hijoderecho(N));
+                x->clave = n_recuperar(n_hijoderecho(N))->clave;
+                N = n_hijoderecho(N);
+                l_agregar(l, x);
+            }
+            else if(n_hijoderecho(N) == NULL){
+                x = c_desencolar(c);
+                l_agregar(l,x);
+                N = (NodoArbol) x->valor;
             }
         }
+        
+    }
+    // c_mostrar(c);
+    l_mostrarLista(l);
+}
+
+
+void pre_orden_inverso(NodoArbol N){
+    TipoElemento x;
+    if (N == NULL) {
+        printf(".");
+    }
+    else {
+        x = n_recuperar(N);
+        printf(" %d", x->clave);
+        pre_orden_inverso(n_hijoderecho(N));
+        pre_orden_inverso(n_hijoizquierdo(N));
     }
 }
 
@@ -268,10 +332,11 @@ int main(){
     pre_orden(a_raiz(ab2));
     printf("\n-----------------------------------------------------------------------\n");
     printf("\nRecorrido en anchura:\n");
-    // anchura(ab);
+    // pre_orden_inverso(a_raiz(ab));
+    anchura(ab);
     printf("\n-----------------------------------------------------------------------\n");
     printf("\nHojas del arbol:\n");
-    hojas(ab);
+    // hojas(ab);
     printf("\n-----------------------------------------------------------------------\n");
     printf("\nPadre de un nodo a eleccion\n");
     // nodopadre(ab, 4);
