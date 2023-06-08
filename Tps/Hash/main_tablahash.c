@@ -1,11 +1,15 @@
 #include <stdio.h>
 #include <stdlib.h>
+<<<<<<< HEAD
 #include <math.h>
 #include <time.h>
 #include "tabla_hash.h"
 #include "T_Element.c"
 //#include "tabla_hash_lista_colisiones.c"
 #include "tabla_hash_zona_overflow.c"
+=======
+#include "tabla_hash.h"
+>>>>>>> d295fae2b09cb6e331c0618ceab15097c5719f0b
 
 static const int TAMANIO_MAXIMO = 20;
 static const int NRO_PRIMO = 19;
