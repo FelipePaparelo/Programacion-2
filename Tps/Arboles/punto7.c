@@ -23,7 +23,7 @@ bool sonEquivalentes(ArbolBinario A, ArbolBinario B,NodoArbol NAA,NodoArbol NAB,
 
     }
     if((a_es_rama_nula(NAA) && !a_es_rama_nula(NAB)) || (a_es_rama_nula(NAB) && !a_es_rama_nula(NAA))){ //verifica que las estructuras sean iguales
-            equivalente =  false;
+        equivalente =  false;
     }
     return equivalente;
 
