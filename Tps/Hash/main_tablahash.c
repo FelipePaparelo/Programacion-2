@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "D:\Mario\Prog_2_2009\2023\TADs\Thash\tabla_hash.h"
+#include "tabla_hash.h"
 
 static const int TAMANIO_MAXIMO = 20;
 static const int NRO_PRIMO = 19;
