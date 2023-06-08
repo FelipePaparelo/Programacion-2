@@ -1,6 +1,11 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "D:\Mario\Prog_2_2009\2023\TADs\Thash\tabla_hash.h"
+#include <math.h>
+#include <time.h>
+#include "tabla_hash.h"
+#include "T_Element.c"
+//#include "tabla_hash_lista_colisiones.c"
+#include "tabla_hash_zona_overflow.c"
 
 static const int TAMANIO_MAXIMO = 20;
 static const int NRO_PRIMO = 19;

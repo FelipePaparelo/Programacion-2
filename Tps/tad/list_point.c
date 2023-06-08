@@ -4,7 +4,7 @@
 #include "listas.h"
 #include <stdlib.h>
 
-static const int TAMANIO_MAXIMO = 100;
+static const int TAMANIO_M = 100;
 struct Nodo
 { // Se agrega el concepto de Nodo
     TipoElemento datos;
@@ -35,7 +35,7 @@ bool l_es_vacia(Lista lista)
 
 bool l_es_llena(Lista lista)
 {
-    return (lista->cantidad == TAMANIO_MAXIMO);
+    return (lista->cantidad == TAMANIO_M);
 }
 
 int l_longitud(Lista lista)
